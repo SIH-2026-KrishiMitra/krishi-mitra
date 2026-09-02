@@ -1,0 +1,70 @@
+:root{
+  /* Surfaces */
+  --surface-canvas:var(--paper);
+  --surface-card:var(--white);
+  --surface-sunken:var(--ink-050);
+  --surface-inverse:var(--green-950);
+  --surface-brand:var(--green-700);
+  --surface-brand-soft:var(--green-050);
+  --surface-accent-soft:var(--amber-100);
+  --surface-trust-soft:var(--indigo-100);
+  --surface-danger-soft:var(--clay-100);
+  --surface-overlay:rgba(14,19,21,.52);
+
+  /* Text */
+  --text-primary:var(--ink-900);
+  --text-secondary:var(--ink-600);
+  --text-muted:var(--ink-400);
+  --text-inverse:var(--white);
+  --text-brand:var(--green-700);
+  --text-accent:var(--amber-800);
+  --text-trust:var(--indigo-700);
+  --text-danger:var(--clay-700);
+  --text-link:var(--green-700);
+  --text-link-hover:var(--green-900);
+
+  /* Borders */
+  --border-subtle:var(--ink-100);
+  --border-default:var(--ink-150);
+  --border-strong-color:var(--ink-300);
+  --border-brand:var(--green-600);
+  --border-danger:var(--clay-500);
+
+  /* Interactive */
+  --action-primary:var(--green-600);
+  --action-primary-hover:var(--green-700);
+  --action-primary-active:var(--green-800);
+  --action-primary-text:var(--white);
+  --action-secondary:var(--white);
+  --action-secondary-border:var(--ink-150);
+  --action-secondary-hover:var(--ink-050);
+  --action-accent:var(--amber-500);
+  --action-accent-hover:var(--amber-600);
+  --action-accent-text:var(--amber-900);
+  --action-danger:var(--clay-600);
+  --action-disabled:var(--ink-100);
+  --action-disabled-text:var(--ink-400);
+
+  /* Status */
+  --status-success:var(--green-600);
+  --status-success-soft:var(--green-100);
+  --status-warning:var(--amber-600);
+  --status-warning-soft:var(--amber-100);
+  --status-danger:var(--clay-600);
+  --status-danger-soft:var(--clay-100);
+  --status-info:var(--indigo-600);
+  --status-info-soft:var(--indigo-100);
+  --status-offline:var(--ink-500);
+  --status-offline-soft:var(--ink-050);
+
+  /* Price movement — never rely on colour alone, always pair with ▲ / ▼ glyph */
+  --price-up:var(--green-600);
+  --price-down:var(--clay-600);
+  --price-flat:var(--ink-500);
+
+  /* Role accents. Layout and components never change per role; only this hairline accent does. */
+  --role-farmer:var(--green-600);
+  --role-buyer:var(--indigo-600);
+  --role-fpo:var(--amber-600);
+  --role-admin:var(--ink-700);
+}

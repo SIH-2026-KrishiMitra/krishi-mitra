@@ -1,0 +1,20 @@
+:root{
+  --grid-mobile-cols:4; /* @kind other */
+  --grid-mobile-margin:16px;
+  --grid-mobile-gutter:12px;
+  --grid-mobile-max:430px;
+
+  --grid-tablet-cols:8; /* @kind other */
+  --grid-tablet-margin:32px;
+  --grid-tablet-gutter:20px;
+
+  --grid-desktop-cols:12; /* @kind other */
+  --grid-desktop-margin:40px;
+  --grid-desktop-gutter:24px;
+  --grid-content-max:1240px;
+
+  --sidebar-width:248px;
+  --sidebar-width-collapsed:72px;
+  --topnav-height:64px;
+  --bottomnav-height:64px;
+}

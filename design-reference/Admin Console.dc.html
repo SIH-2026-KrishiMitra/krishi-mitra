@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/colors.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/typography.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/radius.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/elevation.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/motion.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/grid.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/semantic.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/base.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/styles.css">
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.min.js"></script>
+<script src="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/_ds_bundle.js"></script>
+<style>
+body{margin:0}
+a{color:var(--green-700)}
+a:hover{color:var(--green-800)}
+</style>
+</helmet>
+<div data-screen-label="Admin console" style="min-height:100vh;display:flex;flex-direction:column;background:var(--surface-canvas);font-family:var(--font-body,inherit)">
+
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TopNav" brand="Krishi Mitra" role="admin" active-item="{{ tab }}" items="{{ topNavItems }}" hint-size="100%,64px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.OfflineBar" state="synced" hint-size="100%,32px"></x-import>
+
+<div style="flex:1;display:flex;min-height:0">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Sidebar" active-item="{{ tab }}" on-select="{{ setTab }}" sections="{{ sidebarSections }}" hint-size="248px,100%"></x-import>
+
+<main style="flex:1;min-width:0;padding:24px 40px 48px;display:flex;flex-direction:column;gap:20px;max-width:1240px">
+
+<sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="Admin dashboard" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div><h1 style="font-size:30px;margin:0">Dashboard</h1><p style="font-size:14px;color:var(--text-secondary);margin-top:4px">Platform overview · Maharashtra pilot · updated 2 min ago</p></div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="accent" size="md" icon-left="alert-octagon" on-click="{{ goDisputes }}" hint-size="auto,44px">Review open disputes</x-import>
+</div>
+
+<sc-if value="{{ showControls }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.SegmentedControl" options="{{ previewOptions }}" value="{{ dashboardPreview }}" on-change="{{ setDashboardPreview }}" size="sm" hint-size="auto,32px"></x-import>
+</sc-if>
+
+<sc-if value="{{ dashLoading }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Skeleton" height="100" width="100%" hint-size="100%,100px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Skeleton" lines="6" height="60" width="100%" hint-size="100%,380px"></x-import>
+</sc-if>
+<sc-if value="{{ dashError }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="error" title="Could not load platform metrics" description="Check your connection and try again." action="{{ dashErrorAction }}" hint-size="100%,220px"></x-import>
+</sc-if>
+<sc-if value="{{ dashEmpty }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="empty" title="No data for this period" description="Try a wider date range." action="{{ dashEmptyAction }}" hint-size="100%,220px"></x-import>
+</sc-if>
+
+<sc-if value="{{ dashSuccess }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Total users" value="51,564" caption="farmers, buyers, FPOs" icon="users" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Active lots" value="8,420" delta="612 today" delta-direction="up" icon="package" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Trade value (Aug)" value="₹4.8Cr" tone="accent" icon="indian-rupee" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Transactions today" value="1,204" icon="file-text" hint-size="100%,110px"></x-import>
+</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Open disputes" value="3" caption="1 past SLA" icon="alert-octagon" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Escrow held" value="₹4,18,600" icon="lock" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Farmers verified" value="94%" delta="2%" delta-direction="up" icon="user-check" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Buyers verified" value="91%" delta="1%" delta-direction="up" icon="shield-check" hint-size="100%,110px"></x-import>
+</div>
+
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Alert" tone="danger" title="D-2210 is 2 days old · SLA breach in 24 hours" action="{{ disputeAlertAction }}" hint-size="100%,60px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Alert" tone="warning" title="Maharashtra state feed degraded · showing Agmarknet fallback" action="{{ marketAlertAction }}" hint-size="100%,60px"></x-import>
+
+<div style="display:grid;grid-template-columns:1.4fr 1fr;gap:16px;align-items:start">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,240px">
+<div style="font-size:15px;font-weight:600;margin-bottom:2px">Price trends · Wheat Lokwan</div>
+<div style="font-size:13px;color:var(--text-secondary);margin-bottom:10px">Nashik APMC · MSP reference shown</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.PriceChart" series="{{ priceSeries }}" labels="{{ priceLabels }}" msp="2275" height="170" hint-size="100%,170px"></x-import>
+</x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,240px">
+<div style="font-size:15px;font-weight:600;margin-bottom:10px">Crop demand this week · qtl</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.BarChart" data="{{ cropDemandData }}" horizontal="{{ true }}" height="170" hint-size="100%,170px"></x-import>
+</x-import>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1.4fr;gap:16px;align-items:start">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,240px">
+<div style="font-size:15px;font-weight:600;margin-bottom:10px">Regional trade value · ₹ crore</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.BarChart" data="{{ regionalData }}" horizontal="{{ true }}" height="170" hint-size="100%,170px"></x-import>
+</x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.DataTable" caption="Maharashtra market overview" dense="{{ true }}" columns="{{ mhColumns }}" rows="{{ mhRows }}" footer="{{ mhFooter }}" hint-size="100%,240px"></x-import>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isManagement }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Management detail" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div><h1 style="font-size:30px;margin:0">{{ mgmtLabel }}</h1><p style="font-size:14px;color:var(--text-secondary);margin-top:4px">{{ mgmtSubtitle }}</p></div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="accent" size="md" on-click="{{ noop }}" hint-size="auto,44px">{{ mgmtPrimaryLabel }}</x-import>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+<sc-for list="{{ mgmtStats }}" as="st" hint-placeholder-count="4">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="{{ st.label }}" value="{{ st.value }}" unit="{{ st.unit }}" caption="{{ st.caption }}" delta="{{ st.delta }}" delta-direction="{{ st.deltaDirection }}" icon="{{ st.icon }}" hint-size="100%,110px"></x-import>
+</sc-for>
+</div>
+
+<sc-if value="{{ hasAlert }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Alert" tone="{{ alertTone }}" title="{{ alertTitle }}" action="{{ alertAction }}" hint-size="100%,60px"></x-import>
+</sc-if>
+
+<div style="display:flex;align-items:center;justify-content:space-between;gap:24px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Tabs" items="{{ mgmtTabsList }}" active-item="{{ mgmtActiveTab }}" on-select="{{ setMgmtTab }}" hint-size="auto,44px"></x-import>
+<sc-if value="{{ showControls }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.SegmentedControl" options="{{ previewOptions }}" value="{{ mgmtPreview }}" on-change="{{ setMgmtPreview }}" size="sm" hint-size="auto,32px"></x-import>
+</sc-if>
+</div>
+
+<sc-if value="{{ mgmtLoading }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Skeleton" lines="6" height="60" width="100%" hint-size="100%,380px"></x-import>
+</sc-if>
+<sc-if value="{{ mgmtError }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="error" title="Could not load records" description="Check your connection and try again." action="{{ mgmtErrorAction }}" hint-size="100%,220px"></x-import>
+</sc-if>
+<sc-if value="{{ mgmtEmpty }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="empty" title="{{ mgmtEmptyTitle }}" description="Nothing matches this filter right now." hint-size="100%,220px"></x-import>
+</sc-if>
+
+<sc-if value="{{ mgmtSuccess }}" hint-placeholder-val="{{ true }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.DataTable" dense="{{ true }}" columns="{{ mgmtColumns }}" rows="{{ mgmtRows }}" on-row-click="{{ onRowClick }}" footer="{{ mgmtFooter }}" hint-size="100%,320px"></x-import>
+
+<sc-if value="{{ hasSelected }}" hint-placeholder-val="{{ true }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,320px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+<div>
+<div style="font-size:20px;font-weight:600">{{ selTitle }} <span style="font-family:var(--font-mono);font-size:14px;font-weight:400;color:var(--text-muted)">{{ selId }}</span></div>
+<div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Badge" label="{{ selStatusLabel }}" tone="{{ selStatusTone }}" dot="{{ true }}" hint-size="auto,24px"></x-import>
+<sc-for list="{{ selTrust }}" as="t" hint-placeholder-count="1">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="{{ t }}" size="sm" hint-size="auto,22px"></x-import>
+</sc-for>
+</div>
+</div>
+<div style="display:flex;gap:8px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="secondary" size="md" on-click="{{ noop }}" hint-size="auto,44px">{{ secondaryLabel1 }}</x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="secondary" size="md" on-click="{{ noop }}" hint-size="auto,44px">{{ secondaryLabel2 }}</x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="primary" size="md" icon-left="check" on-click="{{ resolveSelected }}" hint-size="auto,44px">{{ mgmtPrimaryLabel }}</x-import>
+</div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px;margin-top:16px">
+<sc-for list="{{ selFields }}" as="f" hint-placeholder-count="6">
+<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 12px;background:var(--surface-sunken);border:1px solid var(--border-subtle);border-radius:8px">
+<span style="color:var(--text-secondary)">{{ f.label }}</span><span style="font-weight:600">{{ f.value }}</span>
+</div>
+</sc-for>
+</div>
+</x-import>
+</sc-if>
+</sc-if>
+</div>
+</sc-if>
+
+</main>
+</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;initialTab&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;dashboard&quot;,&quot;options&quot;:[&quot;dashboard&quot;,&quot;farmers&quot;,&quot;fpos&quot;,&quot;buyers&quot;,&quot;markets&quot;,&quot;lots&quot;,&quot;transactions&quot;,&quot;payments&quot;,&quot;disputes&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;showStateControls&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tab: props.initialTab || 'dashboard', dashboardPreview: 'success',
+      mgmtPreview: 'success', mgmtTabs: {}, selectedByEntity: {}, statusOverrides: {},
+    };
+  }
+
+  entityConfigs = {
+    farmers: {
+      label: 'Farmers', singular: 'Farmer', icon: 'user-check',
+      subtitle: '48,210 registered · 94% KYC verified',
+      stats: [{ label: 'Total farmers', value: '48,210', icon: 'user-check' }, { label: 'KYC verified', value: '94%', delta: '2%', deltaDirection: 'up', icon: 'shield-check' },
+        { label: 'New this month', value: '1,240', icon: 'trending-up' }, { label: 'High risk flags', value: '3', icon: 'alert-triangle' }],
+      alert: { tone: 'warning', title: '3 farmers flagged high risk for manual review', actionLabel: 'Review flagged' },
+      tabs: [{ id: 'all', label: 'All' }, { id: 'pending', label: 'KYC pending' }, { id: 'highrisk', label: 'High risk' }],
+      columns: [{ key: 'id', label: 'ID' }, { key: 'name', label: 'Name' }, { key: 'village', label: 'Village' }, { key: 'land', label: 'Land (ha)', numeric: true, align: 'right' },
+        { key: 'status', label: 'KYC', isStatus: true }, { key: 'sales', label: 'Sales', numeric: true, align: 'right' }, { key: 'paid', label: 'Total paid', numeric: true, align: 'right', prefix: '₹' }],
+      rows: [
+        { id: 'M-1042', name: 'Ramesh Patil', village: 'Ozar', land: 3.2, status: { label: 'Verified', tone: 'success' }, trust: ['verified-farmer'], bucket: 'all', sales: 18, paid: 342600 },
+        { id: 'M-1043', name: 'Sunita Bhoir', village: 'Ozar', land: 1.8, status: { label: 'Verified', tone: 'success' }, trust: ['verified-farmer'], bucket: 'all', sales: 11, paid: 186400 },
+        { id: 'M-1051', name: 'K. Jadhav', village: 'Pimpalgaon', land: 4.6, status: { label: 'Bank pending', tone: 'warning' }, bucket: 'pending', sales: 9, paid: 210900 },
+        { id: 'M-1066', name: 'A. Shinde', village: 'Nandur', land: 2.1, status: { label: 'Aadhaar pending', tone: 'warning' }, bucket: 'pending', sales: 2, paid: 34800 },
+        { id: 'M-1058', name: 'S. Gaikwad', village: 'Solapur', land: 3.0, status: { label: 'Name mismatch', tone: 'danger' }, bucket: 'highrisk', sales: 5, paid: 110200 },
+      ],
+      primaryLabel: 'Approve KYC', primaryStatus: { label: 'Verified', tone: 'success' }, secondaryLabels: ['Reject', 'Request documents'],
+    },
+    fpos: {
+      label: 'FPOs', singular: 'FPO', icon: 'users',
+      subtitle: '214 registered · 61 active pools',
+      stats: [{ label: 'Total FPOs', value: '214', icon: 'users' }, { label: 'Active pools', value: '61', icon: 'layers' },
+        { label: 'Members represented', value: '48,600', icon: 'user-check' }, { label: 'Land pooled', value: '86,400', unit: 'ha', icon: 'map' }],
+      alert: { tone: 'info', title: '2 FPO registrations pending verification', actionLabel: 'Review registrations' },
+      tabs: [{ id: 'all', label: 'All' }, { id: 'pending', label: 'Pending' }, { id: 'dormant', label: 'Dormant' }],
+      columns: [{ key: 'id', label: 'ID' }, { key: 'name', label: 'Name' }, { key: 'region', label: 'Region' }, { key: 'members', label: 'Members', numeric: true, align: 'right' },
+        { key: 'land', label: 'Land pooled (ha)', numeric: true, align: 'right' }, { key: 'pools', label: 'Active pools', numeric: true, align: 'right' }, { key: 'status', label: 'Status', isStatus: true }],
+      rows: [
+        { id: 'F-201', name: 'Ozar FPO', region: 'Nashik', members: 412, land: 1286, pools: 4, status: { label: 'Active', tone: 'success' }, trust: ['fpo'], bucket: 'all' },
+        { id: 'F-188', name: 'Latur Kisan FPO', region: 'Latur', members: 268, land: 940, pools: 2, status: { label: 'Active', tone: 'success' }, trust: ['fpo'], bucket: 'all' },
+        { id: 'F-176', name: 'Ambad Growers', region: 'Jalna', members: 154, land: 512, pools: 1, status: { label: 'Active', tone: 'success' }, trust: ['fpo'], bucket: 'all' },
+        { id: 'F-162', name: 'Nandur Producers', region: 'Nashik', members: 89, land: 210, pools: 0, status: { label: 'Dormant', tone: 'neutral' }, bucket: 'dormant' },
+        { id: 'F-210', name: 'Vidarbha Cotton Growers', region: 'Akola', members: 0, land: 0, pools: 0, status: { label: 'Pending verification', tone: 'warning' }, bucket: 'pending' },
+      ],
+      primaryLabel: 'Approve registration', primaryStatus: { label: 'Active', tone: 'success' }, secondaryLabels: ['Reject', 'Request documents'],
+    },
+    buyers: {
+      label: 'Buyers', singular: 'Buyer', icon: 'shield-check',
+      subtitle: '3,140 registered · 91% verified',
+      stats: [{ label: 'Total buyers', value: '3,140', icon: 'shield-check' }, { label: 'Verified', value: '91%', delta: '1%', deltaDirection: 'up', icon: 'user-check' },
+        { label: 'New this month', value: '58', icon: 'trending-up' }, { label: 'Disputes involving buyers', value: '6', icon: 'alert-octagon' }],
+      alert: { tone: 'warning', title: '1 buyer flagged for GST mismatch', actionLabel: 'Review B-0311' },
+      tabs: [{ id: 'all', label: 'All' }, { id: 'pending', label: 'Pending verification' }],
+      columns: [{ key: 'id', label: 'ID' }, { key: 'name', label: 'Name' }, { key: 'type', label: 'Type' }, { key: 'orders', label: 'Orders', numeric: true, align: 'right' },
+        { key: 'escrow', label: 'Escrow used', numeric: true, align: 'right', prefix: '₹' }, { key: 'status', label: 'Status', isStatus: true }],
+      rows: [
+        { id: 'B-0288', name: 'Shree Agro Traders', type: 'Trader', orders: 142, escrow: 1840000, status: { label: 'Verified', tone: 'success' }, trust: ['verified-buyer'], bucket: 'all' },
+        { id: 'B-0294', name: 'Ganesh Foods Pvt Ltd', type: 'Processor', orders: 96, escrow: 910000, status: { label: 'Verified', tone: 'success' }, trust: ['verified-buyer'], bucket: 'all' },
+        { id: 'B-0311', name: 'Patil Grain Mart', type: 'Trader', orders: 12, escrow: 60000, status: { label: 'GST mismatch', tone: 'danger' }, bucket: 'pending' },
+        { id: 'B-0322', name: 'Konkan Exports LLP', type: 'Exporter', orders: 4, escrow: 0, status: { label: 'Pending', tone: 'warning' }, bucket: 'pending' },
+      ],
+      primaryLabel: 'Approve onboarding', primaryStatus: { label: 'Verified', tone: 'success' }, secondaryLabels: ['Reject', 'Suspend account'],
+    },
+    markets: {
+      label: 'Markets', singular: 'Market', icon: 'map-pin',
+      subtitle: '1,412 mandis tracked statewide · 306 in Maharashtra',
+      stats: [{ label: 'Mandis covered', value: '1,412', icon: 'map-pin' }, { label: 'Maharashtra mandis', value: '306', icon: 'map' },
+        { label: 'Feeds healthy', value: '92%', delta: '3%', deltaDirection: 'down', icon: 'database' }, { label: 'Avg daily arrivals', value: '84,200', unit: 'qtl', icon: 'truck' }],
+      alert: { tone: 'danger', title: 'State board feed for Maharashtra has not returned data since yesterday 5:10 PM', actionLabel: 'Open runbook' },
+      tabs: [{ id: 'all', label: 'All' }, { id: 'issues', label: 'Feed issues' }],
+      columns: [{ key: 'id', label: 'Mandi' }, { key: 'district', label: 'District' }, { key: 'region', label: 'Region' },
+        { key: 'arrivals', label: 'Daily arrivals (qtl)', numeric: true, align: 'right' }, { key: 'status', label: 'Feed', isStatus: true }],
+      rows: [
+        { id: 'Nashik APMC', district: 'Nashik', region: 'North Maharashtra', arrivals: 1240, status: { label: 'Healthy', tone: 'success' }, bucket: 'all' },
+        { id: 'Pimpalgaon', district: 'Nashik', region: 'North Maharashtra', arrivals: 860, status: { label: 'Healthy', tone: 'success' }, bucket: 'all' },
+        { id: 'Latur', district: 'Latur', region: 'Marathwada', arrivals: 640, status: { label: 'Healthy', tone: 'success' }, bucket: 'all' },
+        { id: 'Jalna', district: 'Jalna', region: 'Marathwada', arrivals: 410, status: { label: 'Degraded', tone: 'warning' }, bucket: 'issues' },
+        { id: 'Akola', district: 'Akola', region: 'Vidarbha', arrivals: 230, status: { label: 'Failing', tone: 'danger' }, bucket: 'issues' },
+      ],
+      primaryLabel: 'Mark feed healthy', primaryStatus: { label: 'Healthy', tone: 'success' }, secondaryLabels: ['Open runbook', 'Escalate to vendor'],
+    },
+    lots: {
+      label: 'Lots', singular: 'Lot', icon: 'package',
+      subtitle: '8,420 active · 612 listed today',
+      stats: [{ label: 'Active lots', value: '8,420', icon: 'package' }, { label: 'Listed today', value: '612', delta: '40', deltaDirection: 'up', icon: 'trending-up' },
+        { label: 'Avg time to sale', value: '2.1', unit: 'days', icon: 'clock' }, { label: 'Disputed', value: '0.9%', icon: 'alert-triangle' }],
+      alert: null,
+      tabs: [{ id: 'all', label: 'All' }, { id: 'disputed', label: 'Disputed' }],
+      columns: [{ key: 'id', label: 'Lot' }, { key: 'crop', label: 'Crop' }, { key: 'seller', label: 'Seller' }, { key: 'mandi', label: 'Mandi' },
+        { key: 'qty', label: 'Qty (qtl)', numeric: true, align: 'right' }, { key: 'ask', label: 'Ask', numeric: true, align: 'right', prefix: '₹' }, { key: 'status', label: 'Status', isStatus: true }],
+      rows: [
+        { id: 'KM-48213', crop: 'Wheat · Lokwan', seller: 'Ramesh Patil', mandi: 'Nashik APMC', qty: 40, ask: 2485, status: { label: 'Open', tone: 'success' }, bucket: 'all' },
+        { id: 'KM-48208', crop: 'Soybean · JS-335', seller: 'Latur Kisan FPO', mandi: 'Latur', qty: 180, ask: 4120, status: { label: 'Bidding', tone: 'warning' }, bucket: 'all' },
+        { id: 'KM-48160', crop: 'Wheat · Sharbati', seller: 'K. Jadhav', mandi: 'Pimpalgaon', qty: 26, ask: 2610, status: { label: 'Offer sent', tone: 'info' }, bucket: 'all' },
+        { id: 'KM-48141', crop: 'Soybean · JS-335', seller: 'Latur Kisan FPO', mandi: 'Latur', qty: 180, ask: 4120, status: { label: 'Order placed', tone: 'info' }, bucket: 'all' },
+        { id: 'KM-48042', crop: 'Wheat · Sharbati', seller: 'K. Jadhav', mandi: 'Pimpalgaon', qty: 15, ask: 6050, status: { label: 'Disputed', tone: 'danger' }, bucket: 'disputed' },
+      ],
+      primaryLabel: 'Flag for review', primaryStatus: { label: 'Under review', tone: 'warning' }, secondaryLabels: ['View ledger', 'Contact seller'],
+    },
+    transactions: {
+      label: 'Transactions', singular: 'Transaction', icon: 'file-text',
+      subtitle: '1,204 today · ₹4.8Cr gross value',
+      stats: [{ label: 'Transactions today', value: '1,204', icon: 'file-text' }, { label: 'Gross trade value', value: '₹4.8Cr', icon: 'indian-rupee' },
+        { label: 'Avg transaction', value: '₹68,400', icon: 'trending-up' }, { label: 'Failed / cancelled', value: '1.2%', icon: 'alert-triangle' }],
+      alert: null,
+      tabs: [{ id: 'all', label: 'All' }, { id: 'failed', label: 'Failed' }],
+      columns: [{ key: 'id', label: 'Txn' }, { key: 'lot', label: 'Lot' }, { key: 'buyer', label: 'Buyer' }, { key: 'seller', label: 'Seller' },
+        { key: 'amount', label: 'Amount', numeric: true, align: 'right', prefix: '₹' }, { key: 'type', label: 'Type' }, { key: 'status', label: 'Status', isStatus: true }],
+      rows: [
+        { id: 'TX-77201', lot: 'KM-48213', buyer: 'Shree Agro Traders', seller: 'Ramesh Patil', amount: 99400, type: 'Bid', status: { label: 'Placed', tone: 'info' }, bucket: 'all' },
+        { id: 'TX-77198', lot: 'KM-48141', buyer: 'Ganesh Foods Pvt Ltd', seller: 'Latur Kisan FPO', amount: 740880, type: 'Order', status: { label: 'Confirmed', tone: 'success' }, bucket: 'all' },
+        { id: 'TX-77190', lot: 'KM-48099', buyer: 'Ambad Growers', seller: '—', amount: 346240, type: 'Settlement', status: { label: 'Settled', tone: 'success' }, bucket: 'all' },
+        { id: 'TX-77185', lot: 'KM-48042', buyer: 'Patil Grain Mart', seller: 'K. Jadhav', amount: 90750, type: 'Bid', status: { label: 'Cancelled', tone: 'danger' }, bucket: 'failed' },
+        { id: 'TX-77180', lot: 'KM-47950', buyer: 'Ozar FPO', seller: 'Ozar FPO', amount: 78560, type: 'Settlement', status: { label: 'Settled', tone: 'success' }, bucket: 'all' },
+      ],
+      primaryLabel: 'Reconcile', primaryStatus: { label: 'Reconciled', tone: 'success' }, secondaryLabels: ['Flag anomaly', 'View ledger'],
+    },
+    payments: {
+      label: 'Payments', singular: 'Payment', icon: 'indian-rupee',
+      subtitle: '₹4.19L held · ₹12.4L released today',
+      stats: [{ label: 'Held', value: '₹4,18,600', icon: 'lock', tone: 'accent' }, { label: 'Released today', value: '₹12,40,300', delta: '18 orders', deltaDirection: 'up', icon: 'indian-rupee' },
+        { label: 'Failed payments', value: '2', icon: 'alert-triangle' }, { label: 'Avg release time', value: '19', unit: 'hours', delta: '4 hours', deltaDirection: 'down', icon: 'clock' }],
+      alert: null,
+      tabs: [{ id: 'all', label: 'All' }, { id: 'held', label: 'Held' }, { id: 'failed', label: 'Failed' }],
+      columns: [{ key: 'id', label: 'Payment' }, { key: 'lot', label: 'Lot' }, { key: 'beneficiary', label: 'Beneficiary' },
+        { key: 'amount', label: 'Amount', numeric: true, align: 'right', prefix: '₹' }, { key: 'method', label: 'Method' }, { key: 'status', label: 'Status', isStatus: true }],
+      rows: [
+        { id: 'ESC-9042', lot: 'KM-48155', beneficiary: 'Ramesh Patil', amount: 78560, method: 'Escrow', status: { label: 'Held', tone: 'info' }, bucket: 'held' },
+        { id: 'ESC-9038', lot: 'KM-48141', beneficiary: 'Latur Kisan FPO', amount: 214400, method: 'Escrow', status: { label: 'Released', tone: 'success' }, bucket: 'all' },
+        { id: 'ESC-9031', lot: 'KM-48120', beneficiary: 'S. Deshmukh', amount: 125640, method: 'Escrow', status: { label: 'Held', tone: 'info' }, bucket: 'held' },
+        { id: 'ESC-9020', lot: 'KM-48096', beneficiary: 'Ambad Growers', amount: 86400, method: 'Direct', status: { label: 'Failed', tone: 'danger' }, bucket: 'failed' },
+      ],
+      primaryLabel: 'Release payment', primaryStatus: { label: 'Released', tone: 'success' }, secondaryLabels: ['Hold', 'Investigate'],
+    },
+    disputes: {
+      label: 'Disputes', singular: 'Dispute', icon: 'alert-octagon',
+      subtitle: '3 open · SLA 72 hours',
+      stats: [{ label: 'Open', value: '3', caption: '1 past SLA', icon: 'alert-octagon' }, { label: 'Value frozen', value: '₹2.12L', tone: 'accent', icon: 'lock' },
+        { label: 'Resolved (30d)', value: '41', delta: '94% within SLA', deltaDirection: 'up', icon: 'check-circle-2' }, { label: 'Dispute rate', value: '0.9%', delta: '0.2%', deltaDirection: 'down', icon: 'trending-up' }],
+      alert: { tone: 'danger', title: 'D-2210 is 2 days old · SLA breach in 24 hours', actionLabel: 'Open D-2210' },
+      tabs: [{ id: 'all', label: 'All' }, { id: 'open', label: 'Open' }, { id: 'resolved', label: 'Resolved' }],
+      columns: [{ key: 'id', label: 'Dispute' }, { key: 'lot', label: 'Lot' }, { key: 'parties', label: 'Parties', wrap: true },
+        { key: 'amount', label: 'Frozen', numeric: true, align: 'right', prefix: '₹' }, { key: 'reason', label: 'Reason', wrap: true }, { key: 'status', label: 'Status', isStatus: true }],
+      rows: [
+        { id: 'D-2210', lot: 'KM-48120', parties: 'S. Deshmukh ↔ Shree Agro', amount: 125640, reason: 'Weight mismatch 38.2 / 40.0 qtl', status: { label: 'Open', tone: 'danger' }, bucket: 'open' },
+        { id: 'D-2204', lot: 'KM-48096', parties: 'Ambad Growers ↔ Ganesh Foods', amount: 86400, reason: 'Moisture above spec', status: { label: 'Awaiting assay', tone: 'warning' }, bucket: 'open' },
+        { id: 'D-2188', lot: 'KM-48061', parties: 'K. Jadhav ↔ Shree Agro', amount: 64900, reason: 'Delivery delay', status: { label: 'Resolved', tone: 'success' }, bucket: 'resolved' },
+      ],
+      primaryLabel: 'Resolve dispute', primaryStatus: { label: 'Resolved', tone: 'success' }, secondaryLabels: ['Hold for re-weigh', 'Escalate'],
+    },
+  };
+  entityOrder = ['farmers', 'fpos', 'buyers', 'markets', 'lots', 'transactions', 'payments', 'disputes'];
+
+  componentDidMount() {
+    if (!window.KrishiMitraDesignSystem_e4a29d) {
+      this._poll = setInterval(() => { if (window.KrishiMitraDesignSystem_e4a29d) { clearInterval(this._poll); this.forceUpdate(); } }, 60);
+    }
+  }
+  componentWillUnmount() { if (this._poll) clearInterval(this._poll); }
+
+  setTab = v => this.setState({ tab: v });
+  goDisputes = () => this.setState({ tab: 'disputes' });
+  setDashboardPreview = v => this.setState({ dashboardPreview: v });
+  setMgmtPreview = v => this.setState({ mgmtPreview: v });
+  setMgmtTab = v => this.setState(s => ({ mgmtTabs: { ...s.mgmtTabs, [s.tab]: v } }));
+  noop = () => {};
+  onRowClick = row => this.setState(s => ({ selectedByEntity: { ...s.selectedByEntity, [s.tab]: row.id } }));
+  resolveSelected = () => {
+    const cfg = this.entityConfigs[this.state.tab];
+    const id = this.state.selectedByEntity[this.state.tab];
+    if (!cfg || !id) return;
+    const key = this.state.tab + '|' + id;
+    this.setState(s => ({ statusOverrides: { ...s.statusOverrides, [key]: cfg.primaryStatus } }));
+  };
+  effStatus(entityKey, row) { return this.state.statusOverrides[entityKey + '|' + row.id] || row.status; }
+
+  renderVals() {
+    const KM = window.KrishiMitraDesignSystem_e4a29d || {};
+    const s = this.state;
+    const btn = (label, props) => KM.Button ? React.createElement(KM.Button, props, label) : null;
+    const el = (Comp, props, ...children) => Comp ? React.createElement(Comp, props, ...children) : null;
+    const cellValue = (entityKey, c, row) => {
+      if (c.isStatus) { const st = this.effStatus(entityKey, row); return el(KM.Badge, { label: st.label, tone: st.tone, size: 'sm', dot: true }); }
+      let v = row[c.key];
+      if (typeof v === 'number') v = (c.prefix || '') + v.toLocaleString('en-IN');
+      return v;
+    };
+    const buildColumns = (entityKey, cfg) => cfg.columns.map(c => ({
+      key: c.key, label: c.label, numeric: c.numeric, align: c.align, wrap: c.wrap,
+      render: r => cellValue(entityKey, c, r),
+    })).concat([{ key: 'act', label: '', align: 'right', render: r => btn('Open', { size: 'sm', variant: 'secondary', onClick: e => { e.stopPropagation(); this.onRowClick(r); } }) }]);
+
+    const isManagement = this.entityOrder.includes(s.tab);
+    let vals = {
+      showControls: this.props.showStateControls !== false,
+      previewOptions: [{ label: 'Loading', value: 'loading' }, { label: 'Empty', value: 'empty' }, { label: 'Error', value: 'error' }, { label: 'Success', value: 'success' }],
+      topNavItems: [], tab: s.tab, setTab: this.setTab, isDashboard: s.tab === 'dashboard', isManagement, noop: this.noop,
+      sidebarSections: [
+        { label: 'Overview', items: [{ id: 'dashboard', label: 'Dashboard', icon: 'layout-dashboard' }] },
+        { label: 'People & organizations', items: [{ id: 'farmers', label: 'Farmers', icon: 'user-check' }, { id: 'fpos', label: 'FPOs', icon: 'users' }, { id: 'buyers', label: 'Buyers', icon: 'shield-check' }] },
+        { label: 'Market operations', items: [{ id: 'markets', label: 'Markets', icon: 'map-pin' }, { id: 'lots', label: 'Lots', icon: 'package' }, { id: 'transactions', label: 'Transactions', icon: 'file-text' }, { id: 'payments', label: 'Payments', icon: 'indian-rupee' }, { id: 'disputes', label: 'Disputes', icon: 'alert-octagon' }] },
+      ],
+      goDisputes: this.goDisputes,
+      dashboardPreview: s.dashboardPreview, setDashboardPreview: this.setDashboardPreview,
+      dashLoading: s.dashboardPreview === 'loading', dashError: s.dashboardPreview === 'error',
+      dashEmpty: s.dashboardPreview === 'empty', dashSuccess: s.dashboardPreview === 'success',
+      dashErrorAction: btn('Retry', { variant: 'secondary', size: 'md', onClick: () => this.setDashboardPreview('success') }),
+      dashEmptyAction: btn('Reset filters', { variant: 'secondary', size: 'md', onClick: () => this.setDashboardPreview('success') }),
+      disputeAlertAction: btn('Open D-2210', { variant: 'secondary', size: 'sm', onClick: this.goDisputes }),
+      marketAlertAction: btn('Open markets', { variant: 'secondary', size: 'sm', onClick: () => this.setTab('markets') }),
+      priceSeries: [2310, 2350, 2402, 2388, 2455, 2485], priceLabels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+      cropDemandData: [{ label: 'Wheat', value: 1240 }, { label: 'Soybean', value: 860 }, { label: 'Cotton', value: 640 }, { label: 'Gram', value: 410 }, { label: 'Maize', value: 230 }],
+      regionalData: [{ label: 'Nashik', value: 1.8 }, { label: 'Marathwada', value: 1.2 }, { label: 'Vidarbha', value: 0.9 }, { label: 'W. Maharashtra', value: 0.7 }, { label: 'Konkan', value: 0.5 }],
+      mhColumns: [
+        { key: 'id', label: 'Mandi' },
+        { key: 'price', label: 'Price', numeric: true, align: 'right', render: r => '₹' + r.price.toLocaleString('en-IN') },
+        { key: 'trend', label: '7 day', render: r => el(KM.Sparkline, { series: r.series, direction: r.dir }) },
+        { key: 'arrivals', label: 'Arrivals (qtl)', numeric: true, align: 'right' },
+        { key: 'status', label: 'Feed', render: r => el(KM.Badge, { label: r.status.label, tone: r.status.tone, size: 'sm', dot: true }) },
+      ],
+      mhRows: [
+        { id: 'Nashik APMC', price: 2485, series: [2310, 2350, 2402, 2388, 2455, 2485], dir: 'up', arrivals: 1240, status: { label: 'Healthy', tone: 'success' } },
+        { id: 'Pimpalgaon', price: 2440, series: [2400, 2410, 2405, 2420, 2432, 2440], dir: 'up', arrivals: 860, status: { label: 'Healthy', tone: 'success' } },
+        { id: 'Latur', price: 4120, series: [4260, 4210, 4180, 4150, 4130, 4120], dir: 'down', arrivals: 640, status: { label: 'Healthy', tone: 'success' } },
+        { id: 'Jalna', price: 5410, series: [5300, 5340, 5380, 5390, 5400, 5410], dir: 'up', arrivals: 410, status: { label: 'Degraded', tone: 'warning' } },
+        { id: 'Akola', price: 7340, series: [7300, 7320, 7310, 7335, 7340, 7340], dir: 'flat', arrivals: 230, status: { label: 'Failing', tone: 'danger' } },
+      ],
+      mhFooter: el('span', null, 'Top 5 of 306 Maharashtra mandis'),
+    };
+
+    if (isManagement) {
+      const cfg = this.entityConfigs[s.tab];
+      const activeTab = s.mgmtTabs[s.tab] || 'all';
+      const rowsWithStatus = cfg.rows.filter(r => activeTab === 'all' || r.bucket === activeTab);
+      const selectedId = s.selectedByEntity[s.tab] || (rowsWithStatus[0] && rowsWithStatus[0].id);
+      const selectedRow = rowsWithStatus.find(r => r.id === selectedId) || rowsWithStatus[0];
+      const selFields = selectedRow ? cfg.columns.filter(c => !c.isStatus).map(c => ({ label: c.label, value: cellValue(s.tab, c, selectedRow) })) : [];
+      const selStatus = selectedRow ? this.effStatus(s.tab, selectedRow) : { label: '', tone: 'neutral' };
+
+      Object.assign(vals, {
+        mgmtLabel: cfg.label, mgmtSubtitle: cfg.subtitle, mgmtPrimaryLabel: cfg.primaryLabel,
+        mgmtStats: cfg.stats,
+        hasAlert: !!cfg.alert, alertTone: cfg.alert ? cfg.alert.tone : 'info', alertTitle: cfg.alert ? cfg.alert.title : '',
+        alertAction: cfg.alert ? btn(cfg.alert.actionLabel, { variant: 'secondary', size: 'sm' }) : null,
+        mgmtTabsList: cfg.tabs.map(t => ({ id: t.id, label: t.label, count: t.id === 'all' ? cfg.rows.length : cfg.rows.filter(r => r.bucket === t.id).length })),
+        mgmtActiveTab: activeTab, setMgmtTab: this.setMgmtTab,
+        mgmtPreview: s.mgmtPreview,
+        mgmtLoading: s.mgmtPreview === 'loading', mgmtError: s.mgmtPreview === 'error',
+        mgmtEmpty: s.mgmtPreview === 'empty', mgmtSuccess: s.mgmtPreview === 'success',
+        mgmtErrorAction: btn('Retry', { variant: 'secondary', size: 'md', onClick: () => this.setMgmtPreview('success') }),
+        mgmtEmptyTitle: 'No ' + cfg.label.toLowerCase() + ' found',
+        mgmtColumns: buildColumns(s.tab, cfg), mgmtRows: rowsWithStatus, onRowClick: this.onRowClick,
+        mgmtFooter: el('span', null, 'Showing ' + rowsWithStatus.length + ' of ' + cfg.rows.length),
+        hasSelected: !!selectedRow,
+        selTitle: selectedRow ? (selectedRow.name || selectedRow.crop || selectedRow.id) : '',
+        selId: selectedRow ? selectedRow.id : '', selStatusLabel: selStatus.label, selStatusTone: selStatus.tone,
+        selTrust: selectedRow && selectedRow.trust ? selectedRow.trust : [],
+        secondaryLabel1: cfg.secondaryLabels[0], secondaryLabel2: cfg.secondaryLabels[1],
+        resolveSelected: this.resolveSelected, selFields,
+      });
+    }
+
+    return vals;
+  }
+}
+</script>
+</body>
+</html>

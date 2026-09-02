@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/colors.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/typography.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/radius.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/elevation.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/motion.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/grid.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/semantic.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/base.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/styles.css">
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.min.js"></script>
+<script src="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/_ds_bundle.js"></script>
+<style>
+body{margin:0}
+a{color:var(--green-700)}
+a:hover{color:var(--green-800)}
+</style>
+</helmet>
+<div data-screen-label="Farmer web experience" style="min-height:100vh;display:flex;flex-direction:column;background:var(--surface-canvas);font-family:var(--font-body,inherit)">
+
+<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Login" style="flex:1;display:flex;align-items:center;justify-content:center;padding:40px">
+<div style="width:100%;max-width:400px;display:flex;flex-direction:column;gap:24px">
+<div style="text-align:center;display:flex;flex-direction:column;gap:6px">
+<div style="font-family:var(--font-display);font-size:30px;font-weight:600;letter-spacing:-.02em;color:var(--green-700)">Krishi Mitra</div>
+<div style="font-size:14px;color:var(--text-secondary)">Your crop. Your price. Your trusted market.</div>
+</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="lg" hint-size="100%,340px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Select" label="Language" options="{{ langOptions }}" value="{{ loginLang }}" on-change="{{ setLoginLang }}" hint-size="100%,52px"></x-import>
+<sc-if value="{{ loginStepPhone }}" hint-placeholder-val="{{ true }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Input" label="Mobile number" prefix="+91" numeric="{{ true }}" default-value="98765 43210" hint-size="100%,52px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="primary" size="xl" full-width="{{ true }}" on-click="{{ sendOtp }}" hint-size="100%,56px">Send OTP</x-import>
+</sc-if>
+<sc-if value="{{ loginStepOtp }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Input" label="Enter OTP" hint="Sent by SMS to +91 98765 43210" numeric="{{ true }}" default-value="482913" hint-size="100%,72px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="primary" size="xl" full-width="{{ true }}" on-click="{{ verifyOtp }}" hint-size="100%,56px">Verify and continue</x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="ghost" size="md" full-width="{{ true }}" on-click="{{ backToPhone }}" hint-size="100%,40px">Change number</x-import>
+</sc-if>
+</div>
+</x-import>
+<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="verified-farmer" size="sm" hint-size="auto,24px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="escrow" size="sm" hint-size="auto,24px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="price-source" size="sm" hint-size="auto,24px"></x-import>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isLoggedIn }}" hint-placeholder-val="{{ true }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TopNav" brand="Krishi Mitra" role="farmer" active-item="{{ tab }}" items="{{ topNavItems }}" hint-size="100%,64px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.OfflineBar" state="{{ offlineBarState }}" pending="{{ pendingCount }}" on-retry="{{ retry }}" hint-size="100%,32px"></x-import>
+
+<div style="flex:1;display:flex;min-height:0">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Sidebar" active-item="{{ tab }}" on-select="{{ onNavSelect }}" sections="{{ sidebarSections }}" hint-size="248px,100%"></x-import>
+
+<main style="flex:1;min-width:0;padding:24px 40px 56px;display:flex;flex-direction:column;gap:20px;max-width:1080px">
+
+<sc-if value="{{ showControls }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;align-items:center;gap:10px">
+<span style="font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);font-weight:600">Simulate network</span>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.SegmentedControl" options="{{ netOptions }}" value="{{ net }}" on-change="{{ setNet }}" size="sm" hint-size="auto,32px"></x-import>
+</div>
+</sc-if>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="Home" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div>
+<div style="font-size:14px;color:var(--text-secondary)">Namaste, {{ farmerName }}</div>
+<h1 style="font-size:30px;letter-spacing:-0.02em;margin:2px 0 0">{{ farmerVillage }}</h1>
+</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="accent" size="xl" icon-left="circle-plus" on-click="{{ goSell }}" hint-size="auto,56px">Sell your crop</x-import>
+</div>
+
+<sc-if value="{{ showControls }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.SegmentedControl" options="{{ homePreviewOptions }}" value="{{ homePreview }}" on-change="{{ setHomePreview }}" size="sm" hint-size="auto,32px"></x-import>
+</sc-if>
+
+<sc-if value="{{ homeLoading }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Skeleton" height="220" width="100%" hint-size="100%,220px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Skeleton" lines="3" height="70" width="100%" hint-size="100%,210px"></x-import>
+</sc-if>
+
+<sc-if value="{{ homeError }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="error" title="Could not load today's price" description="Check your connection and try again." action="{{ homeErrorAction }}" hint-size="100%,220px"></x-import>
+</sc-if>
+
+<sc-if value="{{ homeContent }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:1.4fr 1fr;gap:16px;align-items:start">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" tone="inverse" padding="md" hint-size="100%,260px">
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--green-300);font-weight:600">{{ priceCrop }} · {{ priceVariety }} · {{ priceMandi }}</div>
+<div style="display:flex;align-items:baseline;gap:8px;margin-top:8px">
+<span style="font-family:var(--font-display);font-size:48px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:#fff">{{ priceValueFmt }}</span>
+<span style="font-size:14px;color:var(--green-200)">/ quintal</span>
+</div>
+<div style="display:flex;align-items:center;gap:10px;margin-top:6px;font-size:14px;color:var(--green-300);font-weight:600;font-variant-numeric:tabular-nums">
+<span style="white-space:nowrap">▲ {{ priceDeltaFmt }} · {{ pricePct }}</span><span style="color:var(--green-200);font-weight:400;white-space:nowrap">vs yesterday</span>
+</div>
+<div style="margin-top:14px;background:rgba(255,255,255,.06);border-radius:12px;padding:10px 12px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.PriceChart" series="{{ priceSeries }}" msp="{{ priceMsp }}" height="80" color="var(--green-300)" grid-lines="2" hint-size="100%,80px"></x-import>
+</div>
+<div style="display:flex;gap:8px;margin-top:12px;font-size:12px;color:var(--green-200)">
+<span>Source: {{ priceSource }}</span><span>·</span><span>Updated: {{ priceUpdated }}</span>
+</div>
+</x-import>
+<div style="display:flex;flex-direction:column;gap:12px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Escrow protected" value="₹78,560" caption="1 deal in progress" icon="lock" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Paid this season" value="₹3.4L" caption="6 lots" icon="indian-rupee" hint-size="100%,110px"></x-import>
+</div>
+</div>
+
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Alert" tone="warning" title="Add your bank IFSC to receive payment" action="{{ homeBankAlertAction }}" hint-size="100%,60px"></x-import>
+
+<div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h2 style="font-size:20px;margin:0">Your lots</h2>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="ghost" size="md" icon-right="chevron-right" on-click="{{ goActivity }}" hint-size="auto,40px">All activity</x-import>
+</div>
+
+<sc-if value="{{ homeEmpty }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" compact="{{ true }}" kind="empty" title="No lots yet" description="List your first crop and it will show up here." action="{{ homeEmptyAction }}" hint-size="100%,180px"></x-import>
+</sc-if>
+<sc-if value="{{ homeSuccess }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start">
+<sc-for list="{{ homeLotsView }}" as="l" hint-placeholder-count="2">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.ListingCard" crop="{{ l.crop }}" variety="{{ l.variety }}" quantity="{{ l.qty }}" grade="{{ l.grade }}" price="{{ l.priceDisplay }}" location="{{ mandiName }}" status="{{ l.statusObj }}" trust="{{ l.trust }}" action="{{ l.actionNode }}" hint-size="100%,auto"></x-import>
+</sc-for>
+</div>
+</sc-if>
+</div>
+
+<div style="display:flex;gap:8px;flex-wrap:wrap;padding:4px 0">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="verified-farmer" size="sm" hint-size="auto,24px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="escrow" size="sm" hint-size="auto,24px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="price-source" size="sm" hint-size="auto,24px"></x-import>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isMarket }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Market" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<h1 style="font-size:30px;margin:0">Market</h1>
+<div style="width:320px"><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.SearchField" placeholder="Search crop or mandi" hint-size="100%,44px"></x-import></div>
+</div>
+
+<sc-if value="{{ showControls }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.SegmentedControl" options="{{ marketPreviewOptions }}" value="{{ marketPreview }}" on-change="{{ setMarketPreview }}" size="sm" hint-size="auto,32px"></x-import>
+</sc-if>
+
+<sc-if value="{{ marketLoading }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Skeleton" height="260" width="100%" hint-size="100%,260px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Skeleton" lines="4" height="60" width="100%" hint-size="100%,240px"></x-import>
+</sc-if>
+
+<sc-if value="{{ marketError }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="error" title="Could not load mandi prices" description="Check your connection and try again." action="{{ marketErrorAction }}" hint-size="100%,220px"></x-import>
+</sc-if>
+
+<sc-if value="{{ marketSuccess }}">
+<div style="display:grid;grid-template-columns:1.4fr 1fr;gap:16px;align-items:start">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,320px">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+<div>
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);font-weight:600">{{ priceCrop }} · {{ priceVariety }}</div>
+<div style="font-family:var(--font-display);font-size:40px;font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.02em;margin-top:4px">{{ priceValueFmt }}</div>
+<div style="font-size:14px;color:var(--price-up);font-weight:600;font-variant-numeric:tabular-nums">▲ {{ priceDeltaFmt }} · {{ pricePct }}</div>
+</div>
+<sc-if value="{{ priceHasMsp }}"><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Badge" label="{{ mspLabel }}" tone="warning" icon="landmark" hint-size="auto,26px"></x-import></sc-if>
+</div>
+<div style="margin-top:14px"><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.PriceChart" series="{{ priceSeries }}" labels="{{ priceLabels }}" msp="{{ priceMsp }}" height="160" hint-size="100%,160px"></x-import></div>
+<div style="margin-top:14px"><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.SegmentedControl" options="{{ rangeOptions }}" value="{{ range }}" on-change="{{ setRange }}" size="sm" hint-size="auto,32px"></x-import></div>
+<div style="margin-top:12px"><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.MetaRow" source="{{ priceSource }}" updated="{{ priceUpdated }}" hint-size="100%,20px"></x-import></div>
+</x-import>
+
+<div style="display:flex;flex-direction:column;gap:12px">
+<sc-if value="{{ marketRecIsSell }}" hint-placeholder-val="{{ true }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Alert" tone="success" title="Good time to sell" action="{{ marketRecSellAction }}" hint-size="100%,110px">Nashik APMC tomato is up 22.4% this week with no sign of slowing, and there is no MSP floor to fall back on. Verified buyers are active and paying well above last week's average.</x-import>
+</sc-if>
+<sc-if value="{{ marketRecIsHold }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Alert" tone="warning" title="Consider holding" action="{{ marketRecHoldAction }}" hint-size="100%,110px">Price can swing sharply within days and tomato does not keep well in storage. Waiting risks a bigger drop than any gain from holding.</x-import>
+</sc-if>
+<sc-if value="{{ showControls }}">
+<div style="display:flex;align-items:center;gap:8px">
+<span style="font-size:11px;color:var(--text-muted)">Recommendation:</span>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.SegmentedControl" options="{{ marketRecOptions }}" value="{{ marketRec }}" on-change="{{ setMarketRec }}" size="sm" hint-size="auto,28px"></x-import>
+</div>
+</sc-if>
+</div>
+</div>
+
+<h2 style="font-size:18px;margin:8px 0 0">Nearby mandis</h2>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<sc-for list="{{ nearbyView }}" as="m" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--surface-card);border:1px solid var(--border-default);border-radius:12px;box-shadow:var(--shadow-sm)">
+<div style="flex:1;min-width:0">
+<div style="font-size:15px;font-weight:600">{{ m.mandi }}</div>
+<div style="font-size:12px;color:var(--text-muted)">{{ m.km }} away</div>
+</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Sparkline" series="{{ m.series }}" direction="{{ m.dir }}" hint-size="60px,28px"></x-import>
+<div style="text-align:right">
+<div style="font-family:var(--font-display);font-size:18px;font-weight:600;font-variant-numeric:tabular-nums">{{ m.priceFmt }}</div>
+<div style="font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;color:{{ m.deltaColor }}">{{ m.arrow }} {{ m.delta }}</div>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSell }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Create lot" style="display:flex;flex-direction:column;gap:20px;max-width:640px">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<h1 style="font-size:30px;margin:0">List a lot</h1>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="ghost" size="sm" on-click="{{ saveDraft }}" hint-size="auto,36px">Save as draft</x-import>
+</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Stepper" steps="{{ stepperSteps }}" current="{{ sellStep }}" hint-size="100%,48px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Badge" label="Saved on this device as you go" tone="offline" dot="{{ true }}" hint-size="auto,24px"></x-import>
+
+<sc-if value="{{ sellStepIs0 }}" hint-placeholder-val="{{ true }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,240px">
+<div style="display:flex;flex-direction:column;gap:14px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Select" label="Crop" options="{{ cropOptions }}" value="Tomato" hint-size="100%,52px"></x-import>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Select" label="Variety" options="{{ varietyOptions }}" value="Desi" hint-size="100%,52px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Select" label="Grade" options="{{ gradeOptions }}" value="A" hint-size="100%,52px"></x-import>
+</div>
+</div>
+</x-import>
+</sc-if>
+
+<sc-if value="{{ sellStepIs1 }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,140px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Input" label="Quantity" suffix="quintal" numeric="{{ true }}" default-value="18" hint-size="100%,52px"></x-import>
+</x-import>
+</sc-if>
+
+<sc-if value="{{ sellStepIs2 }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,100px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Input" label="Expected price" prefix="₹" suffix="/ quintal" numeric="{{ true }}" default-value="1860" hint="Today's Nashik APMC average is ₹1,860. Tomato has no MSP — price is set by market demand." hint-size="100%,80px"></x-import>
+</x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,220px">
+<div style="display:flex;flex-direction:column;gap:10px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Radio" name="pay" label="Escrow (recommended)" description="Money held by Krishi Mitra until weight is confirmed at the gate" checked="{{ payEscrow }}" on-change="{{ choosePayEscrow }}" hint-size="100%,60px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Radio" name="pay" label="Direct bank transfer" description="Buyer pays you directly after delivery" checked="{{ payDirect }}" on-change="{{ choosePayDirect }}" hint-size="100%,60px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Checkbox" label="Lab assaying at mandi gate" description="₹40 per lot · raises average realised price" checked="{{ assay }}" on-change="{{ toggleAssay }}" hint-size="100%,48px"></x-import>
+</div>
+</x-import>
+</sc-if>
+
+<sc-if value="{{ sellStepIs3 }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,260px">
+<div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+<sc-for list="{{ reviewRows }}" as="row" hint-placeholder-count="5">
+<div style="display:flex;justify-content:space-between;gap:12px;padding-bottom:8px;border-bottom:1px solid var(--border-subtle)">
+<span style="color:var(--text-secondary)">{{ row.k }}</span>
+<span style="font-weight:600;font-variant-numeric:tabular-nums">{{ row.v }}</span>
+</div>
+</sc-for>
+</div>
+</x-import>
+<div style="display:flex;gap:8px;flex-wrap:wrap">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="escrow" size="sm" hint-size="auto,24px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="verified-buyer" size="sm" hint-size="auto,24px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="assayed" size="sm" hint-size="auto,24px"></x-import>
+</div>
+</sc-if>
+
+<div style="position:sticky;bottom:0;background:var(--surface-canvas);padding-top:12px;border-top:1px solid var(--border-subtle);display:flex;flex-direction:column;gap:8px">
+<sc-if value="{{ sellStepIs3 }}">
+<div style="display:flex;justify-content:space-between;align-items:baseline">
+<span style="font-size:13px;color:var(--text-secondary)">Estimated value · 18 qtl</span>
+<span style="font-family:var(--font-display);font-size:26px;font-weight:600;font-variant-numeric:tabular-nums">{{ estimatedValue }}</span>
+</div>
+</sc-if>
+<div style="display:flex;gap:8px">
+<sc-if value="{{ sellStepGt0 }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="ghost" size="lg" on-click="{{ prevStep }}" hint-size="88px,52px">Back</x-import>
+</sc-if>
+<sc-if value="{{ sellStepIs3 }}" hint-placeholder-val="{{ false }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="accent" size="xl" full-width="{{ true }}" on-click="{{ openConfirmSheet }}" hint-size="100%,56px">Review and list lot</x-import>
+</sc-if>
+<sc-if value="{{ sellStepLt3 }}" hint-placeholder-val="{{ true }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="primary" size="xl" full-width="{{ true }}" on-click="{{ nextStep }}" hint-size="100%,56px">Next</x-import>
+</sc-if>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isBuyers }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Buyers and offers" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:center;gap:10px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.IconButton" icon="arrow-left" label="Back" variant="ghost" size="md" on-click="{{ back }}" hint-size="40px,40px"></x-import>
+<div>
+<h1 style="font-size:26px;margin:0">Offers</h1>
+<div style="font-size:14px;color:var(--text-secondary)">{{ buyerLotSummary }}</div>
+</div>
+</div>
+
+<sc-if value="{{ showControls }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.SegmentedControl" options="{{ buyersPreviewOptions }}" value="{{ buyersPreview }}" on-change="{{ setBuyersPreview }}" size="sm" hint-size="auto,32px"></x-import>
+</sc-if>
+
+<sc-if value="{{ buyersLoading }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Skeleton" lines="4" height="90" width="100%" hint-size="100%,300px"></x-import>
+</sc-if>
+
+<sc-if value="{{ buyersEmpty }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="empty" title="No offers yet" description="Verified buyers within 60 km were notified. You will get an SMS when the first offer arrives." action="{{ buyersEmptyAction }}" hint-size="100%,240px"></x-import>
+</sc-if>
+
+<sc-if value="{{ buyersSuccess }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+<sc-for list="{{ offersView }}" as="o" hint-placeholder-count="3">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,220px">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+<div>
+<div style="font-weight:600;font-size:15px">{{ o.buyer }}</div>
+<div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">
+<sc-for list="{{ o.trust }}" as="t" hint-placeholder-count="2">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="{{ t }}" size="sm" hint-size="auto,22px"></x-import>
+</sc-for>
+</div>
+</div>
+<sc-if value="{{ o.best }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Badge" label="Best offer" tone="success" size="sm" hint-size="auto,22px"></x-import>
+</sc-if>
+</div>
+<div style="display:flex;align-items:baseline;gap:6px;margin-top:12px">
+<span style="font-family:var(--font-display);font-size:26px;font-weight:600;font-variant-numeric:tabular-nums">{{ o.priceFmt }}</span>
+<span style="font-size:13px;color:var(--text-secondary)">/ quintal</span>
+</div>
+<div style="font-size:12px;color:var(--text-muted);margin-top:2px">Total {{ o.total }} · {{ o.distance }}</div>
+<div style="margin-top:12px">{{ o.acceptAction }}</div>
+</x-import>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isActivity }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="My activity" style="display:flex;flex-direction:column;gap:20px">
+<h1 style="font-size:30px;margin:0">My activity</h1>
+<div style="display:flex;flex-direction:column;gap:12px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Tabs" items="{{ activityTabs }}" active-item="{{ activityTab }}" on-select="{{ setActivityTab }}" hint-size="100%,44px"></x-import>
+<sc-if value="{{ showControls }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.SegmentedControl" options="{{ activityPreviewOptions }}" value="{{ activityPreview }}" on-change="{{ setActivityPreview }}" size="sm" hint-size="auto,32px"></x-import>
+</sc-if>
+</div>
+
+<sc-if value="{{ activityLoading }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Skeleton" lines="4" height="80" width="100%" hint-size="100%,280px"></x-import>
+</sc-if>
+
+<sc-if value="{{ activityError }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="error" title="Could not load your activity" description="Check your connection and try again." action="{{ activityErrorAction }}" hint-size="100%,220px"></x-import>
+</sc-if>
+
+<sc-if value="{{ activityEmpty }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="empty" title="{{ activityEmptyTitle }}" description="{{ activityEmptyDescription }}" action="{{ activityEmptyAction }}" hint-size="100%,220px"></x-import>
+</sc-if>
+
+<sc-if value="{{ activitySuccess }}" hint-placeholder-val="{{ true }}">
+<sc-if value="{{ isLotsTab }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start">
+<sc-for list="{{ lotsFullView }}" as="l" hint-placeholder-count="5">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.ListingCard" crop="{{ l.crop }}" variety="{{ l.variety }}" quantity="{{ l.qty }}" grade="{{ l.grade }}" price="{{ l.priceDisplay }}" location="{{ mandiName }}" status="{{ l.statusObj }}" trust="{{ l.trust }}" action="{{ l.actionNode }}" hint-size="100%,auto"></x-import>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ isDealsTab }}">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+<sc-for list="{{ dealsView }}" as="d" hint-placeholder-count="6">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,300px">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+<div>
+<div style="font-weight:600;font-size:15px">{{ d.crop }}</div>
+<div style="font-size:12px;color:var(--text-muted)">Lot {{ d.id }} · {{ d.qty }} · {{ d.buyer }}</div>
+</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Badge" label="{{ d.statusObj.label }}" tone="{{ d.statusObj.tone }}" dot="{{ true }}" size="sm" hint-size="auto,22px"></x-import>
+</div>
+<div style="margin:12px 0"><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Timeline" items="{{ d.timeline }}" hint-size="100%,140px"></x-import></div>
+{{ d.actionNode }}
+</x-import>
+</sc-for>
+</div>
+</sc-if>
+<sc-if value="{{ isPaymentsTab }}">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<sc-for list="{{ paymentsView }}" as="p" hint-placeholder-count="4">
+<div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--surface-card);border:1px solid var(--border-default);border-radius:12px;box-shadow:var(--shadow-sm)">
+<div style="flex:1;min-width:0">
+<div style="font-size:14px;font-weight:600">{{ p.buyer }}</div>
+<div style="font-size:12px;color:var(--text-muted)">Lot {{ p.lot }} · {{ p.date }}</div>
+</div>
+<div style="text-align:right">
+<div style="font-family:var(--font-display);font-size:16px;font-weight:600;font-variant-numeric:tabular-nums">{{ p.amount }}</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Badge" label="{{ p.statusObj.label }}" tone="{{ p.statusObj.tone }}" size="sm" hint-size="auto,20px"></x-import>
+</div>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isHelp }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Grievance and help" style="display:flex;flex-direction:column;gap:20px;max-width:760px">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<h1 style="font-size:30px;margin:0">Help</h1>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="accent" size="xl" icon-left="message-circle" on-click="{{ openGeneralForm }}" hint-size="auto,56px">Raise a grievance</x-import>
+</div>
+
+<div>
+<h2 style="font-size:18px;margin:0 0 12px">Common issues</h2>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+<sc-for list="{{ helpCatsView }}" as="c" hint-placeholder-count="4">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" interactive="{{ true }}" on-click="{{ c.onClick }}" hint-size="100%,110px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Icon" name="{{ c.icon }}" size="22" color="var(--green-600)" hint-size="22px,22px"></x-import>
+<div style="font-size:13px;font-weight:600;margin-top:8px">{{ c.label }}</div>
+</x-import>
+</sc-for>
+</div>
+</div>
+
+<div style="display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--surface-card);border:1px solid var(--border-default);border-radius:12px;box-shadow:var(--shadow-sm)">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Icon" name="phone" size="20" color="var(--text-secondary)" hint-size="20px,20px"></x-import>
+<div style="flex:1">
+<div style="font-size:14px;font-weight:600">Call Krishi Mitra support</div>
+<div style="font-size:12px;color:var(--text-muted)">1800 000 000 · Mon-Sat, 8 AM to 8 PM</div>
+</div>
+</div>
+
+<div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h2 style="font-size:18px;margin:0">Your grievances</h2>
+<sc-if value="{{ showControls }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.SegmentedControl" options="{{ helpPreviewOptions }}" value="{{ helpPreview }}" on-change="{{ setHelpPreview }}" size="sm" hint-size="auto,32px"></x-import>
+</sc-if>
+</div>
+<sc-if value="{{ helpTicketsEmpty }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" compact="{{ true }}" kind="empty" title="No grievances filed" description="Issues you raise will be tracked here until resolved." hint-size="100%,140px"></x-import>
+</sc-if>
+<sc-if value="{{ helpTicketsSuccess }}" hint-placeholder-val="{{ true }}">
+<div style="display:flex;flex-direction:column;gap:8px">
+<sc-for list="{{ grievanceView }}" as="g" hint-placeholder-count="2">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;background:var(--surface-card);border:1px solid var(--border-default);border-radius:12px;box-shadow:var(--shadow-sm)">
+<div>
+<div style="font-size:14px;font-weight:600">{{ g.subject }}</div>
+<div style="font-size:12px;color:var(--text-muted)">Lot {{ g.lot }} · {{ g.date }}</div>
+</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Badge" label="{{ g.statusObj.label }}" tone="{{ g.statusObj.tone }}" size="sm" hint-size="auto,22px"></x-import>
+</div>
+</sc-for>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+</main>
+</div>
+
+<sc-if value="{{ sellSheetConfirm }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Modal" open="{{ true }}" title="Confirm listing" subtitle="{{ sellSummarySubtitle }}" on-close="{{ closeSellSheet }}" footer="{{ sellConfirmFooter }}" width="480" hint-size="480px,420px">
+<div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+<sc-for list="{{ reviewRows }}" as="row" hint-placeholder-count="5">
+<div style="display:flex;justify-content:space-between;gap:12px;padding-bottom:8px;border-bottom:1px solid var(--border-subtle)">
+<span style="color:var(--text-secondary)">{{ row.k }}</span><span style="font-weight:600;font-variant-numeric:tabular-nums">{{ row.v }}</span>
+</div>
+</sc-for>
+<sc-if value="{{ isOffline }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Alert" tone="offline" title="You are offline" hint-size="100%,80px">This lot is saved on this device and will be listed automatically when the network returns.</x-import>
+</sc-if>
+</div>
+</x-import>
+</sc-if>
+
+<sc-if value="{{ sellSheetDone }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Modal" open="{{ true }}" title="Lot saved" subtitle="{{ newLotId }}" on-close="{{ closeSellSheet }}" footer="{{ sellDoneFooter }}" width="480" hint-size="480px,320px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Badge" label="Active · listed for buyers" tone="success" dot="{{ true }}" hint-size="auto,24px"></x-import>
+<div style="font-size:14px;color:var(--text-secondary)">Verified buyers within 60 km will be notified as soon as the lot goes live. You will get an SMS when the first offer arrives.</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.MetaRow" source="Agmarknet" updated="{{ priceUpdated }}" hint-size="100%,20px"></x-import>
+</div>
+</x-import>
+</sc-if>
+
+<sc-if value="{{ offerDetailOpen }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Modal" open="{{ true }}" title="Offer detail" subtitle="{{ selectedOfferBuyer }}" on-close="{{ closeOfferSheet }}" footer="{{ offerDetailFooter }}" width="480" hint-size="480px,360px">
+<div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+<div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border-subtle)"><span style="color:var(--text-secondary)">Offered price</span><span style="font-weight:600;font-variant-numeric:tabular-nums">{{ selectedOfferPrice }} / quintal</span></div>
+<div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border-subtle)"><span style="color:var(--text-secondary)">Total value</span><span style="font-weight:600;font-variant-numeric:tabular-nums">{{ selectedOfferTotal }}</span></div>
+<div style="display:flex;justify-content:space-between;padding-bottom:8px;border-bottom:1px solid var(--border-subtle)"><span style="color:var(--text-secondary)">Buyer location</span><span style="font-weight:600">{{ selectedOfferDistance }}</span></div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Alert" tone="info" title="Payment held in escrow until weight is confirmed" hint-size="100%,60px"></x-import>
+</div>
+</x-import>
+</sc-if>
+
+<sc-if value="{{ offerAcceptedOpen }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Modal" open="{{ true }}" title="Offer accepted" subtitle="{{ buyerLotSummary }}" on-close="{{ closeOfferAccepted }}" footer="{{ offerAcceptedFooter }}" width="480" hint-size="480px,300px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Badge" label="Accepted · awaiting pickup" tone="info" dot="{{ true }}" hint-size="auto,24px"></x-import>
+<div style="font-size:14px;color:var(--text-secondary)">The buyer will schedule pickup. Payment is held safely in escrow until the weight is confirmed at the mandi gate.</div>
+</div>
+</x-import>
+</sc-if>
+
+<sc-if value="{{ receiptOpen }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Modal" open="{{ true }}" title="Transaction record" subtitle="{{ receiptLotSummary }}" on-close="{{ closeReceipt }}" footer="{{ receiptFooter }}" width="480" hint-size="480px,520px">
+<div style="display:flex;flex-direction:column;gap:10px;font-size:14px">
+<sc-for list="{{ receiptRows }}" as="row" hint-placeholder-count="10">
+<div style="display:flex;justify-content:space-between;gap:12px;padding-bottom:8px;border-bottom:1px solid var(--border-subtle)">
+<span style="color:var(--text-secondary)">{{ row.k }}</span><span style="font-weight:600;font-variant-numeric:tabular-nums">{{ row.v }}</span>
+</div>
+</sc-for>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="escrow" size="sm" hint-size="auto,24px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="verified-buyer" size="sm" hint-size="auto,24px"></x-import>
+</div>
+</div>
+</x-import>
+</sc-if>
+
+<sc-if value="{{ helpFormOpen }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Modal" open="{{ true }}" title="Raise a grievance" subtitle="We will respond within 2 working days" on-close="{{ closeHelp }}" footer="{{ helpFormFooter }}" width="520" hint-size="520px,440px">
+<div style="display:flex;flex-direction:column;gap:14px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Select" label="Category" options="{{ helpCatOptions }}" value="{{ helpCategoryLabel }}" hint-size="100%,52px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Select" label="Related lot (optional)" options="{{ lotIdOptions }}" placeholder="Select a lot" hint-size="100%,52px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Textarea" label="Describe the issue" hint="Include dates, amounts or names where you can." placeholder="What happened?" hint-size="100%,100px"></x-import>
+</div>
+</x-import>
+</sc-if>
+
+<sc-if value="{{ helpSubmittedOpen }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Modal" open="{{ true }}" title="Grievance submitted" subtitle="{{ ticketNumber }}" on-close="{{ closeHelp }}" footer="{{ helpSubmittedFooter }}" width="480" hint-size="480px,280px">
+<div style="display:flex;flex-direction:column;gap:12px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Badge" label="Open · under review" tone="warning" dot="{{ true }}" hint-size="auto,24px"></x-import>
+<div style="font-size:14px;color:var(--text-secondary)">A member of our team will review this and respond within 2 working days. You can track it under Your grievances.</div>
+</div>
+</x-import>
+</sc-if>
+
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;initialTab&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;login&quot;,&quot;options&quot;:[&quot;login&quot;,&quot;home&quot;,&quot;market&quot;,&quot;sell&quot;,&quot;buyers&quot;,&quot;activity&quot;,&quot;help&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;marketRecommendation&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;sell&quot;,&quot;options&quot;:[&quot;sell&quot;,&quot;hold&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;showStateControls&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tab: props.initialTab || 'login', prevTab: 'home', net: 'online', loginStep: 'phone', loginLang: 'English',
+      homePreview: 'success', marketPreview: 'success', marketRec: props.marketRecommendation || 'sell', range: '1M',
+      activityTab: 'lots', activityPreview: 'success',
+      sellStep: 0, sellSheet: null, sellSubmitting: false, payMode: 'escrow', assay: true,
+      buyersLotId: 'KM-48213', buyersPreview: 'success', offerSheetId: null, offerAccepted: false,
+      helpView: 'list', helpPreview: 'success', helpCategory: null, receiptDealId: null,
+    };
+  }
+
+  lots = [
+    { id:'KM-48231', crop:'Tomato', variety:'Desi', qty:'10 quintal', grade:'A', price:null, lotState:'draft', trust:[] },
+    { id:'KM-48213', crop:'Tomato', variety:'Desi', qty:'18 quintal', grade:'A', price:'₹1,860', lotState:'active', trust:['escrow'] },
+    { id:'KM-48201', crop:'Tomato', variety:'Hybrid', qty:'25 quintal', grade:'B', price:'₹1,790', lotState:'pooled', trust:['fpo'] },
+    { id:'KM-48187', crop:'Tomato', variety:'Desi', qty:'15 quintal', grade:'A', price:'₹1,830', lotState:'sold', trust:['verified-buyer','escrow'] },
+    { id:'KM-48155', crop:'Tomato', variety:'Hybrid', qty:'20 quintal', grade:'A', price:'₹2,090', lotState:'completed', trust:['escrow'] },
+  ];
+  lotStateInfo = {
+    draft:{label:'Draft',tone:'neutral'}, active:{label:'Active · offer in',tone:'warning'},
+    pooled:{label:'Pooled by FPO',tone:'info'}, sold:{label:'Sold',tone:'success'}, completed:{label:'Completed',tone:'success'},
+  };
+  deals = [
+    { id:'KM-48213', crop:'Tomato · Desi', qty:'18 quintal', buyer:'Shree Agro Traders', stage:'offer', timeline:[
+      {title:'Lot listed', time:'25 Aug, 9:02 AM', state:'done'},
+      {title:'Offer received', description:'₹1,860 / quintal · Shree Agro Traders', time:'26 Aug, 4:10 PM', state:'current'},
+      {title:'Accept or decline', state:'pending'} ] },
+    { id:'KM-48198', crop:'Tomato · Hybrid', qty:'22 quintal', buyer:'Patil Grain Mart', stage:'accepted', timeline:[
+      {title:'Offer accepted', time:'20 Aug, 10:15 AM', state:'done'},
+      {title:'Escrow funded', description:'₹39,600 held by Krishi Mitra', time:'20 Aug, 10:40 AM', state:'done'},
+      {title:'Schedule pickup', state:'current'}, {title:'Delivery and weighment', state:'pending'} ] },
+    { id:'KM-48176', crop:'Tomato · Desi', qty:'15 quintal', buyer:'Ganesh Foods Pvt Ltd', stage:'pickup', timeline:[
+      {title:'Escrow funded', time:'18 Aug, 9:30 AM', state:'done'},
+      {title:'Pickup scheduled', description:'Transporter assigned · arriving 22 Aug', time:'19 Aug, 8:00 AM', state:'done'},
+      {title:'Transporter en route', state:'current'}, {title:'Delivery and weighment', state:'pending'} ] },
+    { id:'KM-48155', crop:'Tomato · Hybrid', qty:'20 quintal', buyer:'Ganesh Foods Pvt Ltd', stage:'delivery', timeline:[
+      {title:'Pickup complete', time:'11 Aug, 7:00 AM', state:'done'},
+      {title:'Weighed at Nashik APMC gate', description:'20.0 quintal · Grade A confirmed', time:'11 Aug, 7:25 AM', state:'current'},
+      {title:'Payment release', state:'pending'} ] },
+    { id:'KM-48099', crop:'Tomato · Desi', qty:'12 quintal', buyer:'Shree Agro Traders', stage:'paid', timeline:[
+      {title:'Weighed and confirmed', time:'02 Aug, 8:10 AM', state:'done'},
+      {title:'Escrow released', time:'02 Aug, 9:00 AM', state:'done'},
+      {title:'Paid to bank account', description:'UTR 6291840371', time:'03 Aug, 11:00 AM', state:'done'} ] },
+    { id:'KM-48042', crop:'Gram · Kabuli', qty:'15 quintal', buyer:'Patil Grain Mart', stage:'disputed', timeline:[
+      {title:'Delivered to gate', time:'28 Jul, 7:40 AM', state:'done'},
+      {title:'Weight mismatch recorded', description:'Buyer recorded 13.8 qtl against 15 qtl declared', time:'28 Jul, 8:05 AM', state:'failed'},
+      {title:'Dispute under review', state:'current'} ] },
+  ];
+  dealStageInfo = {
+    offer:{label:'Offer received',tone:'warning'}, accepted:{label:'Accepted',tone:'info'}, pickup:{label:'Pickup',tone:'info'},
+    delivery:{label:'Delivery',tone:'warning'}, paid:{label:'Payment released',tone:'success'}, disputed:{label:'Disputed',tone:'danger'},
+  };
+  payments = [
+    { lot:'KM-48099', buyer:'Shree Agro Traders', amount:'₹22,280', date:'03 Aug', status:'released' },
+    { lot:'KM-47950', buyer:'Ganesh Foods Pvt Ltd', amount:'₹31,600', date:'22 Jul', status:'released' },
+    { lot:'KM-48176', buyer:'Ganesh Foods Pvt Ltd', amount:'₹27,450', date:'—', status:'held' },
+    { lot:'KM-48042', buyer:'Patil Grain Mart', amount:'₹24,750', date:'—', status:'disputed' },
+  ];
+  paymentStatusInfo = { released:{label:'Released',tone:'success'}, held:{label:'Held in escrow',tone:'info'}, disputed:{label:'On hold',tone:'danger'} };
+  offersByLot = {
+    'KM-48213': [
+      { id:1, buyer:'Shree Agro Traders', price:1860, total:'₹33,480', distance:'12 km · Nashik APMC', trust:['verified-buyer','escrow'], best:true },
+      { id:2, buyer:'Ganesh Foods Pvt Ltd', price:1830, total:'₹32,940', distance:'18 km · Nashik APMC', trust:['verified-buyer'] },
+      { id:3, buyer:'Patil Grain Mart', price:1800, total:'₹32,400', distance:'9 km · Nashik APMC', trust:['verified-buyer','fpo'] },
+    ],
+  };
+  helpCats = [
+    { id:'payment', icon:'indian-rupee', label:'Payment not received' },
+    { id:'weight', icon:'scale', label:'Weight or grade dispute' },
+    { id:'buyer', icon:'user-x', label:'Buyer not responding' },
+    { id:'other', icon:'circle-help', label:'Something else' },
+  ];
+  grievances = [
+    { id:'GR-1042', subject:'Weight mismatch at gate', lot:'KM-48042', status:'open', date:'28 Jul' },
+    { id:'GR-1030', subject:'Payment delayed', lot:'KM-47950', status:'resolved', date:'12 Jul' },
+  ];
+  grievanceStatusInfo = { open:{label:'Open',tone:'warning'}, resolved:{label:'Resolved',tone:'success'} };
+
+  componentDidMount() {
+    if (!window.KrishiMitraDesignSystem_e4a29d) {
+      this._poll = setInterval(() => {
+        if (window.KrishiMitraDesignSystem_e4a29d) { clearInterval(this._poll); this.forceUpdate(); }
+      }, 60);
+    }
+  }
+  componentWillUnmount() { if (this._poll) clearInterval(this._poll); }
+
+  nav = (tab, extra) => this.setState(Object.assign({ tab, prevTab: this.state.tab }, extra || {}));
+  back = () => this.setState({ tab: this.state.prevTab });
+  setLoginLang = v => this.setState({ loginLang: v });
+  sendOtp = () => this.setState({ loginStep: 'otp' });
+  backToPhone = () => this.setState({ loginStep: 'phone' });
+  verifyOtp = () => this.nav('home');
+  goSell = () => this.nav('sell');
+  goActivity = () => this.nav('activity', { activityTab: 'lots' });
+
+  setHomePreview = v => this.setState({ homePreview: v });
+  setMarketPreview = v => this.setState({ marketPreview: v });
+  setMarketRec = v => this.setState({ marketRec: v });
+  setNet = v => this.setState({ net: v });
+  retry = () => { this.setState({ net: 'syncing' }); setTimeout(() => this.setState({ net: 'online' }), 900); };
+  setRange = v => this.setState({ range: v });
+  setBuyersPreview = v => this.setState({ buyersPreview: v });
+  setActivityPreview = v => this.setState({ activityPreview: v });
+  setActivityTab = v => this.setState({ activityTab: v });
+  setHelpPreview = v => this.setState({ helpPreview: v });
+
+  nextStep = () => this.setState(s => ({ sellStep: Math.min(s.sellStep + 1, 3) }));
+  prevStep = () => this.setState(s => ({ sellStep: Math.max(s.sellStep - 1, 0) }));
+  choosePayEscrow = () => this.setState({ payMode: 'escrow' });
+  choosePayDirect = () => this.setState({ payMode: 'direct' });
+  toggleAssay = () => this.setState(s => ({ assay: !s.assay }));
+  saveDraft = () => this.nav('activity', { activityTab: 'lots' });
+  openConfirmSheet = () => this.setState({ sellSheet: 'confirm' });
+  closeSellSheet = () => this.setState({ sellSheet: null });
+  doConfirmListing = () => { this.setState({ sellSubmitting: true }); setTimeout(() => this.setState({ sellSubmitting: false, sellSheet: 'done' }), 900); };
+  finishSell = () => { this.setState({ sellSheet: null, sellStep: 0 }); this.nav('activity', { activityTab: 'lots' }); };
+  listAnother = () => this.setState({ sellSheet: null, sellStep: 0 });
+
+  viewOffer = id => this.setState({ offerSheetId: id });
+  closeOfferSheet = () => this.setState({ offerSheetId: null });
+  confirmAcceptOffer = () => this.setState({ offerSheetId: null, offerAccepted: true });
+  closeOfferAccepted = () => this.setState({ offerAccepted: false });
+  trackDeal = () => { this.setState({ offerAccepted: false }); this.nav('activity', { activityTab: 'deals' }); };
+
+  openForm = catId => this.setState({ helpView: 'form', helpCategory: catId });
+  closeHelp = () => this.setState({ helpView: 'list', helpCategory: null });
+  submitGrievance = () => this.setState({ helpView: 'submitted' });
+  openReceipt = id => this.setState({ receiptDealId: id });
+  closeReceipt = () => this.setState({ receiptDealId: null });
+
+  lotActionNode(btn, l) {
+    switch (l.lotState) {
+      case 'draft': return btn('Continue', { variant: 'primary', size: 'sm', onClick: () => this.nav('sell', { sellStep: 0 }) });
+      case 'active': return btn('View offer', { variant: 'accent', size: 'sm', onClick: () => this.nav('buyers', { buyersLotId: l.id }) });
+      case 'pooled': return btn('Details', { variant: 'secondary', size: 'sm' });
+      case 'sold': return btn('View deal', { variant: 'secondary', size: 'sm', onClick: () => this.nav('activity', { activityTab: 'deals' }) });
+      case 'completed': return btn('Receipt', { variant: 'ghost', size: 'sm', onClick: () => this.openReceipt('KM-48099') });
+      default: return null;
+    }
+  }
+  dealActionNode(btn, d) {
+    switch (d.stage) {
+      case 'offer': return btn('Review offer', { variant: 'accent', size: 'lg', fullWidth: true, onClick: () => this.nav('buyers', { buyersLotId: d.id }) });
+      case 'accepted': return btn('View pickup plan', { variant: 'secondary', size: 'lg', fullWidth: true });
+      case 'pickup': return btn('Track pickup', { variant: 'secondary', size: 'lg', fullWidth: true });
+      case 'delivery': return btn('Confirm weight', { variant: 'primary', size: 'lg', fullWidth: true });
+      case 'paid': return btn('View receipt', { variant: 'ghost', size: 'lg', fullWidth: true, onClick: () => this.openReceipt(d.id) });
+      case 'disputed': return btn('View dispute', { variant: 'danger', size: 'lg', fullWidth: true, onClick: () => this.nav('help') });
+      default: return null;
+    }
+  }
+
+  renderVals() {
+    const KM = window.KrishiMitraDesignSystem_e4a29d || {};
+    const s = this.state;
+    const btn = (label, props) => KM.Button ? React.createElement(KM.Button, props, label) : null;
+    const frag = (...els) => React.createElement(React.Fragment, null, ...els);
+
+    const priceCrop = 'Tomato', priceVariety = 'Desi', priceMandi = 'Nashik APMC', mandiName = 'Nashik APMC';
+    const priceValue = 1860, priceDelta = 340, pricePct = '22.4%', priceMsp = null;
+    const priceSeries = [1120, 1340, 1510, 1690, 1780, 1860];
+    const priceLabels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const priceSource = 'Agmarknet', priceUpdated = 'Today, 6:40 AM';
+
+    const lotsView = this.lots.map(l => ({
+      ...l, statusObj: this.lotStateInfo[l.lotState],
+      priceDisplay: l.price || 'Not priced yet',
+      actionNode: this.lotActionNode(btn, l),
+    }));
+    const homeLotsView = lotsView.filter(l => l.lotState === 'active' || l.lotState === 'pooled');
+
+    const dealsView = this.deals.map(d => ({ ...d, statusObj: this.dealStageInfo[d.stage], actionNode: this.dealActionNode(btn, d) }));
+    const receiptDeal = this.deals.find(d => d.id === s.receiptDealId);
+    const receiptRows = receiptDeal ? [
+      { k: 'Lot ID', v: receiptDeal.id },
+      { k: 'Crop', v: receiptDeal.crop },
+      { k: 'Buyer', v: receiptDeal.buyer },
+      { k: 'Quantity delivered', v: receiptDeal.qty },
+      { k: 'Price', v: '₹1,860 / quintal' },
+      { k: 'Gross amount', v: '₹22,320' },
+      { k: 'Assaying fee', v: '− ₹40' },
+      { k: 'Net amount paid', v: '₹22,280' },
+      { k: 'Payment method', v: 'Escrow → Bank transfer' },
+      { k: 'UTR', v: '6291840371' },
+      { k: 'Escrow released', v: '02 Aug, 9:00 AM' },
+      { k: 'Paid to bank', v: '03 Aug, 11:00 AM' },
+    ] : [];
+    const paymentsView = this.payments.map(p => ({ ...p, statusObj: this.paymentStatusInfo[p.status] }));
+
+    const nearby = [
+      { mandi: 'Nashik APMC', price: 1860, dir: 'up', delta: '22.4%', km: '12 km', series: [1120, 1340, 1510, 1690, 1780, 1860] },
+      { mandi: 'Pimpalgaon', price: 1790, dir: 'up', delta: '9.1%', km: '24 km', series: [1560, 1610, 1650, 1700, 1750, 1790] },
+      { mandi: 'Lasalgaon', price: 1705, dir: 'down', delta: '3.2%', km: '31 km', series: [1790, 1770, 1750, 1730, 1715, 1705] },
+      { mandi: 'Manmad', price: 1680, dir: 'flat', delta: '0.0%', km: '48 km', series: [1680, 1678, 1682, 1680, 1679, 1680] },
+    ];
+    const nearbyView = nearby.map(m => ({
+      ...m, priceFmt: '₹' + m.price.toLocaleString('en-IN'),
+      arrow: m.dir === 'up' ? '▲' : m.dir === 'down' ? '▼' : '—',
+      deltaColor: m.dir === 'up' ? 'var(--price-up)' : m.dir === 'down' ? 'var(--price-down)' : 'var(--price-flat)',
+    }));
+
+    const buyersLotId = s.buyersLotId;
+    const lot = this.lots.find(l => l.id === buyersLotId) || this.lots[1];
+    const offers = this.offersByLot[buyersLotId] || [];
+    const offersView = offers.map(o => ({
+      ...o, priceFmt: '₹' + o.price.toLocaleString('en-IN'),
+      acceptAction: btn(o.best ? 'View best offer' : 'View offer', { variant: o.best ? 'accent' : 'secondary', size: 'lg', fullWidth: true, onClick: () => this.viewOffer(o.id) }),
+    }));
+    const selectedOffer = offersView.find(o => o.id === s.offerSheetId);
+
+    let activityEmptyTitle = 'No lots yet', activityEmptyDescription = 'List your first crop to see it here.';
+    let activityEmptyAction = btn('List a lot', { variant: 'primary', size: 'lg', onClick: () => this.nav('sell') });
+    if (s.activityTab === 'deals') { activityEmptyTitle = 'No deals yet'; activityEmptyDescription = 'Deals appear here once a buyer makes an offer on your lot.'; activityEmptyAction = btn('View market', { variant: 'secondary', size: 'lg', onClick: () => this.nav('market') }); }
+    if (s.activityTab === 'payments') { activityEmptyTitle = 'No payments yet'; activityEmptyDescription = 'Payments appear here once a deal is completed.'; activityEmptyAction = btn('View deals', { variant: 'secondary', size: 'lg', onClick: () => this.setState({ activityTab: 'deals' }) }); }
+
+    const helpCatsView = this.helpCats.map(c => ({ ...c, onClick: () => this.openForm(c.id) }));
+    const grievanceView = this.grievances.map(g => ({ ...g, statusObj: this.grievanceStatusInfo[g.status] }));
+    const helpCategoryLabel = (this.helpCats.find(c => c.id === s.helpCategory) || this.helpCats[3]).label;
+
+    const reviewRows = [
+      { k: 'Quantity', v: '18.0 quintal' },
+      { k: 'Expected price', v: '₹1,860 / quintal' },
+      { k: 'Estimated value', v: '₹33,480' },
+      { k: 'Payment', v: s.payMode === 'escrow' ? 'Escrow protected' : 'Direct transfer' },
+      { k: 'Assaying', v: s.assay ? 'Yes · ₹40' : 'No' },
+    ];
+
+    const bottomTab = ['home', 'market', 'sell', 'activity', 'help'].includes(s.tab) ? s.tab : s.prevTab;
+
+    return {
+      showControls: this.props.showStateControls !== false,
+      isLogin: s.tab === 'login', isLoggedIn: s.tab !== 'login',
+      langOptions: ['English', 'हिन्दी', 'मराठी'], loginLang: s.loginLang, setLoginLang: this.setLoginLang,
+      loginStepPhone: s.loginStep === 'phone', loginStepOtp: s.loginStep === 'otp',
+      sendOtp: this.sendOtp, verifyOtp: this.verifyOtp, backToPhone: this.backToPhone,
+      topNavItems: [], net: s.net,
+      offlineBarState: s.net === 'online' ? 'synced' : s.net,
+      netOptions: [{ label: 'Online', value: 'online' }, { label: 'Offline', value: 'offline' }, { label: 'Syncing', value: 'syncing' }],
+      setNet: this.setNet, retry: this.retry,
+      pendingCount: s.net === 'offline' ? 3 : (s.net === 'syncing' ? 1 : 0),
+      isOffline: s.net === 'offline',
+      sidebarSections: [{ label: 'Krishi Mitra', items: [
+        { id: 'home', label: 'Home', icon: 'house' }, { id: 'market', label: 'Market', icon: 'trending-up' },
+        { id: 'sell', label: 'Sell', icon: 'circle-plus' }, { id: 'activity', label: 'My activity', icon: 'receipt-indian-rupee' },
+        { id: 'help', label: 'Help', icon: 'life-buoy' },
+      ] }],
+      tab: bottomTab, onNavSelect: this.nav, back: this.back,
+
+      isHome: s.tab === 'home', isMarket: s.tab === 'market', isSell: s.tab === 'sell',
+      isBuyers: s.tab === 'buyers', isActivity: s.tab === 'activity', isHelp: s.tab === 'help',
+
+      farmerName: 'Ramesh Patil', farmerVillage: 'Ozar, Nashik',
+      homePreviewOptions: [{ label: 'Loading', value: 'loading' }, { label: 'Empty', value: 'empty' }, { label: 'Error', value: 'error' }, { label: 'Success', value: 'success' }],
+      homePreview: s.homePreview, setHomePreview: this.setHomePreview,
+      homeLoading: s.homePreview === 'loading', homeError: s.homePreview === 'error',
+      homeContent: s.homePreview === 'empty' || s.homePreview === 'success',
+      homeEmpty: s.homePreview === 'empty', homeSuccess: s.homePreview === 'success',
+      homeErrorAction: btn('Retry', { variant: 'secondary', size: 'lg', onClick: () => this.setHomePreview('success') }),
+      homeEmptyAction: btn('List your first lot', { variant: 'primary', size: 'lg', onClick: () => this.nav('sell') }),
+      homeBankAlertAction: btn('Add bank details', { variant: 'secondary', size: 'sm' }),
+      goSell: this.goSell, goActivity: this.goActivity, homeLotsView, mandiName,
+
+      priceCrop, priceVariety, priceMandi, priceValueFmt: '₹' + priceValue.toLocaleString('en-IN'),
+      priceDeltaFmt: '₹' + priceDelta, pricePct, priceMsp, priceSeries, priceLabels, priceSource, priceUpdated,
+      mspLabel: priceMsp ? ('MSP ₹' + priceMsp.toLocaleString('en-IN')) : '', priceHasMsp: !!priceMsp,
+
+      marketPreviewOptions: [{ label: 'Loading', value: 'loading' }, { label: 'Error', value: 'error' }, { label: 'Success', value: 'success' }],
+      marketPreview: s.marketPreview, setMarketPreview: this.setMarketPreview,
+      marketLoading: s.marketPreview === 'loading', marketError: s.marketPreview === 'error', marketSuccess: s.marketPreview === 'success',
+      marketErrorAction: btn('Retry', { variant: 'secondary', size: 'lg', onClick: () => this.setMarketPreview('success') }),
+      rangeOptions: ['7D', '1M', '3M', '1Y'], range: s.range, setRange: this.setRange, nearbyView,
+      marketRecOptions: [{ label: 'Sell', value: 'sell' }, { label: 'Hold', value: 'hold' }], marketRec: s.marketRec, setMarketRec: this.setMarketRec,
+      marketRecIsSell: s.marketRec === 'sell', marketRecIsHold: s.marketRec === 'hold',
+      marketRecSellAction: btn('List this lot', { variant: 'primary', size: 'sm', onClick: () => this.nav('sell') }),
+      marketRecHoldAction: btn('Remind me tomorrow', { variant: 'secondary', size: 'sm' }),
+
+      stepperSteps: [{ label: 'Crop' }, { label: 'Quantity' }, { label: 'Price' }, { label: 'Review' }],
+      sellStep: s.sellStep, sellStepIs0: s.sellStep === 0, sellStepIs1: s.sellStep === 1, sellStepIs2: s.sellStep === 2, sellStepIs3: s.sellStep === 3,
+      sellStepGt0: s.sellStep > 0, sellStepLt3: s.sellStep < 3,
+      cropOptions: ['Tomato', 'Wheat', 'Soybean', 'Cotton', 'Gram'], varietyOptions: ['Desi', 'Hybrid', 'Roma'], gradeOptions: ['A', 'B', 'C'],
+      payEscrow: s.payMode === 'escrow', payDirect: s.payMode === 'direct', choosePayEscrow: this.choosePayEscrow, choosePayDirect: this.choosePayDirect,
+      assay: s.assay, toggleAssay: this.toggleAssay, saveDraft: this.saveDraft, nextStep: this.nextStep, prevStep: this.prevStep,
+      reviewRows, estimatedValue: '₹33,480', openConfirmSheet: this.openConfirmSheet,
+      sellSheetConfirm: s.sellSheet === 'confirm', sellSheetDone: s.sellSheet === 'done', closeSellSheet: this.closeSellSheet,
+      sellSummarySubtitle: 'Tomato · Desi · Grade A', newLotId: 'KM-48245',
+      sellConfirmFooter: frag(
+        btn('Confirm and list', { variant: 'accent', size: 'xl', fullWidth: true, loading: s.sellSubmitting, onClick: this.doConfirmListing }),
+        btn('Back', { variant: 'ghost', size: 'lg', fullWidth: true, onClick: this.closeSellSheet })
+      ),
+      sellDoneFooter: frag(
+        btn('Track this lot', { variant: 'primary', size: 'xl', fullWidth: true, onClick: this.finishSell }),
+        btn('List another', { variant: 'ghost', size: 'lg', fullWidth: true, onClick: this.listAnother })
+      ),
+
+      buyerLotSummary: lot.crop + ' · ' + lot.variety + ' · ' + lot.qty + ' · Grade ' + lot.grade,
+      buyersPreviewOptions: [{ label: 'Loading', value: 'loading' }, { label: 'Empty', value: 'empty' }, { label: 'Success', value: 'success' }],
+      buyersPreview: s.buyersPreview, setBuyersPreview: this.setBuyersPreview,
+      buyersLoading: s.buyersPreview === 'loading', buyersEmpty: s.buyersPreview === 'empty', buyersSuccess: s.buyersPreview === 'success',
+      buyersEmptyAction: btn('Back to lot', { variant: 'secondary', size: 'lg', onClick: () => this.nav('activity', { activityTab: 'lots' }) }),
+      offersView,
+      offerDetailOpen: !!selectedOffer, selectedOfferBuyer: selectedOffer ? selectedOffer.buyer : '',
+      selectedOfferPrice: selectedOffer ? selectedOffer.priceFmt : '', selectedOfferTotal: selectedOffer ? selectedOffer.total : '',
+      selectedOfferDistance: selectedOffer ? selectedOffer.distance : '', closeOfferSheet: this.closeOfferSheet,
+      offerDetailFooter: frag(
+        btn('Accept offer', { variant: 'accent', size: 'xl', fullWidth: true, onClick: this.confirmAcceptOffer }),
+        btn('Decline', { variant: 'ghost', size: 'lg', fullWidth: true, onClick: this.closeOfferSheet })
+      ),
+      offerAcceptedOpen: s.offerAccepted, closeOfferAccepted: this.closeOfferAccepted,
+      offerAcceptedFooter: frag(
+        btn('Track this deal', { variant: 'primary', size: 'xl', fullWidth: true, onClick: this.trackDeal }),
+        btn('Back to offers', { variant: 'ghost', size: 'lg', fullWidth: true, onClick: this.closeOfferAccepted })
+      ),
+
+      receiptOpen: !!receiptDeal, receiptLotSummary: receiptDeal ? (receiptDeal.crop + ' · ' + receiptDeal.qty) : '',
+      receiptRows, closeReceipt: this.closeReceipt,
+      receiptFooter: frag(
+        btn('Done', { variant: 'primary', size: 'xl', fullWidth: true, onClick: this.closeReceipt }),
+        btn('Something wrong? Raise a grievance', { variant: 'ghost', size: 'md', fullWidth: true, onClick: () => { this.closeReceipt(); this.nav('help'); } })
+      ),
+      activityTabs: [{ id: 'lots', label: 'Lots' }, { id: 'deals', label: 'Deals' }, { id: 'payments', label: 'Payments' }],
+      activityTab: s.activityTab, setActivityTab: this.setActivityTab,
+      isLotsTab: s.activityTab === 'lots', isDealsTab: s.activityTab === 'deals', isPaymentsTab: s.activityTab === 'payments',
+      activityPreviewOptions: [{ label: 'Loading', value: 'loading' }, { label: 'Empty', value: 'empty' }, { label: 'Error', value: 'error' }, { label: 'Success', value: 'success' }],
+      activityPreview: s.activityPreview, setActivityPreview: this.setActivityPreview,
+      activityLoading: s.activityPreview === 'loading', activityError: s.activityPreview === 'error',
+      activityEmpty: s.activityPreview === 'empty', activitySuccess: s.activityPreview === 'success',
+      activityErrorAction: btn('Retry', { variant: 'secondary', size: 'lg', onClick: () => this.setActivityPreview('success') }),
+      activityEmptyTitle, activityEmptyDescription, activityEmptyAction,
+      lotsFullView: lotsView, dealsView, paymentsView,
+
+      helpCatsView,
+      helpPreviewOptions: [{ label: 'Empty', value: 'empty' }, { label: 'Success', value: 'success' }],
+      helpPreview: s.helpPreview, setHelpPreview: this.setHelpPreview,
+      helpTicketsEmpty: s.helpPreview === 'empty', helpTicketsSuccess: s.helpPreview === 'success', grievanceView,
+      openGeneralForm: () => this.openForm('other'),
+      helpFormOpen: s.helpView === 'form', helpSubmittedOpen: s.helpView === 'submitted', closeHelp: this.closeHelp,
+      helpCatOptions: this.helpCats.map(c => c.label), helpCategoryLabel,
+      lotIdOptions: this.lots.map(l => l.id), ticketNumber: 'GR-1058',
+      helpFormFooter: frag(
+        btn('Submit grievance', { variant: 'primary', size: 'xl', fullWidth: true, onClick: this.submitGrievance }),
+        btn('Cancel', { variant: 'ghost', size: 'lg', fullWidth: true, onClick: this.closeHelp })
+      ),
+      helpSubmittedFooter: btn('Done', { variant: 'primary', size: 'xl', fullWidth: true, onClick: this.closeHelp }),
+    };
+  }
+}
+</script>
+</body>
+</html>
