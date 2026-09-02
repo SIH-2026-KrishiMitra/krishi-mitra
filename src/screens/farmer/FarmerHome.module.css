@@ -1,0 +1,240 @@
+.page {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-7);
+  max-width: var(--grid-content-max);
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .page {
+    padding: var(--space-8) var(--space-9);
+  }
+}
+
+@media (min-width: 1024px) {
+  .page {
+    padding: var(--space-8) var(--space-10);
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Greeting */
+.greetingName {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-display);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+@media (min-width: 1024px) {
+  .greetingName {
+    font-size: var(--text-2xl);
+  }
+}
+
+.greetingDate {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin: var(--space-1) 0 0;
+}
+
+.trustLine {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.memberSince {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+}
+
+/* Section headings */
+.sectionHeading {
+  font-family: var(--font-core);
+  font-size: var(--text-2xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  color: var(--text-muted);
+  line-height: var(--lh-normal);
+  margin: 0 0 var(--space-4);
+}
+
+/* Stats grid: 2-col mobile → 4-col desktop */
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 1024px) {
+  .statsGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.statValue {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-display);
+  color: var(--text-primary);
+  margin: 0;
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: var(--numeric-features);
+}
+
+.statLabel {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  margin: var(--space-2) 0 0;
+}
+
+/* Prices + Quick Actions: stacked on mobile, row on tablet+ */
+.pricesAndActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+@media (min-width: 768px) {
+  .pricesAndActions {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-6);
+  }
+
+  .pricesSection {
+    flex: 2;
+    min-width: 0;
+  }
+
+  .actionsSection {
+    flex: 1;
+    min-width: 200px;
+  }
+}
+
+/* Price ticker */
+.priceList {
+  display: flex;
+  flex-direction: column;
+}
+
+.priceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.priceRow:last-child {
+  border-bottom: none;
+}
+
+.cropName {
+  font-size: var(--text-base);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+}
+
+.priceAmount {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-1);
+}
+
+.priceValue {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--fw-semibold);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: var(--numeric-features);
+}
+
+.priceTrend {
+  font-size: var(--text-sm);
+}
+
+.priceUnit {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.priceUp {
+  color: var(--price-up);
+}
+
+.priceDown {
+  color: var(--price-down);
+}
+
+.provenance {
+  font-size: var(--text-3xs);
+  color: var(--text-muted);
+  margin: var(--space-4) 0 0;
+}
+
+/* Quick actions */
+.quickActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.quickActionBtn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Recent activity */
+.activityRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.activityRow:last-child {
+  border-bottom: none;
+}
+
+.activityMeta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  flex: 1;
+  min-width: 0;
+}
+
+.activityId {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.activityDesc {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.activityBadge {
+  flex-shrink: 0;
+}
+
