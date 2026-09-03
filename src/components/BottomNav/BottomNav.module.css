@@ -56,6 +56,14 @@
   outline-offset: -2px;
 }
 
+.sellTab {
+  color: var(--role-farmer);
+}
+
+.sellTab.active {
+  color: var(--role-farmer);
+}
+
 /* Sidebar takes over navigation on tablet+ */
 @media (min-width: 768px) {
   .bottomnav {
