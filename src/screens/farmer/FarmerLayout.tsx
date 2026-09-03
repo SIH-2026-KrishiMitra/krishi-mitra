@@ -6,17 +6,27 @@ import BottomNav from '../../components/BottomNav/BottomNav'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import styles from './FarmerLayout.module.css'
 
-export default function FarmerLayout({ children }: { children: ReactNode }) {
+interface FarmerLayoutProps {
+  children: ReactNode
+  title?: string
+  onBack?: () => void
+}
+
+export default function FarmerLayout({ children, title, onBack }: FarmerLayoutProps) {
+  const isDetail = Boolean(onBack)
   return (
     <AppShell
       topNav={
         <TopNav
-          title="Krishi Mitra"
+          title={title ?? 'Krishi Mitra'}
           role="farmer"
+          onBack={onBack}
           action={
-            <button className={styles.notifBtn} aria-label="Notifications" type="button">
-              <Bell size={22} />
-            </button>
+            !isDetail ? (
+              <button className={styles.notifBtn} aria-label="Notifications" type="button">
+                <Bell size={22} />
+              </button>
+            ) : undefined
           }
         />
       }

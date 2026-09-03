@@ -3,40 +3,29 @@ import { cx } from '../../lib/cx'
 import FarmerLayout from './FarmerLayout'
 import Button from '../../components/Button/Button'
 import Card from '../../components/Card/Card'
-import StatusBadge, { type StatusVariant } from '../../components/StatusBadge/StatusBadge'
+import StatusBadge from '../../components/StatusBadge/StatusBadge'
+import ListingCard from '../../components/ListingCard/ListingCard'
+import { useLots } from '../../context/LotsContext'
 import styles from './FarmerHome.module.css'
 
-const STATS: Array<{ value: string; label: string }> = [
-  { value: '3',           label: 'Active listings' },
-  { value: '₹1,24,500',  label: 'In escrow' },
-  { value: '12',          label: 'Lots sold this year' },
+const STATS = [
+  { value: '3', label: 'Active listings' },
+  { value: '₹1,24,500', label: 'In escrow' },
+  { value: '12', label: 'Lots sold this year' },
   { value: '₹2,180/qtl', label: 'Avg. price realized' },
 ]
 
-const CROP_PRICES: Array<{
-  crop: string
-  price: string
-  unit: string
-  trend: 'up' | 'down'
-}> = [
-  { crop: 'Wheat',  price: '2,150', unit: 'qtl', trend: 'up' },
-  { crop: 'Paddy',  price: '1,890', unit: 'qtl', trend: 'down' },
-  { crop: 'Cotton', price: '6,740', unit: 'qtl', trend: 'up' },
-]
-
-const RECENT_ACTIVITY: Array<{
-  id: string
-  description: string
-  status: StatusVariant
-  statusLabel: string
-}> = [
-  { id: 'LOT-2024-0418', description: 'Wheat · 40 qtl',  status: 'success', statusLabel: 'Bid accepted' },
-  { id: 'LOT-2024-0391', description: 'Paddy · 25 qtl',  status: 'warning', statusLabel: 'Awaiting payment' },
-  { id: 'LOT-2024-0377', description: 'Cotton · 18 qtl', status: 'info',    statusLabel: 'Under review' },
+const CROP_PRICES = [
+  { crop: 'Wheat',  price: '2,150', unit: 'qtl', trend: 'up' as const },
+  { crop: 'Paddy',  price: '1,890', unit: 'qtl', trend: 'down' as const },
+  { crop: 'Cotton', price: '6,740', unit: 'qtl', trend: 'up' as const },
 ]
 
 export default function FarmerHome() {
   const navigate = useNavigate()
+  const { lots } = useLots()
+  const recentLots = lots.slice(0, 3)
+
   const today = new Date().toLocaleDateString('en-IN', {
     weekday: 'long',
     day: 'numeric',
@@ -57,7 +46,7 @@ export default function FarmerHome() {
           </div>
         </section>
 
-        {/* Overview stats — 2-col mobile, 4-col desktop */}
+        {/* Overview stats */}
         <section className={styles.section}>
           <h2 className={styles.sectionHeading}>Overview</h2>
           <div className={styles.statsGrid}>
@@ -70,7 +59,7 @@ export default function FarmerHome() {
           </div>
         </section>
 
-        {/* Prices + Quick Actions: stacked on mobile, side-by-side on tablet+ */}
+        {/* Prices + Quick Actions */}
         <div className={styles.pricesAndActions}>
           <section className={styles.pricesSection}>
             <h2 className={styles.sectionHeading}>Today's prices</h2>
@@ -98,29 +87,51 @@ export default function FarmerHome() {
           <section className={styles.actionsSection}>
             <h2 className={styles.sectionHeading}>Quick actions</h2>
             <div className={styles.quickActions}>
-              <Button variant="primary" size="lg">List a lot</Button>
-              <Button variant="secondary" size="md" className={styles.quickActionBtn} onClick={() => navigate('/farmer/prices')}>View prices</Button>
-              <Button variant="secondary" size="md" className={styles.quickActionBtn} onClick={() => navigate('/farmer/lots')}>My transactions</Button>
+              <Button variant="accent" size="lg" onClick={() => navigate('/farmer/lots/create')}>
+                List a lot
+              </Button>
+              <Button variant="secondary" size="md" className={styles.quickActionBtn} onClick={() => navigate('/farmer/market')}>
+                View market prices
+              </Button>
+              <Button variant="secondary" size="md" className={styles.quickActionBtn} onClick={() => navigate('/farmer/activity')}>
+                My activity
+              </Button>
             </div>
           </section>
         </div>
 
-        {/* Recent activity */}
+        {/* Recent lots from context */}
         <section className={styles.section}>
-          <h2 className={styles.sectionHeading}>Recent activity</h2>
-          <Card>
-            {RECENT_ACTIVITY.map(({ id, description, status, statusLabel }) => (
-              <div key={id} className={styles.activityRow}>
-                <div className={styles.activityMeta}>
-                  <p className={styles.activityId}>{id}</p>
-                  <p className={styles.activityDesc}>{description}</p>
-                </div>
-                <div className={styles.activityBadge}>
-                  <StatusBadge variant={status} label={statusLabel} />
-                </div>
-              </div>
-            ))}
-          </Card>
+          <div className={styles.sectionHeaderRow}>
+            <h2 className={styles.sectionHeading}>Recent lots</h2>
+            <button
+              type="button"
+              className={styles.allLink}
+              onClick={() => navigate('/farmer/activity')}
+            >
+              All activity →
+            </button>
+          </div>
+          {recentLots.length === 0 ? (
+            <Card>
+              <p className={styles.emptyMessage}>
+                No lots yet.{' '}
+                <button
+                  type="button"
+                  className={styles.inlineLink}
+                  onClick={() => navigate('/farmer/lots/create')}
+                >
+                  List your first crop
+                </button>
+              </p>
+            </Card>
+          ) : (
+            <div className={styles.recentLotsGrid}>
+              {recentLots.map(lot => (
+                <ListingCard key={lot.id} lot={lot} />
+              ))}
+            </div>
+          )}
         </section>
 
       </div>

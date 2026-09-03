@@ -1,0 +1,43 @@
+.tablist {
+  display: flex;
+  gap: 0;
+  border-bottom: var(--border-hairline) solid var(--border-subtle);
+}
+
+.tab {
+  position: relative;
+  padding: var(--space-4) var(--space-7);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-core);
+  font-size: var(--text-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-muted);
+  transition: color var(--dur-fast) var(--ease-standard);
+  white-space: nowrap;
+}
+
+.tab:hover:not(.active) {
+  color: var(--text-secondary);
+}
+
+.tab.active {
+  color: var(--text-brand);
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--role-farmer);
+  border-radius: var(--radius-xs) var(--radius-xs) 0 0;
+}
+
+.tab:focus-visible {
+  outline: var(--border-focus) solid var(--green-600);
+  outline-offset: -2px;
+}

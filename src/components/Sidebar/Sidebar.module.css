@@ -86,3 +86,12 @@
     white-space: nowrap;
   }
 }
+
+.sellTab {
+  color: var(--text-brand);
+}
+
+.sellTab.active {
+  color: var(--text-brand);
+  background: var(--surface-brand-soft);
+}

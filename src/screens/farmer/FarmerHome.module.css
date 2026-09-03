@@ -199,42 +199,67 @@
   justify-content: center;
 }
 
-/* Recent activity */
-.activityRow {
+/* Recent lots section header */
+.sectionHeaderRow {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
-  padding: var(--space-5) 0;
-  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: var(--space-4);
 }
 
-.activityRow:last-child {
-  border-bottom: none;
+.sectionHeaderRow .sectionHeading {
+  margin-bottom: 0;
 }
 
-.activityMeta {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  flex: 1;
-  min-width: 0;
+.allLink {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-core);
+  font-size: var(--text-sm);
+  color: var(--text-link);
+  font-weight: var(--fw-medium);
+  padding: 0;
 }
 
-.activityId {
-  font-family: var(--font-mono);
-  font-size: var(--text-2xs);
+.allLink:hover {
+  color: var(--text-link-hover);
+}
+
+.recentLotsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+@media (min-width: 640px) {
+  .recentLotsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .recentLotsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.emptyMessage {
+  font-size: var(--text-sm);
   color: var(--text-muted);
   margin: 0;
 }
 
-.activityDesc {
+.inlineLink {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-core);
   font-size: var(--text-sm);
-  color: var(--text-secondary);
-  margin: 0;
-}
-
-.activityBadge {
-  flex-shrink: 0;
+  color: var(--text-link);
+  font-weight: var(--fw-medium);
+  padding: 0;
+  text-decoration: underline;
 }
 
