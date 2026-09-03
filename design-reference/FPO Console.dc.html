@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/colors.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/typography.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/radius.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/elevation.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/motion.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/grid.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/semantic.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/base.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/styles.css">
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.min.js"></script>
+<script src="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/_ds_bundle.js"></script>
+<style>
+body{margin:0}
+a{color:var(--green-700)}
+a:hover{color:var(--green-800)}
+</style>
+</helmet>
+<div data-screen-label="FPO console" style="min-height:100vh;display:flex;flex-direction:column;background:var(--surface-canvas);font-family:var(--font-body,inherit)">
+
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TopNav" brand="Krishi Mitra" role="fpo" active-item="{{ tab }}" items="{{ navItems }}" on-select="{{ setTab }}" hint-size="100%,64px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.OfflineBar" state="synced" hint-size="100%,32px"></x-import>
+
+<div style="flex:1;display:flex;min-height:0">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Sidebar" active-item="{{ tab }}" on-select="{{ setTab }}" sections="{{ sidebarSections }}" hint-size="248px,100%"></x-import>
+
+<main style="flex:1;min-width:0;padding:24px 40px 48px;display:flex;flex-direction:column;gap:20px;max-width:1240px">
+
+<sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="FPO dashboard" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div><h1 style="font-size:30px;margin:0">Dashboard</h1><p style="font-size:14px;color:var(--text-secondary);margin-top:4px">Ozar FPO · 412 members</p></div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="accent" size="md" icon-left="layers" on-click="{{ goPool }}" hint-size="auto,44px">Open pool management</x-import>
+</div>
+
+<sc-if value="{{ showControls }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.SegmentedControl" options="{{ previewOptions }}" value="{{ dashboardPreview }}" on-change="{{ setDashboardPreview }}" size="sm" hint-size="auto,32px"></x-import>
+</sc-if>
+
+<sc-if value="{{ dashLoading }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Skeleton" height="100" width="100%" hint-size="100%,100px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Skeleton" lines="5" height="60" width="100%" hint-size="100%,320px"></x-import>
+</sc-if>
+<sc-if value="{{ dashError }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="error" title="Could not load your dashboard" description="Check your connection and try again." action="{{ dashErrorAction }}" hint-size="100%,220px"></x-import>
+</sc-if>
+<sc-if value="{{ dashEmpty }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="empty" title="No open pool" description="Start a pool to begin collecting member lots for a collective sale." action="{{ dashEmptyAction }}" hint-size="100%,240px"></x-import>
+</sc-if>
+
+<sc-if value="{{ dashSuccess }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Pooled quantity" value="137.5" unit="quintal" delta="18.0 qtl today" delta-direction="up" icon="layers" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Members contributing" value="24" caption="of 412 eligible" icon="users" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Indicative value" value="₹3.42L" tone="accent" icon="indian-rupee" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Pending payout" value="₹3,86,200" icon="lock" hint-size="100%,110px"></x-import>
+</div>
+
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,120px">
+<div style="font-size:15px;font-weight:600;margin-bottom:10px">Wheat pool · Rabi 2026</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Stepper" steps="{{ flowSteps }}" current="1" hint-size="100%,48px"></x-import>
+</x-import>
+
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Alert" tone="warning" title="One member lot failed assay" action="{{ notifyAction }}" hint-size="100%,70px">31.0 quintal graded C against pool minimum of B. It has been excluded from the collective lot.</x-import>
+
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.DataTable" caption="Recent pools" columns="{{ dashColumns }}" rows="{{ dashRows }}" hint-size="100%,220px"></x-import>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,220px">
+<div style="font-size:15px;font-weight:600;margin-bottom:2px">Pool build-up</div>
+<div style="font-size:13px;color:var(--text-secondary);margin-bottom:10px">Quintal collected per day</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.BarChart" data="{{ buildupData }}" height="160" hint-size="100%,160px"></x-import>
+</x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,220px">
+<div style="font-size:15px;font-weight:600;margin-bottom:2px">Reference price</div>
+<div style="font-size:13px;color:var(--text-secondary);margin-bottom:10px">Nashik APMC · wheat Lokwan</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.PriceChart" series="{{ priceSeries }}" msp="2275" height="140" hint-size="100%,140px"></x-import>
+</x-import>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isPool }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Pool management" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div><h1 style="font-size:30px;margin:0">Wheat pool · Rabi 2026</h1><p style="font-size:14px;color:var(--text-secondary);margin-top:4px">Pool WP-118 · closes 16 Aug, 6:00 PM</p></div>
+</div>
+
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Tabs" items="{{ poolTabs }}" active-item="{{ poolTab }}" on-select="{{ setPoolTab }}" hint-size="100%,44px"></x-import>
+
+<sc-if value="{{ showControls }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.SegmentedControl" options="{{ previewOptions }}" value="{{ poolPreview }}" on-change="{{ setPoolPreview }}" size="sm" hint-size="auto,32px"></x-import>
+</sc-if>
+
+<sc-if value="{{ poolLoading }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Skeleton" lines="6" height="60" width="100%" hint-size="100%,400px"></x-import>
+</sc-if>
+<sc-if value="{{ poolError }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="error" title="Could not load pool data" description="Check your connection and try again." action="{{ poolErrorAction }}" hint-size="100%,220px"></x-import>
+</sc-if>
+<sc-if value="{{ poolEmpty }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="empty" title="{{ poolEmptyTitle }}" description="{{ poolEmptyDescription }}" action="{{ poolEmptyAction }}" hint-size="100%,240px"></x-import>
+</sc-if>
+
+<sc-if value="{{ poolSuccess }}" hint-placeholder-val="{{ true }}">
+
+<sc-if value="{{ isFarmerLotsTab }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Pooled quantity" value="106.5" unit="quintal" delta="18.0 qtl today" delta-direction="up" icon="layers" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Members contributing" value="24" caption="of 412 eligible" icon="users" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Assay pending" value="1" caption="26.0 qtl held back" icon="flask-conical" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Rejected" value="1" caption="31.0 qtl · grade C" icon="alert-triangle" hint-size="100%,110px"></x-import>
+</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Alert" tone="warning" title="One member lot failed assay" action="{{ notifyAction }}" hint-size="100%,70px">31.0 quintal graded C against pool minimum of B. It has been excluded from the collective lot.</x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.DataTable" dense="{{ true }}" caption="Member contributions" columns="{{ memberColumns }}" rows="{{ poolMembers }}" footer="{{ memberFooter }}" hint-size="100%,300px"></x-import>
+<div><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="secondary" size="md" icon-left="user-plus" hint-size="auto,44px">Add member lot</x-import></div>
+</sc-if>
+
+<sc-if value="{{ isPoolTab }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,100px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Stepper" steps="{{ poolStageSteps }}" current="{{ poolStageIndex }}" hint-size="100%,48px"></x-import>
+</x-import>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,220px">
+<div style="font-size:15px;font-weight:600;margin-bottom:10px">Pool build-up · quintal per day</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.BarChart" data="{{ buildupData }}" height="160" hint-size="100%,160px"></x-import>
+</x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,220px">
+<div style="font-size:15px;font-weight:600;margin-bottom:10px">Reference price · Nashik APMC wheat Lokwan</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.PriceChart" series="{{ priceSeries }}" msp="2275" height="140" hint-size="100%,140px"></x-import>
+</x-import>
+</div>
+<sc-if value="{{ published }}" hint-placeholder-val="{{ false }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Alert" tone="success" title="Collective lot published to verified buyers" hint-size="100%,60px">Buyer interest will appear under Buyer requirement.</x-import>
+</sc-if>
+<sc-if value="{{ notPublished }}">
+<div><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="accent" size="md" icon-left="store" on-click="{{ openPublish }}" hint-size="auto,44px">Publish collective lot</x-import></div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{ isRequirementTab }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.DataTable" caption="Buyer interest in your collective lot" columns="{{ requirementColumns }}" rows="{{ buyerRequirements }}" hint-size="100%,260px"></x-import>
+</sc-if>
+
+<sc-if value="{{ isDealTab }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,420px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+<div>
+<div style="font-size:20px;font-weight:600">{{ dealBuyer }}</div>
+<div style="font-size:13px;color:var(--text-secondary);margin-top:4px">{{ dealSummary }}</div>
+<div style="display:flex;gap:8px;margin-top:8px"><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="fpo" size="sm" hint-size="auto,22px"></x-import><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="escrow" size="sm" hint-size="auto,22px"></x-import></div>
+</div>
+<div>{{ dealPrimaryAction }}</div>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Agreed rate" value="₹2,485" unit="/ qtl" size="sm" hint-size="100%,90px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Quantity" value="137.5" unit="quintal" size="sm" hint-size="100%,90px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Deal value" value="₹3,41,688" tone="accent" icon="indian-rupee" size="sm" hint-size="100%,90px"></x-import>
+</div>
+<div style="margin-top:18px"><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Timeline" items="{{ dealTimeline }}" hint-size="100%,140px"></x-import></div>
+</x-import>
+</sc-if>
+
+<sc-if value="{{ isDistributionTab }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.DataTable" caption="Payout runs" columns="{{ payoutColumns }}" rows="{{ payoutRuns }}" hint-size="100%,180px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,340px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px">
+<div>
+<div style="font-size:15px;font-weight:600">PO-3391 · lot KM-48141</div>
+<div style="font-size:13px;color:var(--text-secondary)">5 of 24 members · pro rata on assayed weight</div>
+</div>
+<div>{{ distributePrimaryAction }}</div>
+</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.DataTable" dense="{{ true }}" columns="{{ distributionColumns }}" rows="{{ distributionRows }}" hint-size="100%,220px"></x-import>
+<sc-if value="{{ distributed }}">
+<div style="margin-top:12px"><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Alert" tone="success" title="Distributed ₹3,41,688 to 5 members" hint-size="100%,60px"></x-import></div>
+</sc-if>
+</x-import>
+</sc-if>
+
+</sc-if>
+</div>
+</sc-if>
+
+</main>
+</div>
+
+<sc-if value="{{ publishModalOpen }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Modal" open="{{ true }}" title="Publish collective lot" subtitle="Pool WP-118 · 137.5 quintal · Grade A/B" on-close="{{ closePublish }}" footer="{{ publishFooter }}" width="480" hint-size="480px,360px">
+<div style="display:flex;flex-direction:column;gap:14px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Input" label="Ask price" prefix="₹" suffix="/ qtl" numeric="{{ true }}" default-value="2485" size="md" hint="Mandi average ₹2,485" hint-size="100%,66px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Select" label="Delivery point" options="{{ deliveryOptions }}" value="Nashik APMC gate" size="md" hint-size="100%,66px"></x-import>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="fpo" hint-size="auto,26px"></x-import><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="assayed" hint-size="auto,26px"></x-import><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="escrow" hint-size="auto,26px"></x-import></div>
+<div style="font-size:13px;color:var(--text-secondary)">Payout to 24 members is calculated pro rata on assayed weight once escrow is released.</div>
+</div>
+</x-import>
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;initialTab&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;dashboard&quot;,&quot;options&quot;:[&quot;dashboard&quot;,&quot;pool&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;showStateControls&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tab: props.initialTab || 'dashboard', dashboardPreview: 'success',
+      poolTab: 'farmerlots', poolPreview: 'success',
+      published: false, dealAccepted: false, dealStage: 'accepted',
+      publishModalOpen: false, distributed: false,
+    };
+  }
+
+  poolMembers = [
+    { member: 'Ramesh Patil', village: 'Ozar', qty: 40.0, grade: 'A', assay: 'Done', status: 'Pooled', tone: 'success' },
+    { member: 'Sunita Bhoir', village: 'Ozar', qty: 22.5, grade: 'A', assay: 'Done', status: 'Pooled', tone: 'success' },
+    { member: 'K. Jadhav', village: 'Pimpalgaon', qty: 26.0, grade: 'B', assay: 'Pending', status: 'Awaiting assay', tone: 'warning' },
+    { member: 'D. More', village: 'Ozar', qty: 18.0, grade: 'A', assay: 'Done', status: 'Pooled', tone: 'success' },
+    { member: 'A. Shinde', village: 'Nandur', qty: 31.0, grade: 'C', assay: 'Failed', status: 'Rejected', tone: 'danger' },
+  ];
+  buyerRequirements = [
+    { id: 1, buyer: 'Shree Agro Traders', price: 2485, qty: 137.5, distance: '12 km · Nashik APMC', trust: ['verified-buyer', 'escrow'], best: true },
+    { id: 2, buyer: 'Ganesh Foods Pvt Ltd', price: 2460, qty: 137.5, distance: '18 km · Nashik APMC', trust: ['verified-buyer'] },
+    { id: 3, buyer: 'Patil Grain Mart', price: 2430, qty: 137.5, distance: '9 km · Nashik APMC', trust: ['verified-buyer', 'fpo'] },
+  ];
+  payoutRuns = [
+    { id: 'PO-3391', lot: 'KM-48141', members: '14 members', amount: '₹2,14,400', state: 'Ready', tone: 'success' },
+    { id: 'PO-3388', lot: 'KM-48120', members: '9 members', amount: '₹1,71,800', state: 'Awaiting escrow', tone: 'info' },
+  ];
+  distributionMembers = [
+    { member: 'Ramesh Patil', qty: 40.0, amount: 99400 },
+    { member: 'Sunita Bhoir', qty: 22.5, amount: 55913 },
+    { member: 'K. Jadhav', qty: 26.0, amount: 64610 },
+    { member: 'D. More', qty: 18.0, amount: 44730 },
+    { member: 'P. Wagh', qty: 31.0, amount: 77035 },
+  ];
+  poolStageOrder = ['opened', 'collected', 'assay', 'published', 'payout'];
+
+  componentDidMount() {
+    if (!window.KrishiMitraDesignSystem_e4a29d) {
+      this._poll = setInterval(() => { if (window.KrishiMitraDesignSystem_e4a29d) { clearInterval(this._poll); this.forceUpdate(); } }, 60);
+    }
+  }
+  componentWillUnmount() { if (this._poll) clearInterval(this._poll); }
+
+  setTab = v => this.setState({ tab: v });
+  goPool = () => this.setState({ tab: 'pool', poolTab: 'farmerlots' });
+  setDashboardPreview = v => this.setState({ dashboardPreview: v });
+  setPoolTab = v => this.setState({ poolTab: v });
+  setPoolPreview = v => this.setState({ poolPreview: v });
+  noop = () => {};
+  openPublish = () => this.setState({ publishModalOpen: true });
+  closePublish = () => this.setState({ publishModalOpen: false });
+  doPublish = () => this.setState({ publishModalOpen: false, published: true, poolTab: 'requirement' });
+  acceptOffer = () => this.setState({ dealAccepted: true, poolTab: 'deal', dealStage: 'accepted' });
+  advanceDeal = () => {
+    const order = ['accepted', 'escrow', 'delivery', 'released'];
+    this.setState(s => ({ dealStage: order[Math.min(order.indexOf(s.dealStage) + 1, order.length - 1)] }));
+  };
+  distribute = () => this.setState({ distributed: true });
+
+  renderVals() {
+    const KM = window.KrishiMitraDesignSystem_e4a29d || {};
+    const s = this.state;
+    const btn = (label, props) => KM.Button ? React.createElement(KM.Button, props, label) : null;
+    const el = (Comp, props, ...children) => Comp ? React.createElement(Comp, props, ...children) : null;
+    const money = v => '₹' + Math.round(v).toLocaleString('en-IN');
+
+    const memberColumns = [
+      { key: 'member', label: 'Member' }, { key: 'village', label: 'Village' },
+      { key: 'qty', label: 'Qty (qtl)', numeric: true, align: 'right' }, { key: 'grade', label: 'Grade' }, { key: 'assay', label: 'Assay' },
+      { key: 'status', label: 'Status', render: r => el(KM.Badge, { label: r.status, tone: r.tone, size: 'sm', dot: true }) },
+      { key: 'act', label: '', align: 'right', render: () => btn('Open', { size: 'sm', variant: 'secondary' }) },
+    ];
+    const requirementColumns = [
+      { key: 'buyer', label: 'Buyer', render: r => el('span', { style: { display: 'flex', flexDirection: 'column', gap: 3 } }, el('span', null, r.buyer),
+          el('span', { style: { display: 'flex', gap: 4 } }, r.trust.map((t, i) => el(KM.TrustBadge, { key: i, type: t, size: 'sm' })))) },
+      { key: 'price', label: 'Offer', numeric: true, align: 'right', render: r => money(r.price) + ' / qtl' },
+      { key: 'qty', label: 'Qty (qtl)', numeric: true, align: 'right' }, { key: 'distance', label: 'Location' },
+      { key: 'best', label: '', render: r => r.best ? el(KM.Badge, { label: 'Best offer', tone: 'success', size: 'sm' }) : null },
+      { key: 'act', label: '', align: 'right', render: r => btn(s.dealAccepted ? 'View' : 'Accept offer', { size: 'sm', variant: r.best ? 'accent' : 'secondary', onClick: () => this.acceptOffer() }) },
+    ];
+    const payoutColumns = [
+      { key: 'id', label: 'Run' }, { key: 'lot', label: 'Lot' }, { key: 'members', label: 'Beneficiaries' },
+      { key: 'amount', label: 'Amount', numeric: true, align: 'right' },
+      { key: 'state', label: 'State', render: r => el(KM.Badge, { label: r.state, tone: r.tone, size: 'sm', dot: true }) },
+      { key: 'act', label: '', align: 'right', render: r => btn(r.state === 'Ready' ? 'Distribute' : 'View', { size: 'sm', variant: r.state === 'Ready' ? 'accent' : 'secondary' }) },
+    ];
+    const dTotal = this.distributionMembers.reduce((a, m) => a + m.qty, 0);
+    const distributionColumns = [
+      { key: 'member', label: 'Member' },
+      { key: 'qty', label: 'Assayed qty (qtl)', numeric: true, align: 'right' },
+      { key: 'share', label: 'Share', numeric: true, align: 'right', render: r => (r.qty / dTotal * 100).toFixed(1) + '%' },
+      { key: 'amount', label: 'Payout', numeric: true, align: 'right', render: r => money(r.amount) },
+    ];
+
+    const poolStageIndex = s.published ? 3 : 2;
+    const dealLabels = { accepted: 'Order confirmed', escrow: 'Escrow funded', delivery: 'Delivered to gate', released: 'Escrow released to FPO' };
+    const dealOrder = ['accepted', 'escrow', 'delivery', 'released'];
+    const dealTimeline = dealOrder.map((k, i) => ({ title: dealLabels[k], state: i < dealOrder.indexOf(s.dealStage) ? 'done' : i === dealOrder.indexOf(s.dealStage) ? 'current' : 'pending' }));
+    const dealNextLabel = { accepted: 'Fund escrow', escrow: 'Confirm gate weighment', delivery: 'Release escrow to FPO', released: 'Released' }[s.dealStage];
+
+    let poolEmptyTitle = 'No farmer lots yet', poolEmptyDescription = 'Member contributions will appear here once collection opens.';
+    let poolEmptyAction = btn('Notify members', { variant: 'primary', size: 'md' });
+    if (s.poolTab === 'requirement') { poolEmptyTitle = 'No buyer interest yet'; poolEmptyDescription = 'Publish the collective lot to notify verified buyers.'; poolEmptyAction = btn('Go to pool', { variant: 'secondary', size: 'md', onClick: () => this.setState({ poolTab: 'pool' }) }); }
+    if (s.poolTab === 'deal') { poolEmptyTitle = 'No deal yet'; poolEmptyDescription = 'Accept a buyer offer under Buyer requirement to create a deal.'; poolEmptyAction = btn('View buyer requirement', { variant: 'secondary', size: 'md', onClick: () => this.setState({ poolTab: 'requirement' }) }); }
+    if (s.poolTab === 'distribution') { poolEmptyTitle = 'Nothing to distribute yet'; poolEmptyDescription = 'Payout runs appear once escrow is released for a deal.'; poolEmptyAction = btn('View deal', { variant: 'secondary', size: 'md', onClick: () => this.setState({ poolTab: 'deal' }) }); }
+
+    const dashColumns = [
+      { key: 'id', label: 'Pool' }, { key: 'crop', label: 'Crop' },
+      { key: 'qty', label: 'Qty (qtl)', numeric: true, align: 'right' },
+      { key: 'status', label: 'Status', render: r => el(KM.Badge, { label: r.status, tone: r.tone, size: 'sm', dot: true }) },
+      { key: 'act', label: '', align: 'right', render: () => btn('Open', { size: 'sm', variant: 'secondary', onClick: this.goPool }) },
+    ];
+    const dashRows = [
+      { id: 'WP-118', crop: 'Wheat · Lokwan', qty: '137.5', status: 'Collecting', tone: 'info' },
+      { id: 'WP-114', crop: 'Soybean · JS-335', qty: '204.0', status: 'Published', tone: 'warning' },
+      { id: 'WP-109', crop: 'Cotton · Shankar-6', qty: '96.0', status: 'Payout ready', tone: 'success' },
+    ];
+
+    return {
+      showControls: this.props.showStateControls !== false,
+      previewOptions: [{ label: 'Loading', value: 'loading' }, { label: 'Empty', value: 'empty' }, { label: 'Error', value: 'error' }, { label: 'Success', value: 'success' }],
+      navItems: [{ id: 'dashboard', label: 'Dashboard', icon: 'layout-dashboard' }, { id: 'pool', label: 'Pool management', icon: 'layers' }],
+      tab: s.tab, setTab: this.setTab, isDashboard: s.tab === 'dashboard', isPool: s.tab === 'pool',
+      sidebarSections: [{ label: 'Aggregation', items: [{ id: 'dashboard', label: 'Dashboard', icon: 'layout-dashboard' }, { id: 'pool', label: 'Pool management', icon: 'layers', count: 4 }] }],
+      goPool: this.goPool, noop: this.noop,
+
+      dashboardPreview: s.dashboardPreview, setDashboardPreview: this.setDashboardPreview,
+      dashLoading: s.dashboardPreview === 'loading', dashError: s.dashboardPreview === 'error',
+      dashEmpty: s.dashboardPreview === 'empty', dashSuccess: s.dashboardPreview === 'success',
+      dashErrorAction: btn('Retry', { variant: 'secondary', size: 'md', onClick: () => this.setDashboardPreview('success') }),
+      dashEmptyAction: btn('Start a pool', { variant: 'primary', size: 'md', onClick: () => this.setDashboardPreview('success') }),
+      flowSteps: [{ label: 'Farmer lots' }, { label: 'Pool' }, { label: 'Buyer requirement' }, { label: 'Deal' }, { label: 'Pro-rata distribution' }],
+      notifyAction: btn('Notify A. Shinde', { variant: 'secondary', size: 'sm' }),
+      dashColumns, dashRows,
+      buildupData: [{ label: '09', value: 18 }, { label: '10', value: 34 }, { label: '11', value: 22 }, { label: '12', value: 26 }, { label: '13', value: 19 }, { label: '14', value: 18.5 }],
+      priceSeries: [2310, 2350, 2402, 2388, 2455, 2485],
+
+      poolTabs: [{ id: 'farmerlots', label: 'Farmer lots' }, { id: 'pool', label: 'Pool' }, { id: 'requirement', label: 'Buyer requirement' }, { id: 'deal', label: 'Deal' }, { id: 'distribution', label: 'Distribution' }],
+      poolTab: s.poolTab, setPoolTab: this.setPoolTab,
+      isFarmerLotsTab: s.poolTab === 'farmerlots', isPoolTab: s.poolTab === 'pool', isRequirementTab: s.poolTab === 'requirement',
+      isDealTab: s.poolTab === 'deal', isDistributionTab: s.poolTab === 'distribution',
+      poolPreview: s.poolPreview, setPoolPreview: this.setPoolPreview,
+      poolLoading: s.poolPreview === 'loading', poolError: s.poolPreview === 'error',
+      poolEmpty: s.poolPreview === 'empty', poolSuccess: s.poolPreview === 'success',
+      poolErrorAction: btn('Retry', { variant: 'secondary', size: 'md', onClick: () => this.setPoolPreview('success') }),
+      poolEmptyTitle, poolEmptyDescription, poolEmptyAction,
+
+      memberColumns, poolMembers: this.poolMembers,
+      memberFooter: el('span', null, '5 of 24 contributions'),
+
+      poolStageSteps: [{ label: 'Pool opened' }, { label: 'Member lots collected' }, { label: 'Assay & grading' }, { label: 'Published to buyers' }, { label: 'Payout' }],
+      poolStageIndex, buildupData: [{ label: '09', value: 18 }, { label: '10', value: 34 }, { label: '11', value: 22 }, { label: '12', value: 26 }, { label: '13', value: 19 }, { label: '14', value: 18.5 }],
+      published: s.published, notPublished: !s.published, openPublish: this.openPublish,
+
+      requirementColumns, buyerRequirements: this.buyerRequirements,
+
+      dealBuyer: 'Shree Agro Traders', dealSummary: 'Accepted from your published collective lot · Pool WP-118',
+      dealTimeline, dealPrimaryAction: s.dealStage === 'released' ? btn('Released', { variant: 'ghost', size: 'md' }) : btn(dealNextLabel, { variant: 'accent', size: 'md', onClick: this.advanceDeal }),
+
+      payoutColumns, payoutRuns: this.payoutRuns,
+      distributionColumns, distributionRows: this.distributionMembers,
+      distributed: s.distributed,
+      distributePrimaryAction: s.distributed ? btn('Distributed', { variant: 'ghost', size: 'md' }) : btn('Distribute payout', { variant: 'accent', size: 'md', iconLeft: 'indian-rupee', onClick: this.distribute }),
+
+      publishModalOpen: s.publishModalOpen, closePublish: this.closePublish,
+      deliveryOptions: ['Nashik APMC gate', 'FPO warehouse, Ozar'],
+      publishFooter: el(React.Fragment, null,
+        btn('Cancel', { variant: 'secondary', onClick: this.closePublish }),
+        btn('Publish to verified buyers', { variant: 'accent', iconLeft: 'store', onClick: this.doPublish })),
+    };
+  }
+}
+</script>
+</body>
+</html>

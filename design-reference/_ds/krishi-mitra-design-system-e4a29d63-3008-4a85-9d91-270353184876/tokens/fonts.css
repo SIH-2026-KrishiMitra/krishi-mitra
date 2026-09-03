@@ -1,0 +1,10 @@
+/* Webfonts are loaded from Google Fonts. No licensed binaries were provided with the brief;
+   see readme.md > "Font substitutions" — swap these for self-hosted @font-face rules when files arrive. */
+@import url("https://fonts.googleapis.com/css2?family=Familjen+Grotesk:ital,wght@0,400..700;1,400..700&family=Hanken+Grotesk:ital,wght@0,300..800;1,300..800&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+Devanagari:wght@400..700&display=swap");
+
+:root{
+  --font-display:"Familjen Grotesk","Noto Sans Devanagari",system-ui,sans-serif;
+  --font-core:"Hanken Grotesk","Noto Sans Devanagari",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;
+  --font-indic:"Noto Sans Devanagari","Hanken Grotesk",system-ui,sans-serif;
+}

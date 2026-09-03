@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/colors.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/typography.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/radius.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/elevation.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/motion.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/grid.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/semantic.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/tokens/base.css">
+<link rel="stylesheet" href="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/styles.css">
+<script src="https://unpkg.com/lucide@0.544.0/dist/umd/lucide.min.js"></script>
+<script src="_ds/krishi-mitra-design-system-e4a29d63-3008-4a85-9d91-270353184876/_ds_bundle.js"></script>
+<style>
+body{margin:0}
+a{color:var(--green-700)}
+a:hover{color:var(--green-800)}
+</style>
+</helmet>
+<div data-screen-label="Buyer console" style="min-height:100vh;display:flex;flex-direction:column;background:var(--surface-canvas);font-family:var(--font-body,inherit)">
+
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TopNav" brand="Krishi Mitra" role="buyer" active-item="{{ tab }}" items="{{ navItems }}" on-select="{{ setTab }}" hint-size="100%,64px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.OfflineBar" state="synced" hint-size="100%,32px"></x-import>
+
+<div style="flex:1;display:flex;min-height:0">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Sidebar" active-item="{{ tab }}" on-select="{{ setTab }}" sections="{{ sidebarSections }}" hint-size="248px,100%"></x-import>
+
+<main style="flex:1;min-width:0;padding:24px 40px 48px;display:flex;flex-direction:column;gap:20px;max-width:1240px">
+
+<sc-if value="{{ isDashboard }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="Buyer dashboard" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div><h1 style="font-size:30px;margin:0">Dashboard</h1><p style="font-size:14px;color:var(--text-secondary);margin-top:4px">Shree Agro Traders · Nashik</p></div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="accent" size="md" icon-left="store" on-click="{{ goMatched }}" hint-size="auto,44px">View matched lots</x-import>
+</div>
+
+<sc-if value="{{ showControls }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.SegmentedControl" options="{{ previewOptions }}" value="{{ dashboardPreview }}" on-change="{{ setDashboardPreview }}" size="sm" hint-size="auto,32px"></x-import>
+</sc-if>
+
+<sc-if value="{{ dashLoading }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Skeleton" height="100" width="100%" hint-size="100%,100px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Skeleton" lines="5" height="60" width="100%" hint-size="100%,320px"></x-import>
+</sc-if>
+
+<sc-if value="{{ dashError }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="error" title="Could not load your dashboard" description="Check your connection and try again." action="{{ dashErrorAction }}" hint-size="100%,220px"></x-import>
+</sc-if>
+
+<sc-if value="{{ dashEmpty }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="empty" title="No active requirement" description="Post a produce requirement to start matching with farmer and FPO lots." action="{{ dashEmptyAction }}" hint-size="100%,240px"></x-import>
+</sc-if>
+
+<sc-if value="{{ dashSuccess }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Matched lots" value="{{ matchedCount }}" caption="2 new today" icon="store" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Offers pending" value="{{ offeredCount }}" caption="awaiting seller" icon="gavel" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Escrow held" value="₹1,25,600" tone="accent" icon="lock" hint-size="100%,110px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Orders in delivery" value="{{ deliveryCount }}" caption="1 delayed" icon="truck" hint-size="100%,110px"></x-import>
+</div>
+
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,180px">
+<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16">
+<div>
+<div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);font-weight:600">Your requirement</div>
+<div style="font-size:20px;font-weight:600;margin-top:4px">Wheat · Lokwan · 200 quintal</div>
+<div style="font-size:13px;color:var(--text-secondary);margin-top:4px">Target ₹2,470 / quintal · within 120 km of Nashik</div>
+</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="ghost" size="sm" on-click="{{ noop }}" hint-size="auto,32px">Edit requirement</x-import>
+</div>
+<div style="margin-top:16px"><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Stepper" steps="{{ flowSteps }}" current="1" hint-size="100%,48px"></x-import></div>
+</x-import>
+
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Alert" tone="info" title="3 lots matched your requirement" action="{{ viewMatchesAction }}" hint-size="100%,70px">Ramesh Patil, Latur Kisan FPO and two others listed wheat within your target range this week.</x-import>
+
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.DataTable" caption="Recent activity" columns="{{ dashColumns }}" rows="{{ dashRows }}" hint-size="100%,320px"></x-import>
+
+<div style="display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,220px">
+<div style="font-size:15px;font-weight:600;margin-bottom:2px">Spend by crop</div>
+<div style="font-size:13px;color:var(--text-secondary);margin-bottom:10px">This season · ₹ lakh</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.BarChart" data="{{ spendData }}" height="160" hint-size="100%,160px"></x-import>
+</x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,220px">
+<div style="font-size:15px;font-weight:600;margin-bottom:2px">Wheat · Lokwan reference price</div>
+<div style="font-size:13px;color:var(--text-secondary);margin-bottom:10px">Nashik APMC</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.PriceChart" series="{{ priceSeries }}" msp="2275" height="140" hint-size="100%,140px"></x-import>
+</x-import>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+<sc-if value="{{ isFind }}" hint-placeholder-val="{{ false }}">
+<div data-screen-label="Find produce" style="display:flex;flex-direction:column;gap:20px">
+<div style="display:flex;align-items:flex-end;justify-content:space-between;gap:24px">
+<div><h1 style="font-size:30px;margin:0">Find produce</h1><p style="font-size:14px;color:var(--text-secondary);margin-top:4px">Requirement → matched lot → offer → order → payment → delivery</p></div>
+<div style="display:flex;gap:10px;flex-shrink:0">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Select" options="{{ cropOptions }}" value="All crops" style="width:170px;flex-shrink:0" hint-size="170px,44px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Select" options="{{ distanceOptions }}" value="Within 120 km" style="width:190px;flex-shrink:0" hint-size="190px,44px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Button" variant="secondary" size="md" icon-left="sliders-horizontal" hint-size="auto,44px">Filters</x-import>
+</div>
+</div>
+
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Tabs" items="{{ findTabs }}" active-item="{{ findTab }}" on-select="{{ setFindTab }}" hint-size="100%,44px"></x-import>
+
+<sc-if value="{{ showControls }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.SegmentedControl" options="{{ previewOptions }}" value="{{ findPreview }}" on-change="{{ setFindPreview }}" size="sm" hint-size="auto,32px"></x-import>
+</sc-if>
+
+<sc-if value="{{ offerPlacedAlert }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Alert" tone="success" title="Offer sent" on-dismiss="{{ dismissOfferAlert }}" hint-size="100%,60px">Your offer was sent to the seller. Escrow will be requested on acceptance.</x-import>
+</sc-if>
+
+<sc-if value="{{ findLoading }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Skeleton" lines="6" height="60" width="100%" hint-size="100%,400px"></x-import>
+</sc-if>
+<sc-if value="{{ findError }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="error" title="Could not load lots" description="Check your connection and try again." action="{{ findErrorAction }}" hint-size="100%,220px"></x-import>
+</sc-if>
+<sc-if value="{{ findEmpty }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StateView" kind="empty" title="{{ findEmptyTitle }}" description="{{ findEmptyDescription }}" action="{{ findEmptyAction }}" hint-size="100%,240px"></x-import>
+</sc-if>
+
+<sc-if value="{{ findSuccess }}" hint-placeholder-val="{{ true }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.DataTable" dense="{{ true }}" columns="{{ lotColumns }}" rows="{{ visibleLots }}" on-row-click="{{ onRowClick }}" footer="{{ tableFooter }}" hint-size="100%,320px"></x-import>
+
+<sc-if value="{{ hasSelectedLot }}" hint-placeholder-val="{{ true }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Card" padding="md" hint-size="100%,420px">
+<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+<div>
+<div style="font-size:20px;font-weight:600">{{ selCropLabel }} <span style="font-family:var(--font-mono);font-size:14px;font-weight:400;color:var(--text-muted)">{{ selId }}</span></div>
+<div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Badge" label="{{ selStatusLabel }}" tone="{{ selStatusTone }}" dot="{{ true }}" hint-size="auto,24px"></x-import>
+<sc-for list="{{ selTrust }}" as="t" hint-placeholder-count="2">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.TrustBadge" type="{{ t }}" size="sm" hint-size="auto,22px"></x-import>
+</sc-for>
+</div>
+</div>
+<div>{{ selPrimaryAction }}</div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:18px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Ask price" value="{{ selAskFmt }}" unit="/ qtl" size="sm" hint-size="100%,90px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Quantity" value="{{ selQtyFmt }}" unit="quintal" size="sm" hint-size="100%,90px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Lot value" value="{{ selValueFmt }}" tone="accent" icon="indian-rupee" size="sm" hint-size="100%,90px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.StatCard" label="Mandi" value="{{ selMandi }}" icon="map-pin" size="sm" hint-size="100%,90px"></x-import>
+</div>
+
+<div style="margin-top:18px"><x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Timeline" items="{{ selTimeline }}" hint-size="100%,140px"></x-import></div>
+</x-import>
+</sc-if>
+</sc-if>
+</div>
+</sc-if>
+
+</main>
+</div>
+
+<sc-if value="{{ offerModalOpen }}">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Modal" open="{{ true }}" title="{{ offerModalTitle }}" subtitle="{{ offerModalSubtitle }}" on-close="{{ closeOfferModal }}" footer="{{ offerModalFooter }}" width="480" hint-size="480px,420px">
+<div style="display:flex;flex-direction:column;gap:16px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Input" label="Your offer" prefix="₹" suffix="/ qtl" numeric="{{ true }}" default-value="{{ offerModalAsk }}" size="md" hint="{{ offerModalHint }}" hint-size="100%,66px"></x-import>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Input" label="Quantity" suffix="quintal" numeric="{{ true }}" default-value="{{ offerModalQty }}" size="md" hint="Full lot only" hint-size="100%,66px"></x-import>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;padding:14px 16px;background:var(--surface-accent-soft);border:1px solid var(--amber-200);border-radius:12px">
+<span style="font-size:13px;color:var(--amber-800);font-weight:600">Escrow to be funded on acceptance</span>
+<span style="font-family:var(--font-display);font-size:24px;font-weight:600;font-variant-numeric:tabular-nums">{{ offerModalValue }}</span>
+</div>
+<x-import component-from-global-scope="KrishiMitraDesignSystem_e4a29d.Alert" tone="info" title="Escrow protected" hint-size="100%,60px">Funds are debited only when the seller accepts, and released after gate weighment.</x-import>
+</div>
+</x-import>
+</sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;initialTab&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;dashboard&quot;,&quot;options&quot;:[&quot;dashboard&quot;,&quot;find&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;showStateControls&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tab: props.initialTab || 'dashboard', dashboardPreview: 'success',
+      findTab: 'matched', findPreview: 'success', selectedId: null,
+      stageOverrides: {}, offerModalOpen: false, offerModalLotId: null, offerPlacedAlert: false,
+    };
+  }
+
+  lots = [
+    { id:'KM-48213', crop:'Wheat', variety:'Lokwan', seller:'Ramesh Patil', mandi:'Nashik APMC', qty:40, ask:2485, trend:[2310,2350,2402,2388,2455,2485], dir:'up', stage:'matched', trust:['verified-farmer','assayed'] },
+    { id:'KM-48208', crop:'Soybean', variety:'JS-335', seller:'Latur Kisan FPO', mandi:'Latur', qty:180, ask:4120, trend:[4260,4210,4180,4150,4130,4120], dir:'down', stage:'matched', trust:['fpo'] },
+    { id:'KM-48191', crop:'Cotton', variety:'Shankar-6', seller:'S. Deshmukh', mandi:'Akola', qty:12.5, ask:7340, trend:[7300,7320,7310,7335,7340,7340], dir:'flat', stage:'market', trust:['verified-farmer'] },
+    { id:'KM-48160', crop:'Wheat', variety:'Sharbati', seller:'K. Jadhav', mandi:'Pimpalgaon', qty:26, ask:2610, trend:[2560,2580,2590,2600,2605,2610], dir:'up', stage:'offered', trust:['verified-farmer'] },
+    { id:'KM-48141', crop:'Soybean', variety:'JS-335', seller:'Latur Kisan FPO', mandi:'Latur', qty:180, ask:4120, trend:[4120,4120,4120,4120,4120,4120], dir:'flat', stage:'order', trust:['fpo','escrow'] },
+    { id:'KM-48120', crop:'Cotton', variety:'Shankar-6', seller:'S. Deshmukh', mandi:'Akola', qty:12.5, ask:7340, trend:[7340,7340,7340,7340,7340,7340], dir:'flat', stage:'payment', trust:['verified-farmer','escrow'] },
+    { id:'KM-48099', crop:'Gram', variety:'Vijay', seller:'Ambad Growers', mandi:'Jalna', qty:64, ask:5410, trend:[5300,5340,5380,5390,5400,5410], dir:'up', stage:'delivery', trust:['fpo','assayed'] },
+    { id:'KM-48042', crop:'Wheat', variety:'Sharbati', seller:'K. Jadhav', mandi:'Pimpalgaon', qty:15, ask:6050, trend:[6050,6050,6050,6050,6050,6050], dir:'flat', stage:'disputed', trust:['verified-farmer'] },
+    { id:'KM-47950', crop:'Wheat', variety:'Lokwan', seller:'Ozar FPO', mandi:'Nashik APMC', qty:32, ask:2455, trend:[2455,2455,2455,2455,2455,2455], dir:'flat', stage:'completed', trust:['fpo','escrow'] },
+  ];
+  stageInfo = {
+    matched:{label:'Matched',tone:'info'}, market:{label:'Open',tone:'success'}, offered:{label:'Offer sent',tone:'warning'},
+    rejected:{label:'Offer rejected',tone:'danger'}, order:{label:'Order placed',tone:'info'}, payment:{label:'Escrow held',tone:'info'},
+    delivery:{label:'In delivery',tone:'warning'}, disputed:{label:'Disputed',tone:'danger'}, completed:{label:'Completed',tone:'success'},
+  };
+  stageOrder = ['matched','offered','order','payment','delivery','completed'];
+  stageLabels = ['Requirement matched','Offer sent','Order confirmed','Escrow funded','Delivery to gate','Payment released to seller'];
+
+  effStage(l) { return this.state.stageOverrides[l.id] || l.stage; }
+  actionForStage(stage) {
+    return ({
+      matched:{label:'View & offer',variant:'accent'}, market:{label:'View lot',variant:'secondary'},
+      offered:{label:'View offer',variant:'secondary'}, rejected:{label:'Re-offer',variant:'secondary'},
+      order:{label:'Fund escrow',variant:'accent'}, payment:{label:'Track delivery',variant:'secondary'},
+      delivery:{label:'Confirm receipt',variant:'primary'}, disputed:{label:'View dispute',variant:'danger'},
+      completed:{label:'Receipt',variant:'ghost'},
+    })[stage] || { label:'View', variant:'secondary' };
+  }
+  timelineFor(stage) {
+    if (stage === 'market') return [{ title:'Open on marketplace', state:'current' }, { title:'Not yet part of your requirement match', state:'pending' }];
+    if (stage === 'rejected') return [{ title:'Requirement matched', state:'done' }, { title:'Offer sent', state:'done' }, { title:'Offer rejected by seller', state:'failed' }];
+    if (stage === 'disputed') return [{ title:'Order confirmed', state:'done' }, { title:'Escrow funded', state:'done' }, { title:'Weight mismatch at gate', state:'failed' }, { title:'Dispute under review', state:'current' }];
+    const idx = this.stageOrder.indexOf(stage);
+    return this.stageLabels.map((l, i) => ({ title: l, state: i < idx ? 'done' : i === idx ? 'current' : 'pending' }));
+  }
+
+  componentDidMount() {
+    if (!window.KrishiMitraDesignSystem_e4a29d) {
+      this._poll = setInterval(() => { if (window.KrishiMitraDesignSystem_e4a29d) { clearInterval(this._poll); this.forceUpdate(); } }, 60);
+    }
+  }
+  componentWillUnmount() { if (this._poll) clearInterval(this._poll); }
+
+  setTab = v => this.setState({ tab: v });
+  goMatched = () => this.setState({ tab: 'find', findTab: 'matched' });
+  setDashboardPreview = v => this.setState({ dashboardPreview: v });
+  setFindTab = v => this.setState({ findTab: v });
+  setFindPreview = v => this.setState({ findPreview: v });
+  selectLot = id => this.setState({ selectedId: id });
+  onRowClick = row => this.setState({ selectedId: row.id });
+  noop = () => {};
+  dismissOfferAlert = () => this.setState({ offerPlacedAlert: false });
+
+  openOfferModal = id => this.setState({ offerModalOpen: true, offerModalLotId: id });
+  closeOfferModal = () => this.setState({ offerModalOpen: false, offerModalLotId: null });
+  placeOffer = () => {
+    const id = this.state.offerModalLotId;
+    this.setState(s => ({ offerModalOpen: false, offerModalLotId: null, offerPlacedAlert: true, stageOverrides: { ...s.stageOverrides, [id]: 'offered' } }));
+  };
+  fundEscrow = id => this.setState(s => ({ stageOverrides: { ...s.stageOverrides, [id]: 'payment' } }));
+  confirmReceipt = id => this.setState(s => ({ stageOverrides: { ...s.stageOverrides, [id]: 'completed' } }));
+
+  primaryHandlerFor(stage, id) {
+    if (stage === 'matched' || stage === 'market') return () => this.openOfferModal(id);
+    if (stage === 'order') return () => this.fundEscrow(id);
+    if (stage === 'delivery') return () => this.confirmReceipt(id);
+    return this.noop;
+  }
+
+  renderVals() {
+    const KM = window.KrishiMitraDesignSystem_e4a29d || {};
+    const s = this.state;
+    const btn = (label, props) => KM.Button ? React.createElement(KM.Button, props, label) : null;
+    const el = (Comp, props, ...children) => Comp ? React.createElement(Comp, props, ...children) : null;
+    const money = v => '₹' + Math.round(v).toLocaleString('en-IN');
+
+    const withMeta = this.lots.map(l => ({ ...l, stageNow: this.effStage(l), valueFmt: money(l.qty * l.ask) }));
+
+    const lotColumns = [
+      { key: 'id', label: 'Lot', render: r => el('span', { style: { fontFamily: 'var(--font-mono)', fontSize: 12 } }, r.id) },
+      { key: 'crop', label: 'Crop', wrap: true, render: r => r.crop + ' · ' + r.variety },
+      { key: 'seller', label: 'Seller', render: r => el('span', { style: { display: 'flex', flexDirection: 'column', gap: 3 } },
+          el('span', null, r.seller),
+          el('span', { style: { display: 'flex', gap: 4 } }, r.trust.slice(0, 2).map((t, i) => el(KM.TrustBadge, { key: i, type: t, size: 'sm' })))) },
+      { key: 'mandi', label: 'Mandi' },
+      { key: 'qty', label: 'Qty (qtl)', numeric: true, align: 'right', render: r => r.qty.toLocaleString('en-IN') },
+      { key: 'ask', label: 'Ask', numeric: true, align: 'right', render: r => money(r.ask) },
+      { key: 'trend', label: '7 day', render: r => el(KM.Sparkline, { series: r.trend, direction: r.dir }) },
+      { key: 'status', label: 'Status', render: r => el(KM.Badge, { label: this.stageInfo[r.stageNow].label, tone: this.stageInfo[r.stageNow].tone, size: 'sm' }) },
+      { key: 'act', label: '', align: 'right', render: r => btn(this.actionForStage(r.stageNow).label, { size: 'sm', variant: this.actionForStage(r.stageNow).variant, onClick: e => { e.stopPropagation(); this.selectLot(r.id); } }) },
+    ];
+
+    const tabFilter = {
+      matched: l => l.stageNow === 'matched',
+      market: l => l.stageNow === 'matched' || l.stageNow === 'market',
+      offers: l => l.stageNow === 'offered' || l.stageNow === 'rejected',
+      orders: l => ['order', 'payment', 'delivery', 'disputed', 'completed'].includes(l.stageNow),
+    }[s.findTab];
+    const visibleLots = withMeta.filter(tabFilter);
+    const selectedLot = visibleLots.find(l => l.id === s.selectedId) || visibleLots[0];
+
+    const emptyCopy = {
+      matched: ['No lots matched yet', 'Widen your requirement radius or target price to see more matches.'],
+      market: ['No lots found', 'Try a different crop or distance filter.'],
+      offers: ['No offers sent yet', 'Offers you send from a matched lot appear here.'],
+      orders: ['No orders yet', 'Orders appear here once a seller accepts your offer.'],
+    }[s.findTab];
+
+    const dashRows = withMeta.slice(0, 5);
+
+    let offerModalLot = withMeta.find(l => l.id === s.offerModalLotId);
+
+    return {
+      showControls: this.props.showStateControls !== false,
+      previewOptions: [{ label: 'Loading', value: 'loading' }, { label: 'Empty', value: 'empty' }, { label: 'Error', value: 'error' }, { label: 'Success', value: 'success' }],
+      navItems: [{ id: 'dashboard', label: 'Dashboard', icon: 'layout-dashboard' }, { id: 'find', label: 'Find produce', icon: 'store' }],
+      tab: s.tab, setTab: this.setTab, isDashboard: s.tab === 'dashboard', isFind: s.tab === 'find',
+      sidebarSections: [{ label: 'Trade', items: [{ id: 'dashboard', label: 'Dashboard', icon: 'layout-dashboard' }, { id: 'find', label: 'Find produce', icon: 'store', count: visibleLots.length }] }],
+      goMatched: this.goMatched, noop: this.noop,
+
+      dashboardPreview: s.dashboardPreview, setDashboardPreview: this.setDashboardPreview,
+      dashLoading: s.dashboardPreview === 'loading', dashError: s.dashboardPreview === 'error',
+      dashEmpty: s.dashboardPreview === 'empty', dashSuccess: s.dashboardPreview === 'success',
+      dashErrorAction: btn('Retry', { variant: 'secondary', size: 'md', onClick: () => this.setDashboardPreview('success') }),
+      dashEmptyAction: btn('Post a requirement', { variant: 'primary', size: 'md', onClick: () => this.setDashboardPreview('success') }),
+      matchedCount: withMeta.filter(l => l.stageNow === 'matched').length,
+      offeredCount: withMeta.filter(l => l.stageNow === 'offered').length,
+      deliveryCount: withMeta.filter(l => l.stageNow === 'delivery').length,
+      flowSteps: [{ label: 'Requirement' }, { label: 'Matched lot' }, { label: 'Offer' }, { label: 'Order' }, { label: 'Payment' }, { label: 'Delivery' }],
+      viewMatchesAction: btn('View matches', { variant: 'secondary', size: 'sm', onClick: this.goMatched }),
+      dashColumns: lotColumns, dashRows,
+      spendData: [{ label: 'Wheat', value: 8.4 }, { label: 'Soybean', value: 6.1 }, { label: 'Cotton', value: 3.2 }, { label: 'Gram', value: 2.6 }],
+      priceSeries: [2310, 2350, 2402, 2388, 2455, 2485],
+
+      findTabs: [{ id: 'matched', label: 'Matched', count: withMeta.filter(l => l.stageNow === 'matched').length },
+        { id: 'market', label: 'Open market' }, { id: 'offers', label: 'My offers' }, { id: 'orders', label: 'Orders' }],
+      findTab: s.findTab, setFindTab: this.setFindTab,
+      cropOptions: ['All crops', 'Wheat', 'Soybean', 'Cotton', 'Gram'], distanceOptions: ['Within 60 km', 'Within 120 km', 'Any distance'],
+      findPreview: s.findPreview, setFindPreview: this.setFindPreview,
+      findLoading: s.findPreview === 'loading', findError: s.findPreview === 'error',
+      findEmpty: s.findPreview === 'empty', findSuccess: s.findPreview === 'success',
+      findErrorAction: btn('Retry', { variant: 'secondary', size: 'md', onClick: () => this.setFindPreview('success') }),
+      findEmptyTitle: emptyCopy[0], findEmptyDescription: emptyCopy[1],
+      findEmptyAction: btn('Browse open market', { variant: 'secondary', size: 'md', onClick: () => this.setState({ findTab: 'market' }) }),
+      offerPlacedAlert: s.offerPlacedAlert, dismissOfferAlert: this.dismissOfferAlert,
+      lotColumns, visibleLots, onRowClick: this.onRowClick,
+      tableFooter: el('span', null, 'Showing ' + visibleLots.length + ' of ' + withMeta.length + ' lots'),
+
+      hasSelectedLot: !!selectedLot,
+      selCropLabel: selectedLot ? selectedLot.crop + ' · ' + selectedLot.variety : '',
+      selId: selectedLot ? selectedLot.id : '',
+      selStatusLabel: selectedLot ? this.stageInfo[selectedLot.stageNow].label : '',
+      selStatusTone: selectedLot ? this.stageInfo[selectedLot.stageNow].tone : 'neutral',
+      selTrust: selectedLot ? selectedLot.trust : [],
+      selAskFmt: selectedLot ? money(selectedLot.ask) : '', selQtyFmt: selectedLot ? selectedLot.qty.toLocaleString('en-IN') : '',
+      selValueFmt: selectedLot ? selectedLot.valueFmt : '', selMandi: selectedLot ? selectedLot.mandi : '',
+      selTimeline: selectedLot ? this.timelineFor(selectedLot.stageNow) : [],
+      selPrimaryAction: selectedLot ? btn(this.actionForStage(selectedLot.stageNow).label, { variant: this.actionForStage(selectedLot.stageNow).variant, size: 'md', onClick: this.primaryHandlerFor(selectedLot.stageNow, selectedLot.id) }) : null,
+
+      offerModalOpen: s.offerModalOpen,
+      offerModalTitle: offerModalLot ? 'Place offer · ' + offerModalLot.id : '',
+      offerModalSubtitle: offerModalLot ? offerModalLot.crop + ' ' + offerModalLot.variety + ' · ' + offerModalLot.qty + ' quintal · ' + offerModalLot.mandi : '',
+      offerModalAsk: offerModalLot ? String(offerModalLot.ask) : '', offerModalQty: offerModalLot ? String(offerModalLot.qty) : '',
+      offerModalHint: offerModalLot ? 'Ask is ' + money(offerModalLot.ask) : '',
+      offerModalValue: offerModalLot ? offerModalLot.valueFmt : '', closeOfferModal: this.closeOfferModal,
+      offerModalFooter: el(React.Fragment, null,
+        btn('Cancel', { variant: 'secondary', onClick: this.closeOfferModal }),
+        btn('Place offer and reserve escrow', { variant: 'accent', iconLeft: 'lock', onClick: this.placeOffer })),
+    };
+  }
+}
+</script>
+</body>
+</html>

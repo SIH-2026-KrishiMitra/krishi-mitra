@@ -1,0 +1,16 @@
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--surface-canvas);color:var(--text-primary);font-family:var(--font-core);font-size:var(--text-base);line-height:var(--lh-normal);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:var(--fw-semibold);letter-spacing:var(--ls-display);line-height:var(--lh-snug);margin:0}
+p{margin:0}
+a{color:var(--text-link);text-decoration:none;border-bottom:1px solid color-mix(in oklab,var(--text-link) 30%,transparent);transition:color var(--dur-fast) var(--ease-standard)}
+a:hover{color:var(--text-link-hover);border-bottom-color:var(--text-link-hover)}
+button{font-family:inherit}
+[data-numeric],.km-numeric{font-variant-numeric:tabular-nums lining-nums;font-feature-settings:var(--numeric-features)}
+:focus-visible{outline:var(--border-focus) solid var(--green-600);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+@keyframes km-spin{to{transform:rotate(360deg)}}
+@keyframes km-shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
+@keyframes km-fade{from{opacity:0}to{opacity:1}}
+@keyframes km-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes km-sheet{from{transform:translateY(100%)}to{transform:none}}

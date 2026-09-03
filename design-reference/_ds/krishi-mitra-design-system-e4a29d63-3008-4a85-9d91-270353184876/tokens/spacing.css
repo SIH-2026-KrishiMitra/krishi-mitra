@@ -1,0 +1,22 @@
+:root{
+  --space-0:0px;
+  --space-1:2px;
+  --space-2:4px;
+  --space-3:6px;
+  --space-4:8px;
+  --space-5:12px;
+  --space-6:16px;
+  --space-7:20px;
+  --space-8:24px;
+  --space-9:32px;
+  --space-10:40px;
+  --space-11:48px;
+  --space-12:64px;
+  --space-13:80px;
+  --space-14:96px;
+
+  --tap-min:48px;          /* farmer-facing minimum hit target */
+  --tap-comfortable:56px;  /* primary CTA height on mobile */
+  --field-height:52px;
+  --field-height-desktop:44px;
+}

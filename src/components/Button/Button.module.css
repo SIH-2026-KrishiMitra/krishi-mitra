@@ -1,0 +1,106 @@
+.base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-core);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-tight);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    transform var(--dur-instant) var(--ease-standard);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.base:active:not(:disabled) {
+  transform: scale(var(--press-scale));
+}
+
+.base:focus-visible {
+  outline: var(--border-focus) solid var(--green-600);
+  outline-offset: 2px;
+}
+
+/* Sizes */
+.sm {
+  height: 40px;
+  padding: 0 var(--space-5);
+  font-size: var(--text-sm);
+}
+
+.md {
+  height: var(--tap-min);
+  padding: 0 var(--space-7);
+  font-size: var(--text-base);
+}
+
+.lg {
+  height: var(--tap-comfortable);
+  padding: 0 var(--space-9);
+  font-size: var(--text-base);
+  width: 100%;
+}
+
+/* Primary */
+.primary {
+  background: var(--action-primary);
+  color: var(--action-primary-text);
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--action-primary-hover);
+}
+
+.primary:active:not(:disabled) {
+  background: var(--action-primary-active);
+}
+
+/* Secondary */
+.secondary {
+  background: var(--action-secondary);
+  color: var(--text-primary);
+  border-color: var(--action-secondary-border);
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--action-secondary-hover);
+}
+
+/* Accent */
+.accent {
+  background: var(--action-accent);
+  color: var(--action-accent-text);
+}
+
+.accent:hover:not(:disabled) {
+  background: var(--action-accent-hover);
+}
+
+/* Danger */
+.danger {
+  background: var(--action-danger);
+  color: var(--white);
+}
+
+.danger:hover:not(:disabled) {
+  background: var(--clay-700);
+}
+
+.danger:active:not(:disabled) {
+  background: var(--clay-800);
+}
+
+/* Disabled — covers all variants */
+.base:disabled {
+  background: var(--action-disabled) !important;
+  color: var(--action-disabled-text) !important;
+  border-color: transparent !important;
+  cursor: not-allowed;
+  transform: none;
+}
