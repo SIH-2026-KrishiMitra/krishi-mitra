@@ -10,6 +10,7 @@ import type { UserRole } from './context/AuthContext'
 import LoginPage from './screens/auth/LoginPage'
 import RegisterPage from './screens/auth/RegisterPage'
 import ForgotPasswordPage from './screens/auth/ForgotPasswordPage'
+import AuthCallbackPage from './screens/auth/AuthCallbackPage'
 
 // Farmer screens
 import FarmerHome from './screens/farmer/FarmerHome'
@@ -151,6 +152,9 @@ export default function App() {
           <Route path="/login" element={<GuestGuard><LoginPage /></GuestGuard>} />
           <Route path="/register" element={<GuestGuard><RegisterPage /></GuestGuard>} />
           <Route path="/forgot-password" element={<GuestGuard><ForgotPasswordPage /></GuestGuard>} />
+
+          {/* OAuth callback — no guard, handles session establishment after Google sign-in */}
+          <Route path="/auth/callback" element={<AuthCallbackPage />} />
 
           {/* ── Farmer routes ─────────────────────────────────────────── */}
           <Route path="/farmer/home" element={

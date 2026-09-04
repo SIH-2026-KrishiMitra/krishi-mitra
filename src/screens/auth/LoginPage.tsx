@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import {
   Mail, Phone, ChevronRight, Shield, RefreshCw, CheckCircle,
@@ -19,7 +19,7 @@ const ROLES: Array<{ id: Role; title: string; subtitle: string }> = [
 
 export default function LoginPage() {
   const navigate = useNavigate()
-  const { signInWithEmail, signInWithGoogle, signInWithPhone, verifyOtp } = useAuth()
+  const { signInWithEmail, signInWithGoogle, signInWithPhone, verifyOtp, profile } = useAuth()
 
   const [role, setRole] = useState<Role>('farmer')
   const [method, setMethod] = useState<Method>('email')
@@ -128,13 +128,15 @@ export default function LoginPage() {
     handleSendOtp()
   }
 
-  // Navigate after success state shows
-  if (step === 'success') {
-    setTimeout(() => {
-      if (role === 'buyer') navigate('/buyer/home')
-      else navigate('/farmer/home')
-    }, 900)
-  }
+  // Navigate to the correct dashboard once the Supabase profile has loaded
+  useEffect(() => {
+    if (step !== 'success' || !profile) return
+    const dest =
+      profile.role === 'buyer' ? '/buyer/home' :
+      profile.role === 'admin' ? '/admin/home' :
+      '/farmer/home'
+    navigate(dest, { replace: true })
+  }, [step, profile, navigate])
 
   return (
     <div className={styles.page}>
