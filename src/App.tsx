@@ -21,8 +21,14 @@ import FarmerMoney from './screens/farmer/FarmerMoney'
 import FarmerHelp from './screens/farmer/FarmerHelp'
 import FarmerProfile from './screens/farmer/FarmerProfile'
 
-// Buyer screens (stub pages until M4)
+// Buyer screens
 import BuyerHome from './screens/buyer/BuyerHome'
+import BuyerMarketplace from './screens/buyer/BuyerMarketplace'
+import BuyerOffers from './screens/buyer/BuyerOffers'
+import BuyerDeals from './screens/buyer/BuyerDeals'
+import BuyerPayments from './screens/buyer/BuyerPayments'
+import BuyerProfile from './screens/buyer/BuyerProfile'
+import { BuyerProvider } from './context/BuyerContext'
 
 // Admin screens (stub pages until M5)
 import AdminHome from './screens/admin/AdminHome'
@@ -97,11 +103,13 @@ function RootRedirect() {
 // ─── Farmer area (wraps AppProvider for farmer-specific state) ────────────────
 
 function FarmerArea({ children }: { children: ReactNode }) {
-  return (
-    <AppProvider>
-      {children}
-    </AppProvider>
-  )
+  return <AppProvider>{children}</AppProvider>
+}
+
+// ─── Buyer area (wraps BuyerProvider for buyer-specific state) ────────────────
+
+function BuyerArea({ children }: { children: ReactNode }) {
+  return <BuyerProvider>{children}</BuyerProvider>
 }
 
 // ─── App ──────────────────────────────────────────────────────────────────────
@@ -167,7 +175,22 @@ export default function App() {
 
           {/* ── Buyer routes ──────────────────────────────────────────── */}
           <Route path="/buyer/home" element={
-            <RoleGuard role="buyer"><BuyerHome /></RoleGuard>
+            <RoleGuard role="buyer"><BuyerArea><BuyerHome /></BuyerArea></RoleGuard>
+          } />
+          <Route path="/buyer/marketplace" element={
+            <RoleGuard role="buyer"><BuyerArea><BuyerMarketplace /></BuyerArea></RoleGuard>
+          } />
+          <Route path="/buyer/offers" element={
+            <RoleGuard role="buyer"><BuyerArea><BuyerOffers /></BuyerArea></RoleGuard>
+          } />
+          <Route path="/buyer/deals" element={
+            <RoleGuard role="buyer"><BuyerArea><BuyerDeals /></BuyerArea></RoleGuard>
+          } />
+          <Route path="/buyer/payments" element={
+            <RoleGuard role="buyer"><BuyerArea><BuyerPayments /></BuyerArea></RoleGuard>
+          } />
+          <Route path="/buyer/profile" element={
+            <RoleGuard role="buyer"><BuyerArea><BuyerProfile /></BuyerArea></RoleGuard>
           } />
           <Route path="/buyer/*" element={<Navigate to="/buyer/home" replace />} />
 

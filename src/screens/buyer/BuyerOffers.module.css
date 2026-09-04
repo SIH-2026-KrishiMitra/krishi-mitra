@@ -1,0 +1,61 @@
+.page { padding: var(--space-8) var(--space-8) var(--space-14); display: flex; flex-direction: column; gap: var(--space-6); }
+@media (max-width: 768px) { .page { padding: var(--space-6) var(--space-5) var(--space-14); } }
+.pageHeader { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
+.breadcrumb { font-size: var(--text-xs); color: var(--text-muted); font-weight: var(--fw-semibold); letter-spacing: var(--ls-label); text-transform: uppercase; margin-bottom: var(--space-2); }
+.title { font-size: var(--text-3xl); font-weight: var(--fw-semibold); color: var(--text-primary); letter-spacing: var(--ls-display); }
+.subtitle { font-size: var(--text-sm); color: var(--text-muted); margin-top: var(--space-1); }
+
+.contentGrid { display: grid; grid-template-columns: 1fr; gap: var(--space-6); }
+@media (min-width: 900px) { .contentGrid { grid-template-columns: 1fr 400px; } }
+
+/* ─── Offer list ── */
+.offerList { display: flex; flex-direction: column; gap: var(--space-3); }
+.offerCard { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: var(--space-5); cursor: pointer; transition: border-color 0.15s; }
+.offerCard:hover { border-color: var(--indigo-300, #a5b4fc); }
+.offerCardActive { border-color: var(--indigo-500, #6366f1); box-shadow: 0 0 0 2px var(--indigo-50, #eef2ff); }
+.offerCardTop { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); margin-bottom: var(--space-3); }
+.offerCrop { font-size: var(--text-base); font-weight: var(--fw-semibold); color: var(--text-primary); }
+.offerMandi { font-size: var(--text-xs); color: var(--text-muted); margin-top: 2px; }
+.offerCardBot { display: flex; align-items: center; gap: var(--space-4); }
+.offerPrice { font-size: var(--text-base); font-weight: var(--fw-bold); color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.offerQty { font-size: var(--text-xs); background: var(--surface-subtle); color: var(--text-secondary); padding: 2px 8px; border-radius: 20px; }
+.offerDate { font-size: var(--text-xs); color: var(--text-muted); margin-left: auto; }
+
+/* ─── Status badges ── */
+.statusBadge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: var(--text-xs); font-weight: var(--fw-semibold); white-space: nowrap; }
+.status_pending { background: var(--amber-50, #fffbeb); color: var(--amber-700, #b45309); }
+.status_accepted { background: var(--green-50, #f0fdf4); color: var(--green-700, #15803d); }
+.status_rejected { background: var(--red-50, #fef2f2); color: var(--red-700, #b91c1c); }
+.status_expired { background: var(--surface-subtle); color: var(--text-muted); }
+.status_cancelled { background: var(--surface-subtle); color: var(--text-muted); }
+
+/* ─── Skeleton ── */
+.skeleton { height: 90px; background: var(--surface-subtle); border-radius: var(--radius-lg); animation: pulse 1.5s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+/* ─── Empty ── */
+.empty { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: var(--space-12) var(--space-6); text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-4); }
+.emptyTitle { font-size: var(--text-lg); font-weight: var(--fw-semibold); color: var(--text-primary); }
+.emptySub { font-size: var(--text-sm); color: var(--text-muted); }
+.emptyAction { padding: var(--space-3) var(--space-6); background: var(--indigo-600, #23508C); color: #fff; border: none; border-radius: var(--radius-md); font-size: var(--text-sm); font-weight: var(--fw-semibold); cursor: pointer; }
+
+/* ─── Detail panel ── */
+.detailPanel { background: var(--surface-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-xl); padding: var(--space-7); display: flex; flex-direction: column; gap: var(--space-5); align-self: start; position: sticky; top: var(--space-6); }
+.detailHeader { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); }
+.detailCrop { font-size: var(--text-xl); font-weight: var(--fw-semibold); color: var(--text-primary); }
+.detailId { font-size: var(--text-xs); color: var(--text-muted); margin-top: 2px; }
+.acceptedBanner { display: flex; gap: var(--space-3); padding: var(--space-4); background: var(--green-50, #f0fdf4); border-radius: var(--radius-md); color: var(--green-700, #15803d); font-size: var(--text-sm); }
+.bannerTitle { font-weight: var(--fw-semibold); }
+.bannerLink { background: none; border: none; color: var(--indigo-600, #23508C); font-size: var(--text-sm); cursor: pointer; padding: 0; text-decoration: underline; margin-top: 2px; }
+.detailRows { display: flex; flex-direction: column; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden; }
+.detailRow { display: flex; align-items: center; justify-content: space-between; padding: var(--space-3) var(--space-4); gap: var(--space-4); }
+.detailRow + .detailRow { border-top: 1px solid var(--border-subtle); }
+.detailLabel { font-size: var(--text-xs); color: var(--text-muted); font-weight: var(--fw-medium); }
+.detailValue { font-size: var(--text-sm); color: var(--text-primary); text-align: right; }
+.notesBox { background: var(--surface-subtle); border-radius: var(--radius-md); padding: var(--space-4); }
+.notesLabel { font-size: var(--text-xs); color: var(--text-muted); font-weight: var(--fw-semibold); margin-bottom: var(--space-1); }
+.notesText { font-size: var(--text-sm); color: var(--text-primary); }
+.escrowNote { display: flex; gap: var(--space-3); padding: var(--space-4); background: var(--indigo-50, #eef2ff); border-radius: var(--radius-md); font-size: var(--text-sm); color: var(--indigo-700, #3730a3); }
+.cancelBtn { display: flex; align-items: center; justify-content: center; gap: var(--space-2); width: 100%; padding: var(--space-3); border: 1px solid var(--border-default); border-radius: var(--radius-md); background: none; font-size: var(--text-sm); color: var(--text-secondary); cursor: pointer; }
+.cancelBtn:hover:not(:disabled) { border-color: var(--red-300, #fca5a5); color: var(--red-700, #b91c1c); background: var(--red-50, #fef2f2); }
+.cancelBtn:disabled { opacity: 0.5; cursor: not-allowed; }
