@@ -24,17 +24,10 @@ export default function ListingCard({ lot, onClick }: ListingCardProps) {
   const estimatedValue = lot.quantity * lot.expectedPrice
 
   return (
-    <div
+    <button
+      type="button"
       className={styles.card}
       onClick={handleClick}
-      role="button"
-      tabIndex={0}
-      onKeyDown={e => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault()
-          handleClick()
-        }
-      }}
     >
       <div className={styles.header}>
         <p className={styles.id}>{lot.id}</p>
@@ -70,6 +63,6 @@ export default function ListingCard({ lot, onClick }: ListingCardProps) {
         </p>
         <span className={styles.viewLink}>View →</span>
       </div>
-    </div>
+    </button>
   )
 }

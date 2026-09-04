@@ -1,59 +1,76 @@
 import { useNavigate, useLocation } from 'react-router-dom'
-import { Home, TrendingUp, PlusCircle, Package, User } from 'lucide-react'
+import {
+  Home, TrendingUp, Package, Users, Wallet,
+  ShoppingBag, FileText,
+} from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
-import { cx } from '../../lib/cx'
+import { useAuth } from '../../context/AuthContext'
 import styles from './BottomNav.module.css'
 
-type Tab = 'home' | 'market' | 'sell' | 'activity' | 'profile'
+interface Tab { id: string; label: string; path: string; Icon: LucideIcon }
 
-const TAB_ROUTES: Record<Tab, string> = {
-  home:     '/farmer/home',
-  market:   '/farmer/market',
-  sell:     '/farmer/lots/create',
-  activity: '/farmer/activity',
-  profile:  '/farmer/profile',
-}
-
-const TABS: Array<{ id: Tab; label: string; Icon: LucideIcon; exact?: boolean }> = [
-  { id: 'home',     label: 'Home',     Icon: Home },
-  { id: 'market',   label: 'Market',   Icon: TrendingUp },
-  { id: 'sell',     label: 'Sell',     Icon: PlusCircle, exact: true },
-  { id: 'activity', label: 'Activity', Icon: Package },
-  { id: 'profile',  label: 'Profile',  Icon: User },
+const FARMER_TABS: Tab[] = [
+  { id: 'home',    label: 'Home',    path: '/farmer/home',    Icon: Home },
+  { id: 'markets', label: 'Markets', path: '/farmer/markets', Icon: TrendingUp },
+  { id: 'lots',    label: 'My lots', path: '/farmer/lots',    Icon: Package },
+  { id: 'offers',  label: 'Offers',  path: '/farmer/offers',  Icon: Users },
+  { id: 'money',   label: 'Money',   path: '/farmer/money',   Icon: Wallet },
 ]
 
-function getActiveTab(pathname: string): Tab {
-  if (pathname.startsWith('/farmer/lots/create')) return 'sell'
-  if (pathname.startsWith('/farmer/lots')) return 'activity'
-  if (pathname.startsWith('/farmer/prices')) return 'market'
-  for (const [id, path] of Object.entries(TAB_ROUTES) as [Tab, string][]) {
-    if (id === 'sell') continue
-    if (pathname.startsWith(path)) return id
-  }
+const BUYER_TABS: Tab[] = [
+  { id: 'home',        label: 'Home',      path: '/buyer/home',        Icon: Home },
+  { id: 'marketplace', label: 'Discover',  path: '/buyer/marketplace', Icon: ShoppingBag },
+  { id: 'offers',      label: 'Offers',    path: '/buyer/offers',      Icon: Users },
+  { id: 'deals',       label: 'Deals',     path: '/buyer/deals',       Icon: FileText },
+  { id: 'payments',    label: 'Payments',  path: '/buyer/payments',    Icon: Wallet },
+]
+
+function getFarmerActiveId(pathname: string): string {
+  if (pathname.startsWith('/farmer/markets')) return 'markets'
+  if (pathname.startsWith('/farmer/lots')) return 'lots'
+  if (pathname.startsWith('/farmer/offers')) return 'offers'
+  if (pathname.startsWith('/farmer/deals')) return 'deals'
+  if (pathname.startsWith('/farmer/money')) return 'money'
+  return 'home'
+}
+
+function getBuyerActiveId(pathname: string): string {
+  if (pathname.startsWith('/buyer/marketplace')) return 'marketplace'
+  if (pathname.startsWith('/buyer/offers')) return 'offers'
+  if (pathname.startsWith('/buyer/deals')) return 'deals'
+  if (pathname.startsWith('/buyer/payments')) return 'payments'
   return 'home'
 }
 
 export default function BottomNav() {
   const navigate = useNavigate()
   const location = useLocation()
-  const activeTab = getActiveTab(location.pathname)
+  const { role } = useAuth()
+
+  // Admin has no bottom nav (desktop-first)
+  if (role === 'admin') return null
+
+  const isBuyer = role === 'buyer'
+  const tabs = isBuyer ? BUYER_TABS : FARMER_TABS
+  const activeId = isBuyer
+    ? getBuyerActiveId(location.pathname)
+    : getFarmerActiveId(location.pathname)
 
   return (
-    <nav className={styles.bottomnav} aria-label="Main navigation">
-      {TABS.map(({ id, label, Icon }) => (
+    <nav
+      className={`${styles.bottomNav} ${isBuyer ? styles.bottomNavBuyer : ''}`}
+      aria-label="Main navigation"
+    >
+      {tabs.map(({ id, label, path, Icon }) => (
         <button
           key={id}
-          className={cx(
-            styles.tab,
-            activeTab === id ? styles.active : undefined,
-            id === 'sell' ? styles.sellTab : undefined,
-          )}
-          onClick={() => navigate(TAB_ROUTES[id])}
-          aria-current={activeTab === id ? 'page' : undefined}
           type="button"
+          className={`${styles.tab} ${activeId === id ? styles.tabActive : ''}`}
+          onClick={() => navigate(path)}
+          aria-current={activeId === id ? 'page' : undefined}
         >
-          <Icon size={id === 'sell' ? 24 : 22} aria-hidden={true} />
-          <span>{label}</span>
+          <Icon size={20} aria-hidden />
+          <span className={styles.tabLabel}>{label}</span>
         </button>
       ))}
     </nav>

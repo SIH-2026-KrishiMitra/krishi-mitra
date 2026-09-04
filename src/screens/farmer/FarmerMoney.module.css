@@ -1,0 +1,277 @@
+.page {
+  padding: var(--space-9);
+  max-width: var(--grid-content-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+@media (max-width: 1023px) { .page { padding: var(--space-6); } }
+
+.pageHeader {}
+
+.breadcrumb {
+  font-size: var(--text-3xs);
+  font-weight: var(--fw-medium);
+  color: var(--text-muted);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  margin-bottom: var(--space-2);
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+  letter-spacing: var(--ls-display);
+}
+
+.subtitle {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin-top: var(--space-1);
+}
+
+.offlineBanner {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  background: var(--status-warning-soft);
+  border: 1px solid var(--amber-300);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  color: var(--text-accent);
+}
+
+.offlineDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--status-warning);
+  flex-shrink: 0;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+@media (max-width: 767px) { .statsGrid { grid-template-columns: 1fr; } }
+
+.statCard {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: var(--space-7);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.statCardSuccess {
+  background: var(--surface-brand-soft);
+  border-color: var(--green-200);
+}
+
+.statLabel {
+  font-size: var(--text-3xs);
+  font-weight: var(--fw-semibold);
+  color: var(--text-muted);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+}
+
+.statValue {
+  font-size: var(--text-3xl);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.02em;
+}
+
+.statSub {
+  font-size: var(--text-xs);
+  color: var(--text-brand);
+  font-weight: var(--fw-medium);
+}
+
+.sectionTitle {
+  font-size: var(--text-base);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+}
+
+/* Escrow */
+.escrowSection {}
+
+.escrowCards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.escrowCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  padding: var(--space-5) var(--space-7);
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+}
+
+.escrowCardLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.escrowCardIcon { color: var(--text-trust); }
+
+.escrowCardCrop {
+  font-size: var(--text-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+}
+
+.escrowCardBuyer, .escrowCardDate {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.escrowCardRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.escrowCardAmount {
+  font-size: var(--text-lg);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.escrowStatus {
+  font-size: var(--text-xs);
+  font-weight: var(--fw-medium);
+  padding: 2px var(--space-3);
+  border-radius: 10px;
+}
+
+.escrowStatus_pending { background: var(--surface-sunken); color: var(--text-secondary); }
+.escrowStatus_protected { background: var(--surface-trust-soft); color: var(--text-trust); }
+.escrowStatus_release_pending { background: var(--surface-accent-soft); color: var(--text-accent); }
+.escrowStatus_released { background: var(--status-success-soft); color: var(--status-success); }
+.escrowStatus_disputed { background: var(--status-danger-soft); color: var(--text-danger); }
+
+/* Transaction table */
+.txSection {}
+
+.txTable {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.txHeader {
+  display: grid;
+  grid-template-columns: 3fr 1.5fr 1fr 1fr 1fr;
+  padding: var(--space-4) var(--space-7);
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--surface-sunken);
+  font-size: var(--text-3xs);
+  font-weight: var(--fw-semibold);
+  color: var(--text-muted);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  gap: var(--space-5);
+}
+
+.txRow {
+  display: grid;
+  grid-template-columns: 3fr 1.5fr 1fr 1fr 1fr;
+  padding: var(--space-5) var(--space-7);
+  border-bottom: 1px solid var(--border-subtle);
+  gap: var(--space-5);
+  cursor: pointer;
+  align-items: center;
+  transition: background 0.12s ease;
+}
+
+.txRow:last-child { border-bottom: none; }
+.txRow:hover { background: var(--surface-sunken); }
+.txRowActive { background: var(--surface-brand-soft); }
+
+.txCropCell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.txCropIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--green-050);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  font-weight: var(--fw-bold);
+  color: var(--text-brand);
+  flex-shrink: 0;
+}
+
+.txCropName {
+  font-size: var(--text-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+}
+
+.txBuyerName {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.txDate { font-size: var(--text-sm); color: var(--text-secondary); }
+
+.txQty, .txRate {
+  font-size: var(--text-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.txStatus {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: var(--fw-medium);
+  padding: 2px var(--space-3);
+  border-radius: 10px;
+  width: fit-content;
+}
+
+.txStatus_completed { background: var(--status-success-soft); color: var(--status-success); }
+.txStatus_pending { background: var(--status-warning-soft); color: var(--status-warning); }
+.txStatus_disputed { background: var(--status-danger-soft); color: var(--text-danger); }
+
+@media (max-width: 767px) {
+  .txHeader { display: none; }
+  .txRow {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+}

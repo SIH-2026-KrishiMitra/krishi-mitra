@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ImagePlus, X } from 'lucide-react'
+import toast from 'react-hot-toast'
 import FarmerLayout from './FarmerLayout'
 import Card from '../../components/Card/Card'
 import Button from '../../components/Button/Button'
@@ -9,9 +10,11 @@ import Select from '../../components/Select/Select'
 import Stepper from '../../components/Stepper/Stepper'
 import TrustBadge from '../../components/TrustBadge/TrustBadge'
 import { cx } from '../../lib/cx'
-import { useLots } from '../../context/LotsContext'
+import { useApp } from '../../context/AppContext'
+import { useAuth } from '../../context/AuthContext'
+import { uploadLotImage } from '../../services/supabase/lots'
 import { CROPS, CROP_VARIETIES, MANDIS, CROP_MARKET_DATA } from '../../data/mockPrices'
-import type { Grade, PaymentMode } from '../../types/lot'
+import type { Grade, PaymentMode } from '../../types'
 import styles from './FarmerCreateLot.module.css'
 
 const STEPS = ['Crop & grade', 'Quantity', 'Price & payment', 'Review']
@@ -46,7 +49,8 @@ interface StepErrors {
 export default function FarmerCreateLot() {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const { createLot } = useLots()
+  const { createLot } = useApp()
+  const { user } = useAuth()
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [step, setStep] = useState(0)
   const [submitting, setSubmitting] = useState(false)
@@ -67,12 +71,9 @@ export default function FarmerCreateLot() {
     assaying: false,
   })
 
-  // Revoke object URLs on unmount
   useEffect(() => {
     const previews = data.imagePreviews
-    return () => {
-      previews.forEach(url => URL.revokeObjectURL(url))
-    }
+    return () => { previews.forEach(url => URL.revokeObjectURL(url)) }
   }, [])
 
   const marketData = CROP_MARKET_DATA.find(c => c.id === data.cropId)
@@ -131,10 +132,7 @@ export default function FarmerCreateLot() {
 
   function handleNext() {
     const errs = validateStep(step)
-    if (Object.keys(errs).length) {
-      setErrors(errs)
-      return
-    }
+    if (Object.keys(errs).length) { setErrors(errs); return }
     setErrors({})
     setStep(s => s + 1)
   }
@@ -144,54 +142,88 @@ export default function FarmerCreateLot() {
     setStep(s => s - 1)
   }
 
-  function handleSaveDraft() {
-    // Save draft and navigate away (no validation required for draft)
-    const lot = createLot({
-      cropId: data.cropId || 'wheat',
-      crop: CROPS.find(c => c.id === data.cropId)?.label ?? data.cropId,
-      variety: data.variety || 'Unknown',
-      grade: (data.grade as Grade) || 'B',
-      quantity: parseFloat(data.quantity) || 0,
-      expectedPrice: parseFloat(data.expectedPrice) || 0,
-      paymentMode: data.paymentMode,
-      assaying: data.assaying,
-      mandi: data.mandi || 'Nashik APMC',
-      imagePreviews: data.imagePreviews,
-    })
-    navigate(`/farmer/lots/${lot.id}`)
+  async function handleSaveDraft() {
+    try {
+      await createLot({
+        cropId: data.cropId || 'wheat',
+        crop: CROPS.find(c => c.id === data.cropId)?.label ?? data.cropId,
+        variety: data.variety || 'Unknown',
+        grade: (data.grade as Grade) || 'B',
+        quantity: parseFloat(data.quantity) || 0,
+        unit: 'quintal',
+        expectedPrice: parseFloat(data.expectedPrice) || 0,
+        paymentMode: data.paymentMode,
+        assaying: data.assaying,
+        mandi: data.mandi || 'Nashik APMC',
+        imagePreviews: [],
+        status: 'draft',
+        sellingMethod: 'direct',
+      })
+      toast.success('Draft saved')
+      navigate('/farmer/lots')
+    } catch {
+      toast.error('Failed to save draft')
+    }
   }
 
   async function handleSubmit() {
     setSubmitting(true)
-    await new Promise(r => setTimeout(r, 500))
-    const lot = createLot({
-      cropId: data.cropId,
-      crop: CROPS.find(c => c.id === data.cropId)?.label ?? data.cropId,
-      variety: data.variety,
-      grade: data.grade as Grade,
-      quantity: parseFloat(data.quantity),
-      expectedPrice: parseFloat(data.expectedPrice),
-      paymentMode: data.paymentMode,
-      assaying: data.assaying,
-      mandi: data.mandi,
-      imagePreviews: data.imagePreviews,
-    })
-    setSubmitting(false)
-    navigate(`/farmer/lots/${lot.id}`, { state: { fromCreate: true } })
+    try {
+      const lot = await createLot({
+        cropId: data.cropId,
+        crop: CROPS.find(c => c.id === data.cropId)?.label ?? data.cropId,
+        variety: data.variety,
+        grade: data.grade as Grade,
+        quantity: parseFloat(data.quantity),
+        unit: 'quintal',
+        expectedPrice: parseFloat(data.expectedPrice),
+        paymentMode: data.paymentMode,
+        assaying: data.assaying,
+        mandi: data.mandi,
+        imagePreviews: [],
+        status: 'listed',
+        sellingMethod: 'direct',
+      })
+
+      // Upload images after lot creation
+      if (data.images.length > 0 && user) {
+        const uploadedUrls: string[] = []
+        for (const file of data.images) {
+          try {
+            const url = await uploadLotImage(user.id, lot.id, file)
+            uploadedUrls.push(url)
+          } catch {
+            // Image upload failure is non-fatal
+          }
+        }
+        if (uploadedUrls.length > 0) {
+          // Update lot with image URLs
+          const { supabase: sb } = await import('../../lib/supabase')
+          await sb.from('lots').update({ image_urls: uploadedUrls }).eq('id', lot.id)
+        }
+      }
+
+      toast.success('Lot listed successfully!')
+      navigate('/farmer/lots')
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : 'Failed to list lot')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const qty = parseFloat(data.quantity) || 0
   const price = parseFloat(data.expectedPrice) || 0
   const estimatedValue = qty * price
   const assayingFee = data.assaying ? qty * 40 : 0
-
   const cropName = CROPS.find(c => c.id === data.cropId)?.label ?? '—'
 
   return (
-    <FarmerLayout title="List a lot" onBack={() => navigate(-1)}>
+    <FarmerLayout>
       <div className={styles.page}>
         <div className={styles.stepperWrap}>
           <Stepper steps={STEPS} currentStep={step} />
+          <p className={styles.stepCounter}>Step {step + 1} of {STEPS.length}</p>
         </div>
 
         {/* Step 0: Crop & grade */}
@@ -199,83 +231,49 @@ export default function FarmerCreateLot() {
           <Card className={styles.formCard}>
             <h2 className={styles.stepHeading}>Crop &amp; grade</h2>
             <div className={styles.formGrid}>
-              <Select
-                id="crop"
-                label="Crop"
-                value={data.cropId}
+              <Select id="crop" label="Crop" value={data.cropId}
                 onChange={e => handleCropChange(e.target.value)}
                 options={CROPS.map(c => ({ value: c.id, label: c.label }))}
-                placeholder="Select crop"
-                error={errors.cropId}
+                placeholder="Select crop" error={errors.cropId}
               />
-              <Select
-                id="variety"
-                label="Variety"
-                value={data.variety}
+              <Select id="variety" label="Variety" value={data.variety}
                 onChange={e => update('variety', e.target.value)}
                 options={varietyOptions.map(v => ({ value: v, label: v }))}
                 placeholder={data.cropId ? 'Select variety' : 'Select a crop first'}
-                disabled={!data.cropId}
-                error={errors.variety}
+                disabled={!data.cropId} error={errors.variety}
               />
-              <Select
-                id="grade"
-                label="Grade"
-                value={data.grade}
+              <Select id="grade" label="Grade" value={data.grade}
                 onChange={e => update('grade', e.target.value as Grade)}
-                options={GRADES}
-                placeholder="Select grade"
-                error={errors.grade}
+                options={GRADES} placeholder="Select grade" error={errors.grade}
               />
-              <Select
-                id="mandi"
-                label="Mandi"
-                value={data.mandi}
+              <Select id="mandi" label="Mandi" value={data.mandi}
                 onChange={e => update('mandi', e.target.value)}
                 options={MANDIS.map(m => ({ value: m, label: m }))}
-                placeholder="Select mandi"
-                error={errors.mandi}
+                placeholder="Select mandi" error={errors.mandi}
               />
             </div>
 
-            {/* Image upload */}
             <div className={styles.imageSection}>
               <p className={styles.imageLabel}>Produce photos (optional, max 5)</p>
               <div className={styles.imageRow}>
                 {data.imagePreviews.map((src, i) => (
                   <div key={i} className={styles.thumb}>
                     <img src={src} alt={`Produce photo ${i + 1}`} className={styles.thumbImg} />
-                    <button
-                      type="button"
-                      className={styles.thumbRemove}
-                      onClick={() => removeImage(i)}
-                      aria-label={`Remove photo ${i + 1}`}
-                    >
+                    <button type="button" className={styles.thumbRemove} onClick={() => removeImage(i)} aria-label={`Remove photo ${i + 1}`}>
                       <X size={12} />
                     </button>
                   </div>
                 ))}
                 {data.images.length < 5 && (
-                  <button
-                    type="button"
-                    className={styles.addImageBtn}
-                    onClick={() => fileInputRef.current?.click()}
-                    aria-label="Add produce photos"
-                  >
+                  <button type="button" className={styles.addImageBtn} onClick={() => fileInputRef.current?.click()} aria-label="Add produce photos">
                     <ImagePlus size={20} className={styles.addImageIcon} />
                     <span>Add photo</span>
                   </button>
                 )}
               </div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                multiple
-                className={styles.hiddenInput}
-                onChange={handleImageChange}
-                aria-hidden="true"
-                tabIndex={-1}
+              <input ref={fileInputRef} type="file" accept="image/*" multiple
+                className={styles.hiddenInput} onChange={handleImageChange}
+                aria-hidden="true" tabIndex={-1}
               />
             </div>
           </Card>
@@ -286,28 +284,17 @@ export default function FarmerCreateLot() {
           <Card className={styles.formCard}>
             <h2 className={styles.stepHeading}>Quantity</h2>
             <div className={styles.formSingle}>
-              <Input
-                id="quantity"
-                label="Quantity (quintal)"
-                type="number"
-                min="0"
-                step="0.1"
-                value={data.quantity}
-                onChange={e => update('quantity', e.target.value)}
-                placeholder="0"
-                helperText="Enter the quantity in quintal you want to list"
+              <Input id="quantity" label="Quantity (quintal)" type="number" min="0" step="0.1"
+                value={data.quantity} onChange={e => update('quantity', e.target.value)}
+                placeholder="0" helperText="Enter the quantity in quintal you want to list"
                 error={errors.quantity}
               />
             </div>
             {qty > 0 && marketData && (
               <div className={styles.calcPreview}>
                 <p className={styles.calcLabel}>Estimated value at today's mandi price</p>
-                <p className={styles.calcValue} data-numeric="">
-                  ₹{(qty * marketData.currentPrice).toLocaleString('en-IN')}
-                </p>
-                <p className={styles.calcNote}>
-                  Based on ₹{marketData.currentPrice.toLocaleString('en-IN')}/qtl at {marketData.mandi}
-                </p>
+                <p className={styles.calcValue} data-numeric="">₹{(qty * marketData.currentPrice).toLocaleString('en-IN')}</p>
+                <p className={styles.calcNote}>Based on ₹{marketData.currentPrice.toLocaleString('en-IN')}/qtl at {marketData.mandi}</p>
               </div>
             )}
           </Card>
@@ -318,20 +305,12 @@ export default function FarmerCreateLot() {
           <Card className={styles.formCard}>
             <h2 className={styles.stepHeading}>Price &amp; payment</h2>
             <div className={styles.formSingle}>
-              <Input
-                id="expectedPrice"
-                label="Expected price (₹ per quintal)"
-                type="number"
-                min="0"
-                step="1"
-                value={data.expectedPrice}
-                onChange={e => update('expectedPrice', e.target.value)}
+              <Input id="expectedPrice" label="Expected price (₹ per quintal)" type="number" min="0" step="1"
+                value={data.expectedPrice} onChange={e => update('expectedPrice', e.target.value)}
                 placeholder="0"
-                helperText={
-                  marketData
-                    ? `Today's mandi price: ₹${marketData.currentPrice.toLocaleString('en-IN')}/qtl · MSP: ₹${marketData.msp.toLocaleString('en-IN')}/qtl`
-                    : 'Enter your expected price per quintal'
-                }
+                helperText={marketData
+                  ? `Today's mandi price: ₹${marketData.currentPrice.toLocaleString('en-IN')}/qtl · MSP: ₹${marketData.msp.toLocaleString('en-IN')}/qtl`
+                  : 'Enter your expected price per quintal'}
                 error={errors.expectedPrice}
               />
             </div>
@@ -340,12 +319,8 @@ export default function FarmerCreateLot() {
               <p className={styles.paymentLabel}>Payment mode</p>
               <div className={styles.radioGroup} role="radiogroup">
                 <label className={cx(styles.radioOption, data.paymentMode === 'escrow' ? styles.radioSelected : undefined)}>
-                  <input
-                    type="radio"
-                    name="paymentMode"
-                    value="escrow"
-                    checked={data.paymentMode === 'escrow'}
-                    onChange={() => update('paymentMode', 'escrow')}
+                  <input type="radio" name="paymentMode" value="escrow"
+                    checked={data.paymentMode === 'escrow'} onChange={() => update('paymentMode', 'escrow')}
                     className={styles.radioInput}
                   />
                   <div>
@@ -354,12 +329,8 @@ export default function FarmerCreateLot() {
                   </div>
                 </label>
                 <label className={cx(styles.radioOption, data.paymentMode === 'direct' ? styles.radioSelected : undefined)}>
-                  <input
-                    type="radio"
-                    name="paymentMode"
-                    value="direct"
-                    checked={data.paymentMode === 'direct'}
-                    onChange={() => update('paymentMode', 'direct')}
+                  <input type="radio" name="paymentMode" value="direct"
+                    checked={data.paymentMode === 'direct'} onChange={() => update('paymentMode', 'direct')}
                     className={styles.radioInput}
                   />
                   <div>
@@ -368,23 +339,16 @@ export default function FarmerCreateLot() {
                   </div>
                 </label>
               </div>
-              <p className={styles.paymentInfo}>
-                Payment terms will be finalised when a buyer is matched.
-              </p>
+              <p className={styles.paymentInfo}>Payment terms will be finalised when a buyer is matched.</p>
             </div>
 
             <label className={styles.checkboxRow}>
-              <input
-                type="checkbox"
-                checked={data.assaying}
-                onChange={e => update('assaying', e.target.checked)}
-                className={styles.checkbox}
+              <input type="checkbox" checked={data.assaying}
+                onChange={e => update('assaying', e.target.checked)} className={styles.checkbox}
               />
               <div>
                 <p className={styles.checkboxTitle}>Lab assaying at mandi gate</p>
-                <p className={styles.checkboxDesc}>
-                  ₹40/qtl fee · Independent quality verification that can increase your realised price
-                </p>
+                <p className={styles.checkboxDesc}>₹40/qtl fee · Independent quality verification that can increase your realised price</p>
               </div>
             </label>
           </Card>
@@ -392,51 +356,21 @@ export default function FarmerCreateLot() {
 
         {/* Step 3: Review */}
         {step === 3 && (
-          <Card className={styles.formCard}>
+          <Card className={cx(styles.formCard, styles.reviewCard)}>
             <h2 className={styles.stepHeading}>Review your lot</h2>
             <div className={styles.reviewRows}>
-              <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Crop</span>
-                <span className={styles.reviewVal}>{cropName}</span>
-              </div>
-              <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Variety</span>
-                <span className={styles.reviewVal}>{data.variety}</span>
-              </div>
-              <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Grade</span>
-                <span className={styles.reviewVal}>Grade {data.grade}</span>
-              </div>
-              <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Mandi</span>
-                <span className={styles.reviewVal}>{data.mandi}</span>
-              </div>
-              <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Quantity</span>
-                <span className={styles.reviewVal} data-numeric="">{data.quantity} quintal</span>
-              </div>
-              <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Expected price</span>
-                <span className={styles.reviewVal} data-numeric="">₹{parseFloat(data.expectedPrice).toLocaleString('en-IN')}/qtl</span>
-              </div>
+              <ReviewRow label="Crop" value={cropName} />
+              <ReviewRow label="Variety" value={data.variety} />
+              <ReviewRow label="Grade" value={`Grade ${data.grade}`} />
+              <ReviewRow label="Mandi" value={data.mandi} />
+              <ReviewRow label="Quantity" value={`${data.quantity} quintal`} numeric />
+              <ReviewRow label="Expected price" value={`₹${parseFloat(data.expectedPrice).toLocaleString('en-IN')}/qtl`} numeric />
               <div className={styles.reviewRow}>
                 <span className={styles.reviewKey}>Est. total value</span>
-                <span className={cx(styles.reviewVal, styles.reviewTotal)} data-numeric="">
-                  ₹{estimatedValue.toLocaleString('en-IN')}
-                </span>
+                <span className={cx(styles.reviewVal, styles.reviewTotal)} data-numeric="">₹{estimatedValue.toLocaleString('en-IN')}</span>
               </div>
-              <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Payment mode</span>
-                <span className={styles.reviewVal}>
-                  {data.paymentMode === 'escrow' ? 'Escrow' : 'Direct bank transfer'}
-                </span>
-              </div>
-              <div className={styles.reviewRow}>
-                <span className={styles.reviewKey}>Lab assaying</span>
-                <span className={styles.reviewVal}>
-                  {data.assaying ? `Yes — ₹${assayingFee.toLocaleString('en-IN')} total fee` : 'No'}
-                </span>
-              </div>
+              <ReviewRow label="Payment mode" value={data.paymentMode === 'escrow' ? 'Escrow' : 'Direct bank transfer'} />
+              <ReviewRow label="Lab assaying" value={data.assaying ? `Yes — ₹${assayingFee.toLocaleString('en-IN')} total fee` : 'No'} />
               {data.imagePreviews.length > 0 && (
                 <div className={styles.reviewRow}>
                   <span className={styles.reviewKey}>Photos</span>
@@ -448,7 +382,6 @@ export default function FarmerCreateLot() {
                 </div>
               )}
             </div>
-
             <div className={styles.trustRow}>
               <TrustBadge type="escrow" />
               <TrustBadge type="verified-farmer" />
@@ -458,37 +391,41 @@ export default function FarmerCreateLot() {
           </Card>
         )}
 
-        {/* Navigation buttons */}
+        {/* Navigation */}
         <div className={styles.navRow}>
           {step > 0 && (
-            <Button variant="secondary" size="md" onClick={handleBack} disabled={submitting}>
-              Back
-            </Button>
+            <Button variant="secondary" size="md" onClick={handleBack} disabled={submitting}>Back</Button>
           )}
           <div className={styles.navRight}>
             {step < STEPS.length - 1 ? (
               <>
-                <Button variant="secondary" size="sm" onClick={handleSaveDraft}>
-                  Save as draft
-                </Button>
-                <Button variant="primary" size="md" onClick={handleNext}>
-                  Next
-                </Button>
+                <Button variant="secondary" size="sm" onClick={handleSaveDraft}>Save as draft</Button>
+                <Button variant="primary" size="md" onClick={handleNext}>Next</Button>
               </>
             ) : (
-              <Button
-                variant="accent"
-                size="lg"
-                onClick={handleSubmit}
-                disabled={submitting}
-                className={styles.submitBtn}
-              >
-                {submitting ? 'Submitting…' : 'List this lot'}
-              </Button>
+              <div className={styles.submitWrap}>
+                {qty > 0 && price > 0 && (
+                  <p className={styles.submitSummary}>
+                    {data.quantity} qtl of {cropName} at ₹{parseFloat(data.expectedPrice).toLocaleString('en-IN')}/qtl
+                  </p>
+                )}
+                <Button variant="primary" size="lg" onClick={handleSubmit} disabled={submitting} className={styles.submitBtn}>
+                  {submitting ? 'Submitting…' : 'List this lot'}
+                </Button>
+              </div>
             )}
           </div>
         </div>
       </div>
     </FarmerLayout>
+  )
+}
+
+function ReviewRow({ label, value, numeric }: { label: string; value: string; numeric?: boolean }) {
+  return (
+    <div className={styles.reviewRow}>
+      <span className={styles.reviewKey}>{label}</span>
+      <span className={styles.reviewVal} {...(numeric ? { 'data-numeric': '' } : {})}>{value}</span>
+    </div>
   )
 }

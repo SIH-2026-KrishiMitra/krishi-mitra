@@ -1,3 +1,4 @@
+import { Check } from 'lucide-react'
 import { cx } from '../../lib/cx'
 import styles from './Stepper.module.css'
 
@@ -22,7 +23,7 @@ export default function Stepper({ steps, currentStep }: StepperProps) {
           <div key={i} className={styles.stepWrapper}>
             <div className={cx(styles.step, styles[state])}>
               <div className={styles.circle}>
-                {i < currentStep ? '✓' : <span>{i + 1}</span>}
+                {i < currentStep ? <Check size={14} strokeWidth={2.5} /> : <span>{i + 1}</span>}
               </div>
               <span className={styles.label}>{label}</span>
             </div>

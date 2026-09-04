@@ -51,14 +51,14 @@
 }
 
 .current .circle {
-  background: var(--surface-brand-soft);
-  border-color: var(--border-brand);
-  color: var(--text-brand);
+  background: var(--surface-card);
+  border-color: var(--action-primary);
+  color: var(--action-primary);
 }
 
 .label {
   font-size: var(--text-3xs);
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-regular);
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
   color: var(--text-muted);
@@ -66,9 +66,13 @@
   text-align: center;
 }
 
-.done .label,
+.done .label {
+  color: var(--text-brand);
+}
+
 .current .label {
   color: var(--text-brand);
+  font-weight: var(--fw-semibold);
 }
 
 .connector {

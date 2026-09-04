@@ -1,26 +1,31 @@
 .shell {
-  min-height: 100vh;
   min-height: 100dvh;
   background: var(--surface-canvas);
+  display: flex;
+  flex-direction: column;
 }
 
-/* Push body below the fixed TopNav */
 .body {
   display: flex;
-  margin-top: var(--topnav-height);
+  flex: 1;
+  min-height: 0;
 }
 
-/* Sidebar is sticky inside the flex row — see Sidebar.module.css */
+.mainColumn {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 
 .content {
   flex: 1;
-  min-width: 0;
-  /* Space for the fixed BottomNav on mobile */
+  overflow-y: auto;
   padding-bottom: var(--bottomnav-height);
 }
 
-/* On tablet+: BottomNav is hidden, no padding needed */
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .content {
     padding-bottom: 0;
   }

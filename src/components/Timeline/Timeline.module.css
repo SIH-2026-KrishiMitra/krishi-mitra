@@ -53,6 +53,12 @@
   height: 10px;
   border-radius: 50%;
   background: var(--status-warning);
+  animation: timelinePulse 1.6s var(--ease-standard) infinite;
+}
+
+@keyframes timelinePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
 }
 
 .line {

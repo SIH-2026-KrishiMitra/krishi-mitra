@@ -1,72 +1,53 @@
-.bottomnav {
+.bottomNav {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   height: var(--bottomnav-height);
-  background: var(--surface-card);
-  box-shadow: var(--shadow-sheet);
   display: flex;
   align-items: stretch;
+  background: var(--surface-card);
+  border-top: 1px solid var(--border-subtle);
   z-index: 100;
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .tab {
   flex: 1;
-  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: var(--space-1);
-  background: none;
+  gap: 3px;
   border: none;
-  cursor: pointer;
+  background: none;
   color: var(--text-muted);
-  font-size: var(--text-3xs);
+  cursor: pointer;
   font-family: var(--font-core);
-  font-weight: var(--fw-medium);
-  transition: color var(--dur-fast) var(--ease-standard);
-  padding: 0;
+  transition: color 0.15s ease;
+  padding: var(--space-2) 0;
 }
 
 .tab:hover {
   color: var(--text-secondary);
 }
 
-.tab.active {
-  color: var(--role-farmer);
+.tabActive {
+  color: var(--text-brand);
 }
 
-/* Top indicator strip on active tab */
-.tab.active::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 20%;
-  right: 20%;
-  height: 2px;
-  border-radius: 0 0 var(--radius-xs) var(--radius-xs);
-  background: var(--role-farmer);
+.tabLabel {
+  font-size: var(--text-3xs);
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
 }
 
-.tab:focus-visible {
-  outline: var(--border-focus) solid var(--green-600);
-  outline-offset: -2px;
-}
-
-.sellTab {
-  color: var(--role-farmer);
-}
-
-.sellTab.active {
-  color: var(--role-farmer);
-}
-
-/* Sidebar takes over navigation on tablet+ */
-@media (min-width: 768px) {
-  .bottomnav {
+@media (min-width: 1024px) {
+  .bottomNav {
     display: none;
   }
+}
+
+.bottomNavBuyer .tabActive {
+  color: var(--indigo-600, #23508C);
 }
