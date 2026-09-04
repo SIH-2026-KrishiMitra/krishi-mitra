@@ -1,0 +1,466 @@
+/* Inherits base layout from LoginPage.module.css patterns —
+   shares .page, .leftPanel, .rightPanel, .formBox etc structure */
+
+.page {
+  display: flex;
+  min-height: 100dvh;
+  background: var(--surface-canvas);
+}
+
+/* ─── Left panel ─────────────────────────────────────────────── */
+
+.leftPanel {
+  display: none;
+  flex: 1;
+  background: var(--green-950);
+  padding: var(--space-12) var(--space-11);
+  flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+  .leftPanel {
+    display: flex;
+  }
+}
+
+.leftContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+  max-width: 480px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.logoMark {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--green-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+  font-weight: var(--fw-bold);
+  color: var(--white);
+  letter-spacing: 0.5px;
+}
+
+.logoName {
+  font-size: var(--text-lg);
+  font-weight: var(--fw-semibold);
+  color: var(--white);
+  letter-spacing: -0.01em;
+}
+
+.logoTagline {
+  font-size: var(--text-xs);
+  color: var(--green-400);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.headlineTitle {
+  font-size: var(--text-4xl);
+  font-weight: var(--fw-bold);
+  color: var(--white);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-display);
+  margin-bottom: var(--space-5);
+}
+
+.headlineSub {
+  font-size: var(--text-base);
+  color: rgba(255,255,255,.65);
+  line-height: var(--lh-relaxed);
+  max-width: 380px;
+}
+
+/* ─── Steps indicator ────────────────────────────────────────── */
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.stepItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  opacity: 0.4;
+}
+
+.stepItemActive {
+  opacity: 1;
+}
+
+.stepItemDone {
+  opacity: 0.85;
+}
+
+.stepNum {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  border: 1.5px solid rgba(255,255,255,.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xs);
+  font-weight: var(--fw-semibold);
+  color: var(--white);
+  flex-shrink: 0;
+}
+
+.stepItemActive .stepNum {
+  background: var(--green-600);
+  border-color: var(--green-600);
+}
+
+.stepItemDone .stepNum {
+  background: transparent;
+  border-color: var(--green-400);
+  color: var(--green-400);
+}
+
+.stepLabel {
+  font-size: var(--text-sm);
+  font-weight: var(--fw-medium);
+  color: var(--white);
+}
+
+/* ─── Right panel ─────────────────────────────────────────────── */
+
+.rightPanel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--space-9) var(--space-6);
+  gap: var(--space-6);
+  overflow-y: auto;
+}
+
+@media (min-width: 1024px) {
+  .rightPanel {
+    width: 560px;
+    flex-shrink: 0;
+    padding: var(--space-10) var(--space-11);
+    align-items: stretch;
+    justify-content: flex-start;
+  }
+}
+
+.formBox {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: var(--space-9);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  width: 100%;
+  max-width: 520px;
+}
+
+@media (min-width: 1024px) {
+  .formBox {
+    max-width: 100%;
+  }
+}
+
+.kycBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-4);
+  background: var(--surface-trust-soft);
+  color: var(--text-trust);
+  border-radius: 20px;
+  font-size: var(--text-xs);
+  font-weight: var(--fw-medium);
+  width: fit-content;
+}
+
+.formTitle {
+  font-size: var(--text-2xl);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+  letter-spacing: var(--ls-display);
+  line-height: var(--lh-snug);
+  margin-top: var(--space-3);
+}
+
+.formSub {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--lh-relaxed);
+  margin-top: var(--space-2);
+}
+
+/* ─── Role cards ──────────────────────────────────────────────── */
+
+.roleCards {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.roleCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: var(--space-5) var(--space-6);
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-default);
+  background: var(--surface-card);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  text-align: left;
+}
+
+.roleCard:hover {
+  border-color: var(--border-brand);
+  background: var(--surface-brand-soft);
+}
+
+.roleCardActive {
+  border-color: var(--green-600);
+  background: var(--surface-brand-soft);
+}
+
+.roleTitle {
+  font-size: var(--text-base);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+}
+
+.roleSub {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+/* ─── Form grid ───────────────────────────────────────────────── */
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-5);
+}
+
+@media (max-width: 640px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.fieldLabel {
+  font-size: var(--text-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-primary);
+}
+
+.input {
+  width: 100%;
+  padding: var(--space-4) var(--space-5);
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-family: var(--font-core);
+  color: var(--text-primary);
+  background: var(--surface-card);
+  transition: border-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--green-600);
+}
+
+.inputError {
+  border-color: var(--status-danger) !important;
+}
+
+.errorMsg {
+  font-size: var(--text-xs);
+  color: var(--text-danger);
+}
+
+.roleGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Phone input ─────────────────────────────────────────────── */
+
+.phoneInput {
+  display: flex;
+  align-items: stretch;
+  border: 1.5px solid var(--border-default);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.phoneInput:focus-within {
+  border-color: var(--green-600);
+}
+
+.phonePrefix {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-4);
+  background: var(--surface-sunken);
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  border-right: 1px solid var(--border-default);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.phoneInput .input {
+  border: none;
+  border-radius: 0;
+}
+
+.phoneInput .input:focus {
+  outline: none;
+  border: none;
+}
+
+/* ─── Password ────────────────────────────────────────────────── */
+
+.passwordInput {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordField {
+  padding-right: var(--space-12);
+}
+
+.eyeBtn {
+  position: absolute;
+  right: var(--space-4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+/* ─── CTA ─────────────────────────────────────────────────────── */
+
+.ctaGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.primaryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  width: 100%;
+  padding: var(--space-5) var(--space-6);
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--green-700);
+  color: var(--white);
+  font-size: var(--text-base);
+  font-family: var(--font-core);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.primaryBtn:hover:not(:disabled) {
+  background: var(--green-800);
+}
+
+.primaryBtn:disabled {
+  background: var(--action-disabled);
+  color: var(--action-disabled-text);
+  cursor: not-allowed;
+}
+
+.backLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-family: var(--font-core);
+  cursor: pointer;
+  padding: 0;
+  text-align: center;
+}
+
+.loginLink {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.inlineLink {
+  background: none;
+  border: none;
+  color: var(--text-brand);
+  font-size: inherit;
+  font-family: var(--font-core);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+/* ─── Success ─────────────────────────────────────────────────── */
+
+.successState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  padding: var(--space-9) 0;
+  text-align: center;
+}
+
+.successIcon {
+  color: var(--status-success);
+}
+
+.successTitle {
+  font-size: var(--text-2xl);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+}
+
+.successSub {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--lh-relaxed);
+  max-width: 320px;
+}

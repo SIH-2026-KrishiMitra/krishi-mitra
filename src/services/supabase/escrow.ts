@@ -1,26 +1,38 @@
 import { supabase } from '../../lib/supabase'
 import type { DbEscrowTransaction, EscrowStatus } from '../../types'
 
-export async function fetchFarmerEscrow(farmerId: string): Promise<DbEscrowTransaction[]> {
-  const { data, error } = await supabase
-    .from('escrow_transactions')
-    .select('*')
-    .eq('farmer_id', farmerId)
-    .order('created_at', { ascending: false })
-
-  if (error) throw error
-  return data as DbEscrowTransaction[]
+export interface ExpandedEscrow extends DbEscrowTransaction {
+  lot_info: { crop: string; grade: string; variety: string } | null
+  buyer_info: { full_name: string } | null
 }
 
-export async function fetchBuyerEscrow(buyerId: string): Promise<DbEscrowTransaction[]> {
+export async function fetchFarmerEscrow(): Promise<ExpandedEscrow[]> {
+  // RLS "escrow_farmer_select" restricts to current farmer automatically
   const { data, error } = await supabase
     .from('escrow_transactions')
-    .select('*')
-    .eq('buyer_id', buyerId)
+    .select(`
+      *,
+      lot_info:lots!lot_id(crop, grade, variety),
+      buyer_info:profiles!buyer_id(full_name)
+    `)
     .order('created_at', { ascending: false })
 
   if (error) throw error
-  return data as DbEscrowTransaction[]
+  return data as ExpandedEscrow[]
+}
+
+export async function fetchBuyerEscrow(): Promise<ExpandedEscrow[]> {
+  const { data, error } = await supabase
+    .from('escrow_transactions')
+    .select(`
+      *,
+      lot_info:lots!lot_id(crop, grade, variety),
+      buyer_info:profiles!buyer_id(full_name)
+    `)
+    .order('created_at', { ascending: false })
+
+  if (error) throw error
+  return data as ExpandedEscrow[]
 }
 
 export async function fetchEscrowByDeal(dealId: string): Promise<DbEscrowTransaction | null> {

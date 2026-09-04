@@ -6,12 +6,13 @@ import {
   fetchBuyerOffers,
   createOffer,
   updateOfferStatus,
+  type ExpandedOffer,
   type CreateOfferInput,
 } from '../services/supabase/offers'
 import type { DbOffer } from '../types'
 
 interface UseFarmerOffersResult {
-  offers: (DbOffer & { lot: { crop: string; variety: string; quantity: number; unit: string } })[]
+  offers: ExpandedOffer[]
   loading: boolean
   error: string | null
   reload: () => Promise<void>
@@ -21,7 +22,7 @@ interface UseFarmerOffersResult {
 
 export function useFarmerOffers(): UseFarmerOffersResult {
   const { user } = useAuth()
-  const [offers, setOffers] = useState<(DbOffer & { lot: { crop: string; variety: string; quantity: number; unit: string } })[]>([])
+  const [offers, setOffers] = useState<ExpandedOffer[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -30,7 +31,7 @@ export function useFarmerOffers(): UseFarmerOffersResult {
     setLoading(true)
     setError(null)
     try {
-      setOffers(await fetchOffersForFarmer(user.id))
+      setOffers(await fetchOffersForFarmer())
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to load offers')
     } finally {
@@ -42,12 +43,11 @@ export function useFarmerOffers(): UseFarmerOffersResult {
     load()
   }, [load])
 
-  // Real-time: new offers on farmer's lots
   useEffect(() => {
     if (!user) return
     const channel = supabase
       .channel('farmer-offers')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'offers' }, () => {
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'offers' }, () => {
         load()
       })
       .subscribe()
@@ -57,19 +57,19 @@ export function useFarmerOffers(): UseFarmerOffersResult {
 
   const accept = useCallback(async (offerId: string) => {
     await updateOfferStatus(offerId, 'accepted')
-    setOffers(prev => prev.map(o => o.id === offerId ? { ...o, status: 'accepted' } : o))
+    setOffers(prev => prev.map(o => o.id === offerId ? { ...o, status: 'accepted' as const } : o))
   }, [])
 
   const reject = useCallback(async (offerId: string) => {
     await updateOfferStatus(offerId, 'rejected')
-    setOffers(prev => prev.map(o => o.id === offerId ? { ...o, status: 'rejected' } : o))
+    setOffers(prev => prev.map(o => o.id === offerId ? { ...o, status: 'rejected' as const } : o))
   }, [])
 
   return { offers, loading, error, reload: load, accept, reject }
 }
 
 interface UseBuyerOffersResult {
-  offers: (DbOffer & { lot: { crop: string; variety: string; mandi: string; grade: string } })[]
+  offers: (DbOffer & { lot: { crop: string; variety: string; mandi: string; grade: string } | null })[]
   loading: boolean
   error: string | null
   reload: () => Promise<void>
@@ -79,7 +79,7 @@ interface UseBuyerOffersResult {
 
 export function useBuyerOffers(): UseBuyerOffersResult {
   const { user } = useAuth()
-  const [offers, setOffers] = useState<(DbOffer & { lot: { crop: string; variety: string; mandi: string; grade: string } })[]>([])
+  const [offers, setOffers] = useState<(DbOffer & { lot: { crop: string; variety: string; mandi: string; grade: string } | null })[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -108,7 +108,7 @@ export function useBuyerOffers(): UseBuyerOffersResult {
 
   const cancel = useCallback(async (offerId: string) => {
     await updateOfferStatus(offerId, 'cancelled')
-    setOffers(prev => prev.map(o => o.id === offerId ? { ...o, status: 'cancelled' } : o))
+    setOffers(prev => prev.map(o => o.id === offerId ? { ...o, status: 'cancelled' as const } : o))
   }, [])
 
   return { offers, loading, error, reload: load, submit, cancel }

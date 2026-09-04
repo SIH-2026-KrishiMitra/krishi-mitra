@@ -8,14 +8,15 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  text-align: left;
+  width: 100%;
+  font-family: var(--font-core);
   transition:
     box-shadow var(--dur-fast) var(--ease-standard),
-    background-color var(--dur-fast) var(--ease-standard),
     transform var(--dur-fast) var(--ease-standard);
 }
 
 .card:hover {
-  background: var(--surface-brand-soft);
   box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
@@ -26,8 +27,8 @@
 }
 
 .card:focus-visible {
-  outline: var(--border-focus) solid var(--green-600);
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: var(--ring-focus);
 }
 
 .header {
@@ -74,7 +75,7 @@
 
 .metricValue {
   font-family: var(--font-display);
-  font-size: var(--text-base);
+  font-size: var(--text-lg);
   font-weight: var(--fw-semibold);
   color: var(--text-primary);
   font-variant-numeric: tabular-nums lining-nums;

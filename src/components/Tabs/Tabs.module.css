@@ -38,6 +38,6 @@
 }
 
 .tab:focus-visible {
-  outline: var(--border-focus) solid var(--green-600);
-  outline-offset: -2px;
+  outline: none;
+  box-shadow: var(--ring-focus);
 }

@@ -5,11 +5,12 @@ import {
   fetchFarmerDeals,
   fetchBuyerDeals,
   updateDealStatus,
+  type ExpandedDeal,
 } from '../services/supabase/deals'
-import type { DbDeal, DealStatus } from '../types'
+import type { DealStatus } from '../types'
 
 interface UseDealsResult {
-  deals: DbDeal[]
+  deals: ExpandedDeal[]
   loading: boolean
   error: string | null
   reload: () => Promise<void>
@@ -18,7 +19,7 @@ interface UseDealsResult {
 
 export function useFarmerDeals(): UseDealsResult {
   const { user } = useAuth()
-  const [deals, setDeals] = useState<DbDeal[]>([])
+  const [deals, setDeals] = useState<ExpandedDeal[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -27,7 +28,7 @@ export function useFarmerDeals(): UseDealsResult {
     setLoading(true)
     setError(null)
     try {
-      setDeals(await fetchFarmerDeals(user.id))
+      setDeals(await fetchFarmerDeals())
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to load deals')
     } finally {
@@ -39,7 +40,6 @@ export function useFarmerDeals(): UseDealsResult {
     load()
   }, [load])
 
-  // Real-time
   useEffect(() => {
     if (!user) return
     const channel = supabase
@@ -55,16 +55,16 @@ export function useFarmerDeals(): UseDealsResult {
   }, [user, load])
 
   const advance = useCallback(async (dealId: string, status: DealStatus, detail?: string) => {
-    const updated = await updateDealStatus(dealId, status, detail)
-    setDeals(prev => prev.map(d => d.id === dealId ? updated : d))
-  }, [])
+    await updateDealStatus(dealId, status, detail)
+    await load()
+  }, [load])
 
   return { deals, loading, error, reload: load, advance }
 }
 
 export function useBuyerDeals(): UseDealsResult {
   const { user } = useAuth()
-  const [deals, setDeals] = useState<DbDeal[]>([])
+  const [deals, setDeals] = useState<ExpandedDeal[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -73,7 +73,7 @@ export function useBuyerDeals(): UseDealsResult {
     setLoading(true)
     setError(null)
     try {
-      setDeals(await fetchBuyerDeals(user.id))
+      setDeals(await fetchBuyerDeals())
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Failed to load deals')
     } finally {
@@ -100,9 +100,9 @@ export function useBuyerDeals(): UseDealsResult {
   }, [user, load])
 
   const advance = useCallback(async (dealId: string, status: DealStatus, detail?: string) => {
-    const updated = await updateDealStatus(dealId, status, detail)
-    setDeals(prev => prev.map(d => d.id === dealId ? updated : d))
-  }, [])
+    await updateDealStatus(dealId, status, detail)
+    await load()
+  }, [load])
 
   return { deals, loading, error, reload: load, advance }
 }

@@ -15,7 +15,6 @@
 }
 
 .interactive:hover {
-  background: var(--surface-brand-soft);
   box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
@@ -26,6 +25,6 @@
 }
 
 .interactive:focus-visible {
-  outline: var(--border-focus) solid var(--green-600);
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: var(--ring-focus);
 }

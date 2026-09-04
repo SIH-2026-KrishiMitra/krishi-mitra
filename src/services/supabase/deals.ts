@@ -1,50 +1,84 @@
 import { supabase } from '../../lib/supabase'
 import type { DbDeal, DealStatus, DbDealEvent } from '../../types'
 
-export async function fetchFarmerDeals(farmerId: string): Promise<DbDeal[]> {
+export interface BuyerJoin {
+  full_name: string
+  avatar_url: string | null
+  buyer_profile: {
+    org_name: string | null
+    buyer_type: string | null
+    trust_score: number
+    completed_deals: number
+    verified: boolean
+  } | null
+}
+
+export type ExpandedDeal = DbDeal & {
+  buyer: BuyerJoin | null
+}
+
+export async function fetchFarmerDeals(): Promise<ExpandedDeal[]> {
   const { data, error } = await supabase
     .from('deals')
-    .select('*')
-    .eq('farmer_id', farmerId)
+    .select(`
+      *,
+      buyer:profiles!buyer_id(
+        full_name,
+        avatar_url,
+        buyer_profile:buyer_profiles(org_name, buyer_type, trust_score, completed_deals, verified)
+      )
+    `)
     .order('created_at', { ascending: false })
 
   if (error) throw error
-  return data as DbDeal[]
+  return data as ExpandedDeal[]
 }
 
-export async function fetchBuyerDeals(buyerId: string): Promise<DbDeal[]> {
+export async function fetchBuyerDeals(): Promise<ExpandedDeal[]> {
   const { data, error } = await supabase
     .from('deals')
-    .select('*')
-    .eq('buyer_id', buyerId)
+    .select(`
+      *,
+      buyer:profiles!buyer_id(
+        full_name,
+        avatar_url,
+        buyer_profile:buyer_profiles(org_name, buyer_type, trust_score, completed_deals, verified)
+      )
+    `)
     .order('created_at', { ascending: false })
 
   if (error) throw error
-  return data as DbDeal[]
+  return data as ExpandedDeal[]
 }
 
-export async function fetchDealById(id: string): Promise<DbDeal | null> {
+export async function fetchDealById(id: string): Promise<ExpandedDeal | null> {
   const { data, error } = await supabase
     .from('deals')
-    .select('*')
+    .select(`
+      *,
+      buyer:profiles!buyer_id(
+        full_name,
+        avatar_url,
+        buyer_profile:buyer_profiles(org_name, buyer_type, trust_score, completed_deals, verified)
+      )
+    `)
     .eq('id', id)
     .maybeSingle()
 
   if (error) throw error
-  return data as DbDeal | null
+  return data as ExpandedDeal | null
 }
 
 export async function createDealFromOffer(offerId: string): Promise<DbDeal> {
-  // Fetch offer + lot to build deal
   const { data: offer, error: offerErr } = await supabase
     .from('offers')
-    .select('*, lot:lots(crop, variety, unit, farmer_id)')
+    .select('*, lot:lots!lot_id(crop, variety, unit, farmer_id)')
     .eq('id', offerId)
     .single()
 
   if (offerErr) throw offerErr
 
-  const lot = offer.lot as { crop: string; variety: string; unit: string; farmer_id: string }
+  const lot = offer.lot as { crop: string; variety: string; unit: string; farmer_id: string } | null
 
   const now = new Date().toISOString()
   const initialTimeline: DbDealEvent[] = [
@@ -56,12 +90,12 @@ export async function createDealFromOffer(offerId: string): Promise<DbDeal> {
     .insert({
       lot_id: offer.lot_id,
       offer_id: offerId,
-      farmer_id: lot.farmer_id,
+      farmer_id: lot?.farmer_id ?? '',
       buyer_id: offer.buyer_id,
-      crop: lot.crop,
-      variety: lot.variety,
+      crop: lot?.crop ?? '',
+      variety: lot?.variety ?? '',
       quantity: offer.quantity,
-      unit: lot.unit,
+      unit: lot?.unit ?? 'qtl',
       price_per_unit: offer.offer_price,
       total_value: offer.quantity * offer.offer_price,
       escrow_amount: offer.escrow_protected ? offer.quantity * offer.offer_price : 0,
