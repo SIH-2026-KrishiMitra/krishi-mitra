@@ -4,11 +4,22 @@ import { Search, TrendingUp, TrendingDown, CheckCircle, ArrowUpRight, ShieldChec
 import FarmerLayout from './FarmerLayout'
 import { useApp } from '../../context/AppContext'
 import { useMarketPrices } from '../../hooks/useMarketPrices'
-import { BUYER_MARKET_OFFERS } from '../../data/mockData'
 import PriceChart from '../../components/PriceChart/PriceChart'
 import styles from './FarmerMarkets.module.css'
 
 type SortKey = 'highest_price' | 'nearest' | 'demand' | 'fresh'
+
+type DisplayOffer = {
+  id: string
+  buyer: {
+    id: string; name: string; type: string; distance: number
+    verificationStatus: string; trustScore: number
+    paymentHistory: number; completedDeals: number
+  }
+  price: number
+  demand: 'high' | 'medium' | 'low'
+  fresh: boolean
+}
 
 const SORT_LABELS: Record<SortKey, string> = {
   highest_price: 'Highest price',
@@ -27,19 +38,31 @@ export default function FarmerMarkets() {
   const [selectedBuyerIdx, setSelectedBuyerIdx] = useState(0)
 
   const cropData = prices.find(m => m.id === selectedCropId) ?? prices[0]
-  const buyerOffers = BUYER_MARKET_OFFERS[selectedCropId] ?? []
 
-  const sortedBuyerOffers = useMemo(() => {
-    let filtered = [...buyerOffers]
+  const sortedBuyerOffers = useMemo<DisplayOffer[]>(() => {
+    const cropName = cropData?.crop ?? ''
+    let filtered: DisplayOffer[] = state.offers
+      .filter(o =>
+        o.status === 'active' &&
+        state.lots.find(l => l.id === o.lotId)?.crop.toLowerCase() === cropName.toLowerCase()
+      )
+      .map(o => ({
+        id: o.id,
+        buyer: o.buyer,
+        price: o.offerPrice,
+        demand: 'medium' as const,
+        fresh: false,
+      }))
+
     if (sort === 'highest_price') filtered.sort((a, b) => b.price - a.price)
     if (sort === 'nearest') filtered.sort((a, b) => a.buyer.distance - b.buyer.distance)
-    if (sort === 'demand') filtered.sort((a, b) => {
-      const order = { high: 0, medium: 1, low: 2 }
-      return order[a.demand] - order[b.demand]
-    })
+    if (sort === 'demand') {
+      const order: Record<string, number> = { high: 0, medium: 1, low: 2 }
+      filtered.sort((a, b) => order[a.demand] - order[b.demand])
+    }
     if (sort === 'fresh') filtered = filtered.filter(o => o.fresh)
     return filtered
-  }, [buyerOffers, sort])
+  }, [state.offers, state.lots, cropData, sort])
 
   const selectedBuyer = sortedBuyerOffers[selectedBuyerIdx]
 

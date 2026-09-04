@@ -1,9 +1,68 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MapPin, ChevronDown, Volume2, Bell, Plus, Globe } from 'lucide-react'
 import { useAuth } from '../../context/AuthContext'
-import { useApp } from '../../context/AppContext'
+import { useNotifications } from '../../hooks/useNotifications'
 import styles from './TopNav.module.css'
+
+function NotifDropdown() {
+  const [open, setOpen] = useState(false)
+  const { notifications, unreadCount, markRead, markAllRead } = useNotifications()
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    function onClickOutside(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', onClickOutside)
+    return () => document.removeEventListener('mousedown', onClickOutside)
+  }, [open])
+
+  return (
+    <div className={styles.notifWrapper} ref={ref}>
+      <button
+        type="button"
+        className={styles.iconBtn}
+        aria-label={`Notifications${unreadCount ? ` (${unreadCount} unread)` : ''}`}
+        onClick={() => setOpen(v => !v)}
+      >
+        <Bell size={18} aria-hidden />
+        {unreadCount > 0 && (
+          <span className={styles.notifBadge} aria-hidden>{unreadCount > 9 ? '9+' : unreadCount}</span>
+        )}
+      </button>
+
+      {open && (
+        <div className={styles.notifPanel} role="dialog" aria-label="Notifications">
+          <div className={styles.notifPanelHeader}>
+            <span className={styles.notifPanelTitle}>Notifications</span>
+            {unreadCount > 0 && (
+              <button type="button" className={styles.markAllBtn} onClick={() => { void markAllRead() }}>
+                Mark all read
+              </button>
+            )}
+          </div>
+          <ul className={styles.notifList}>
+            {notifications.length === 0 && (
+              <li className={styles.notifEmpty}>No notifications yet</li>
+            )}
+            {notifications.slice(0, 10).map(n => (
+              <li
+                key={n.id}
+                className={`${styles.notifItem} ${!n.read ? styles.notifItemUnread : ''}`}
+                onClick={() => { void markRead(n.id) }}
+              >
+                <div className={styles.notifItemTitle}>{n.title}</div>
+                <div className={styles.notifItemBody}>{n.body}</div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  )
+}
 
 const LOCATIONS = ['Nashik, Maharashtra', 'Pune, Maharashtra', 'Nagpur, Maharashtra']
 const LANGUAGES = [
@@ -14,7 +73,6 @@ const LANGUAGES = [
 
 function FarmerTopNav() {
   const navigate = useNavigate()
-  const { unreadCount } = useApp()
   const [location, setLocation] = useState('Nashik, Maharashtra')
   const [lang, setLang] = useState('en')
   const [showLocDrop, setShowLocDrop] = useState(false)
@@ -88,16 +146,7 @@ function FarmerTopNav() {
           <span>Listen</span>
         </button>
 
-        <button
-          type="button"
-          className={styles.iconBtn}
-          aria-label={`Notifications${unreadCount ? ` (${unreadCount} unread)` : ''}`}
-        >
-          <Bell size={18} aria-hidden />
-          {unreadCount > 0 && (
-            <span className={styles.notifBadge} aria-hidden>{unreadCount}</span>
-          )}
-        </button>
+        <NotifDropdown />
 
         <button
           type="button"
@@ -120,9 +169,7 @@ function BuyerTopNav() {
         <span className={styles.roleLabel}>Buyer Portal</span>
       </div>
       <div className={styles.right}>
-        <button type="button" className={styles.iconBtn} aria-label="Notifications">
-          <Bell size={18} aria-hidden />
-        </button>
+        <NotifDropdown />
         <div className={styles.userChip}>
           <div className={styles.userChipAvatar}>
             {(profile?.full_name ?? 'B').charAt(0).toUpperCase()}
@@ -142,9 +189,7 @@ function AdminTopNav() {
         <span className={styles.roleLabel}>Admin Dashboard</span>
       </div>
       <div className={styles.right}>
-        <button type="button" className={styles.iconBtn} aria-label="Notifications">
-          <Bell size={18} aria-hidden />
-        </button>
+        <NotifDropdown />
         <div className={styles.userChip}>
           <div className={styles.userChipAvatar}>
             {(profile?.full_name ?? 'A').charAt(0).toUpperCase()}

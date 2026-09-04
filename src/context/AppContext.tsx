@@ -4,13 +4,11 @@ import {
 import toast from 'react-hot-toast'
 import type {
   Farmer, Lot, Offer, Deal, EscrowTransaction, Complaint,
-  Notification, DealStatus, LotStatus, DealTimelineStep, ComplaintTimelineStep,
+  DealStatus, LotStatus, DealTimelineStep, ComplaintTimelineStep,
   Buyer,
 } from '../types'
-import {
-  SEED_NOTIFICATIONS, SEED_TRANSACTIONS, type TransactionRecord,
-} from '../data/mockData'
 import { useAuth } from './AuthContext'
+import { useNotifications } from '../hooks/useNotifications'
 import { useFarmerLots } from '../hooks/useLots'
 import { useFarmerOffers } from '../hooks/useOffers'
 import { useFarmerDeals } from '../hooks/useDeals'
@@ -224,8 +222,6 @@ interface AppState {
   deals: Deal[]
   escrow: EscrowTransaction[]
   complaints: Complaint[]
-  notifications: Notification[]
-  transactions: TransactionRecord[]
   selectedCropId: string
 }
 
@@ -264,9 +260,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const grievancesHook = useGrievances()
 
   const [selectedCropId, setSelectedCropId] = useState('tomato')
-  const [notifications, setNotifications] = useState<Notification[]>(() =>
-    storage.get('notifications', SEED_NOTIFICATIONS)
-  )
+  const { unreadCount, markRead: notifMarkRead, markAllRead: notifMarkAllRead } = useNotifications()
 
   // ── Derived farmer object ────────────────────────────────────────────────────
   const farmer: Farmer = {
@@ -426,15 +420,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [grievancesHook])
 
   const markNotifRead = useCallback((id: string) => {
-    setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n))
-  }, [])
+    void notifMarkRead(id)
+  }, [notifMarkRead])
 
   const markAllNotifsRead = useCallback(() => {
-    setNotifications(prev => prev.map(n => ({ ...n, read: true })))
-  }, [])
+    void notifMarkAllRead()
+  }, [notifMarkAllRead])
 
   // ── Derived counts (for Sidebar badges) ─────────────────────────────────────
-  const unreadCount = notifications.filter(n => !n.read).length
   const activeLotsCount = lots.filter(l => l.status === 'listed' || l.status === 'offers_received').length
   const offersCount = offers.filter(o => o.status === 'active').length
   const dealsCount = deals.filter(d => d.status !== 'payment_released').length
@@ -446,8 +439,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
     deals,
     escrow,
     complaints,
-    notifications,
-    transactions: SEED_TRANSACTIONS,
     selectedCropId,
   }
 

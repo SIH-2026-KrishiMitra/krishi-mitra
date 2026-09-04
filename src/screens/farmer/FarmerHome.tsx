@@ -3,7 +3,6 @@ import { TrendingUp, ArrowRight, Phone, MapPin } from 'lucide-react'
 import FarmerLayout from './FarmerLayout'
 import { useApp } from '../../context/AppContext'
 import { useMarketPrices } from '../../hooks/useMarketPrices'
-import { BUYERS } from '../../data/mockData'
 import styles from './FarmerHome.module.css'
 
 const RECOMMENDATION = {
@@ -14,18 +13,8 @@ const RECOMMENDATION = {
   reason: 'Prices nearby are strong and 8% above the 10-day average. Waiting adds storage cost with a small expected gain.',
 }
 
-const NEARBY_BUYERS = [
-  { buyer: BUYERS[0], price: 2500, tag: 'Best today', tagType: 'success' as const },
-  { buyer: BUYERS[1], price: 2480, tag: '— Stable', tagType: 'neutral' as const },
-  { buyer: BUYERS[2], price: 2450, tag: '↑ Rising', tagType: 'info' as const },
-]
-
-const SEASON_STATS = {
-  sold: '8.4 t',
-  earned: '₹2.06 L',
-  avgPrice: '₹2,455',
-  aboveMandi: '₹9,400 above mandi rate this season',
-}
+const NEARBY_TAGS = ['Best today', '— Stable', '↑ Rising'] as const
+const NEARBY_TAG_TYPES = ['success', 'neutral', 'info'] as const
 
 export default function FarmerHome() {
   const navigate = useNavigate()
@@ -41,6 +30,18 @@ export default function FarmerHome() {
   })
 
   const activeDeal = state.deals.find(d => d.status !== 'payment_released')
+
+  const completedDeals = state.deals.filter(d => d.status === 'payment_released')
+  const totalQtyKg = completedDeals.reduce((s, d) => s + d.quantity, 0)
+  const totalEarned = completedDeals.reduce((s, d) => s + d.totalValue, 0)
+  const avgPrice = completedDeals.length > 0
+    ? Math.round(completedDeals.reduce((s, d) => s + d.pricePerUnit, 0) / completedDeals.length)
+    : 0
+
+  const nearbyOffers = state.offers
+    .filter(o => o.status === 'active')
+    .sort((a, b) => b.offerPrice - a.offerPrice)
+    .slice(0, 3)
 
   const priceHistory = todayCrop?.priceHistory.slice(-7) ?? []
 
@@ -205,19 +206,27 @@ export default function FarmerHome() {
             <div className={styles.nearbySection}>
               <h2 className={styles.nearbySectionTitle}>Nearby options today</h2>
               <div className={styles.nearbyList}>
-                {NEARBY_BUYERS.map(({ buyer, price, tag, tagType }) => (
+                {nearbyOffers.length > 0 ? nearbyOffers.map(({ buyer, offerPrice }, i) => (
                   <div key={buyer.id} className={styles.nearbyItem} onClick={() => navigate('/farmer/markets')}>
                     <div className={styles.nearbyInfo}>
                       <span className={styles.nearbyBuyerName}>{buyer.name}</span>
-                      <span className={styles.nearbyBuyerMeta}>{buyer.type === 'processor' ? 'Processor' : buyer.type} · {buyer.distance} km · Grade A</span>
+                      <span className={styles.nearbyBuyerMeta}>{buyer.type} · Grade A</span>
                     </div>
                     <div className={styles.nearbyRight}>
-                      <span className={styles.nearbyPrice} data-numeric="">₹{price.toLocaleString('en-IN')}</span>
-                      <span className={`${styles.nearbyTag} ${styles[`nearbyTag_${tagType}`]}`}>{tag}</span>
+                      <span className={styles.nearbyPrice} data-numeric="">₹{offerPrice.toLocaleString('en-IN')}</span>
+                      <span className={`${styles.nearbyTag} ${styles[`nearbyTag_${NEARBY_TAG_TYPES[i]}`]}`}>{NEARBY_TAGS[i]}</span>
                     </div>
                     <ArrowRight size={14} className={styles.nearbyArrow} aria-hidden />
                   </div>
-                ))}
+                )) : (
+                  <div className={styles.nearbyItem} onClick={() => navigate('/farmer/markets')}>
+                    <div className={styles.nearbyInfo}>
+                      <span className={styles.nearbyBuyerName}>No active offers</span>
+                      <span className={styles.nearbyBuyerMeta}>Check market prices for buyers near you</span>
+                    </div>
+                    <ArrowRight size={14} className={styles.nearbyArrow} aria-hidden />
+                  </div>
+                )}
               </div>
             </div>
 
@@ -226,20 +235,20 @@ export default function FarmerHome() {
               <h2 className={styles.seasonTitle}>This season so far</h2>
               <div className={styles.seasonStats}>
                 <div className={styles.seasonStat}>
-                  <span className={styles.seasonStatValue} data-numeric="">{SEASON_STATS.sold}</span>
+                  <span className={styles.seasonStatValue} data-numeric="">{totalQtyKg > 0 ? `${(totalQtyKg / 1000).toFixed(1)} t` : '—'}</span>
                   <span className={styles.seasonStatLabel}>SOLD</span>
                 </div>
                 <div className={styles.seasonStat}>
-                  <span className={styles.seasonStatValue} data-numeric="">{SEASON_STATS.earned}</span>
+                  <span className={styles.seasonStatValue} data-numeric="">{totalEarned > 0 ? `₹${(totalEarned / 100000).toFixed(2)} L` : '—'}</span>
                   <span className={styles.seasonStatLabel}>EARNED</span>
                 </div>
                 <div className={styles.seasonStat}>
-                  <span className={styles.seasonStatValue} data-numeric="">{SEASON_STATS.avgPrice}</span>
+                  <span className={styles.seasonStatValue} data-numeric="">{avgPrice > 0 ? `₹${avgPrice.toLocaleString('en-IN')}` : '—'}</span>
                   <span className={styles.seasonStatLabel}>AVG PRICE</span>
                 </div>
               </div>
               <p className={styles.seasonNote}>
-                <TrendingUp size={12} aria-hidden /> {SEASON_STATS.aboveMandi}
+                <TrendingUp size={12} aria-hidden /> {completedDeals.length} deal{completedDeals.length !== 1 ? 's' : ''} completed this season
               </p>
             </div>
           </div>

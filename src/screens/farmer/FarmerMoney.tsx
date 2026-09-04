@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { ShieldCheck, Clock, CheckCircle } from 'lucide-react'
 import FarmerLayout from './FarmerLayout'
 import { useApp } from '../../context/AppContext'
-import { SEED_TRANSACTIONS } from '../../data/mockData'
 import styles from './FarmerMoney.module.css'
 
 const ESCROW_STATUS_LABEL: Record<string, string> = {
@@ -102,30 +101,41 @@ export default function FarmerMoney() {
               <span>RATE</span>
               <span>STATUS</span>
             </div>
-            {SEED_TRANSACTIONS.map(tx => (
-              <div
-                key={tx.id}
-                className={`${styles.txRow} ${selectedTxId === tx.id ? styles.txRowActive : ''}`}
-                onClick={() => setSelectedTxId(selectedTxId === tx.id ? null : tx.id)}
-              >
-                <div className={styles.txCropCell}>
-                  <div className={styles.txCropIcon}>{tx.crop.charAt(0)}</div>
-                  <div>
-                    <p className={styles.txCropName}>{tx.crop} · {tx.grade}</p>
-                    <p className={styles.txBuyerName}>{tx.buyer}</p>
-                  </div>
-                </div>
-                <span className={styles.txDate}>{tx.date}</span>
-                <span className={styles.txQty} data-numeric="">{tx.quantity} kg</span>
-                <span className={styles.txRate} data-numeric="">₹{tx.rate.toLocaleString('en-IN')}/qt</span>
-                <span className={`${styles.txStatus} ${styles[`txStatus_${tx.status}`]}`}>
-                  {tx.status === 'completed' && <CheckCircle size={12} aria-hidden />}
-                  {tx.status === 'pending' && <Clock size={12} aria-hidden />}
-                  {tx.status === 'disputed' && <ShieldCheck size={12} aria-hidden />}
-                  {tx.status.charAt(0).toUpperCase() + tx.status.slice(1)}
-                </span>
+            {state.deals.length === 0 && (
+              <div className={styles.txRow}>
+                <p style={{ color: 'var(--text-muted)', fontSize: 'var(--text-sm)', gridColumn: '1/-1' }}>No transactions yet.</p>
               </div>
-            ))}
+            )}
+            {[...state.deals]
+              .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+              .map(deal => {
+                const date = new Date(deal.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
+                const txStatus = deal.status === 'payment_released' ? 'completed' : 'pending'
+                return (
+                  <div
+                    key={deal.id}
+                    className={`${styles.txRow} ${selectedTxId === deal.id ? styles.txRowActive : ''}`}
+                    onClick={() => setSelectedTxId(selectedTxId === deal.id ? null : deal.id)}
+                  >
+                    <div className={styles.txCropCell}>
+                      <div className={styles.txCropIcon}>{deal.crop.charAt(0)}</div>
+                      <div>
+                        <p className={styles.txCropName}>{deal.crop}{deal.variety ? ` · ${deal.variety}` : ''}</p>
+                        <p className={styles.txBuyerName}>{deal.buyer.name}</p>
+                      </div>
+                    </div>
+                    <span className={styles.txDate}>{date}</span>
+                    <span className={styles.txQty} data-numeric="">{deal.quantity} {deal.unit}</span>
+                    <span className={styles.txRate} data-numeric="">₹{deal.pricePerUnit.toLocaleString('en-IN')}/qt</span>
+                    <span className={`${styles.txStatus} ${styles[`txStatus_${txStatus}`]}`}>
+                      {txStatus === 'completed' && <CheckCircle size={12} aria-hidden />}
+                      {txStatus === 'pending' && <Clock size={12} aria-hidden />}
+                      {txStatus.charAt(0).toUpperCase() + txStatus.slice(1)}
+                    </span>
+                  </div>
+                )
+              })
+            }
           </div>
         </div>
       </div>
