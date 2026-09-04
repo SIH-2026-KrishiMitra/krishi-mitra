@@ -30,8 +30,15 @@ import BuyerPayments from './screens/buyer/BuyerPayments'
 import BuyerProfile from './screens/buyer/BuyerProfile'
 import { BuyerProvider } from './context/BuyerContext'
 
-// Admin screens (stub pages until M5)
+// Admin screens
 import AdminHome from './screens/admin/AdminHome'
+import AdminUsers from './screens/admin/AdminUsers'
+import AdminLots from './screens/admin/AdminLots'
+import AdminDeals from './screens/admin/AdminDeals'
+import AdminPayments from './screens/admin/AdminPayments'
+import AdminGrievances from './screens/admin/AdminGrievances'
+import AdminSettings from './screens/admin/AdminSettings'
+import { AdminProvider } from './context/AdminContext'
 
 // ─── Loading screen ───────────────────────────────────────────────────────────
 
@@ -110,6 +117,12 @@ function FarmerArea({ children }: { children: ReactNode }) {
 
 function BuyerArea({ children }: { children: ReactNode }) {
   return <BuyerProvider>{children}</BuyerProvider>
+}
+
+// ─── Admin area (wraps AdminProvider for admin-specific state) ────────────────
+
+function AdminArea({ children }: { children: ReactNode }) {
+  return <AdminProvider>{children}</AdminProvider>
 }
 
 // ─── App ──────────────────────────────────────────────────────────────────────
@@ -196,7 +209,25 @@ export default function App() {
 
           {/* ── Admin routes ──────────────────────────────────────────── */}
           <Route path="/admin/home" element={
-            <RoleGuard role="admin"><AdminHome /></RoleGuard>
+            <RoleGuard role="admin"><AdminArea><AdminHome /></AdminArea></RoleGuard>
+          } />
+          <Route path="/admin/users" element={
+            <RoleGuard role="admin"><AdminArea><AdminUsers /></AdminArea></RoleGuard>
+          } />
+          <Route path="/admin/lots" element={
+            <RoleGuard role="admin"><AdminArea><AdminLots /></AdminArea></RoleGuard>
+          } />
+          <Route path="/admin/deals" element={
+            <RoleGuard role="admin"><AdminArea><AdminDeals /></AdminArea></RoleGuard>
+          } />
+          <Route path="/admin/payments" element={
+            <RoleGuard role="admin"><AdminArea><AdminPayments /></AdminArea></RoleGuard>
+          } />
+          <Route path="/admin/grievances" element={
+            <RoleGuard role="admin"><AdminArea><AdminGrievances /></AdminArea></RoleGuard>
+          } />
+          <Route path="/admin/settings" element={
+            <RoleGuard role="admin"><AdminArea><AdminSettings /></AdminArea></RoleGuard>
           } />
           <Route path="/admin/*" element={<Navigate to="/admin/home" replace />} />
 
