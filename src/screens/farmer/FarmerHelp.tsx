@@ -187,9 +187,9 @@ export default function FarmerHelp() {
                       </div>
                     )}
                     <input
-                      ref={fileInputRef} type="file" accept="image/*,.pdf" multiple
+                      ref={fileInputRef} type="file" accept="image/jpeg,image/png,image/webp" multiple
                       className={styles.hiddenInput}
-                      onChange={e => handleEvidenceUpload(e.target.files)}
+                      onChange={e => { handleEvidenceUpload(e.target.files); e.target.value = '' }}
                     />
                   </div>
                 )}

@@ -13,6 +13,7 @@ import { cx } from '../../lib/cx'
 import { useApp } from '../../context/AppContext'
 import { useAuth } from '../../context/AuthContext'
 import { uploadLotImage } from '../../services/supabase/lots'
+import { validateImageFile } from '../../services/cloudinary'
 import { CROPS, CROP_VARIETIES, MANDIS, CROP_MARKET_DATA } from '../../data/mockPrices'
 import type { Grade, PaymentMode } from '../../types'
 import styles from './FarmerCreateLot.module.css'
@@ -54,6 +55,7 @@ export default function FarmerCreateLot() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [step, setStep] = useState(0)
   const [submitting, setSubmitting] = useState(false)
+  const [uploadLabel, setUploadLabel] = useState('')
   const [errors, setErrors] = useState<StepErrors>({})
 
   const prefilledCrop = searchParams.get('crop') ?? ''
@@ -92,7 +94,19 @@ export default function FarmerCreateLot() {
   function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const incoming = Array.from(e.target.files ?? [])
     if (!incoming.length) return
-    const merged = [...data.images, ...incoming].slice(0, 5)
+
+    const valid: File[] = []
+    for (const file of incoming) {
+      try {
+        validateImageFile(file)
+        valid.push(file)
+      } catch (err) {
+        toast.error(err instanceof Error ? err.message : 'Invalid file')
+      }
+    }
+    if (!valid.length) { e.target.value = ''; return }
+
+    const merged = [...data.images, ...valid].slice(0, 5)
     const newPreviews = merged.map((f, i) =>
       i < data.images.length ? data.imagePreviews[i] : URL.createObjectURL(f)
     )
@@ -185,19 +199,23 @@ export default function FarmerCreateLot() {
         sellingMethod: 'direct',
       })
 
-      // Upload images after lot creation
+      // Upload images to Cloudinary after lot creation (non-fatal if any fail)
       if (data.images.length > 0 && user) {
         const uploadedUrls: string[] = []
-        for (const file of data.images) {
+        for (let i = 0; i < data.images.length; i++) {
+          const file = data.images[i]
           try {
-            const url = await uploadLotImage(user.id, lot.id, file)
+            setUploadLabel(`Uploading photo ${i + 1} of ${data.images.length}…`)
+            const url = await uploadLotImage(user.id, lot.id, file, (pct) => {
+              setUploadLabel(`Photo ${i + 1}/${data.images.length} — ${pct}%`)
+            })
             uploadedUrls.push(url)
           } catch {
-            // Image upload failure is non-fatal
+            // Image upload failure is non-fatal — lot is already created
           }
         }
+        setUploadLabel('')
         if (uploadedUrls.length > 0) {
-          // Update lot with image URLs
           const { supabase: sb } = await import('../../lib/supabase')
           await sb.from('lots').update({ image_urls: uploadedUrls }).eq('id', lot.id)
         }
@@ -271,7 +289,7 @@ export default function FarmerCreateLot() {
                   </button>
                 )}
               </div>
-              <input ref={fileInputRef} type="file" accept="image/*" multiple
+              <input ref={fileInputRef} type="file" accept="image/jpeg,image/png,image/webp" multiple
                 className={styles.hiddenInput} onChange={handleImageChange}
                 aria-hidden="true" tabIndex={-1}
               />
@@ -410,7 +428,7 @@ export default function FarmerCreateLot() {
                   </p>
                 )}
                 <Button variant="primary" size="lg" onClick={handleSubmit} disabled={submitting} className={styles.submitBtn}>
-                  {submitting ? 'Submitting…' : 'List this lot'}
+                  {submitting ? (uploadLabel || 'Creating lot…') : 'List this lot'}
                 </Button>
               </div>
             )}

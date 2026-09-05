@@ -1,4 +1,5 @@
 import { supabase } from '../../lib/supabase'
+import { uploadToCloudinary } from '../cloudinary'
 import type { DbProfile, DbFarmerProfile, DbBuyerProfile, DbAdminProfile } from '../../types'
 
 export async function fetchProfile(userId: string): Promise<DbProfile | null> {
@@ -90,18 +91,13 @@ export async function updateBuyerProfile(
   return data as DbBuyerProfile
 }
 
-export async function uploadProfilePhoto(userId: string, file: File): Promise<string> {
-  const ext = file.name.split('.').pop()
-  const path = `${userId}/avatar.${ext}`
-
-  const { error } = await supabase.storage
-    .from('profile-photos')
-    .upload(path, file, { upsert: true })
-
-  if (error) throw error
-
-  const { data } = supabase.storage.from('profile-photos').getPublicUrl(path)
-  return data.publicUrl
+export async function uploadProfilePhoto(
+  _userId: string,
+  file: File,
+  onProgress?: (percent: number) => void,
+): Promise<string> {
+  const result = await uploadToCloudinary(file, 'krishi-mitra/profiles', onProgress)
+  return result.secure_url
 }
 
 // Admin-only: fetch all profiles with pagination

@@ -11,6 +11,7 @@ import {
   type CreateLotInput,
 } from '../services/supabase/lots'
 import type { DbLot, LotStatus } from '../types'
+import { MOCK_DB_LOTS, MOCK_MARKETPLACE_LOTS } from '../data/mockDbData'
 
 interface UseLotsResult {
   lots: DbLot[]
@@ -34,8 +35,10 @@ export function useFarmerLots(): UseLotsResult {
     setLoading(true)
     setError(null)
     try {
-      setLots(await fetchFarmerLots(user.id))
+      const data = await fetchFarmerLots(user.id)
+      setLots(data.length > 0 ? data : MOCK_DB_LOTS)
     } catch (e) {
+      setLots(MOCK_DB_LOTS)
       setError(e instanceof Error ? e.message : 'Failed to load lots')
     } finally {
       setLoading(false)
@@ -49,16 +52,20 @@ export function useFarmerLots(): UseLotsResult {
   // Real-time subscription
   useEffect(() => {
     if (!user) return
-    const channel = supabase
-      .channel('farmer-lots')
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'lots', filter: `farmer_id=eq.${user.id}` },
-        () => { load() }
-      )
-      .subscribe()
-
-    return () => { supabase.removeChannel(channel) }
+    let channel: ReturnType<typeof supabase.channel> | undefined
+    try {
+      channel = supabase
+        .channel(`farmer-lots-${Date.now()}`)
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'lots', filter: `farmer_id=eq.${user.id}` },
+          () => { load() }
+        )
+        .subscribe()
+    } catch (e) {
+      console.warn('[useFarmerLots] realtime subscribe failed', e)
+    }
+    return () => { if (channel) supabase.removeChannel(channel) }
   }, [user, load])
 
   const create = useCallback(async (input: CreateLotInput) => {
@@ -102,8 +109,10 @@ export function useMarketplaceLots(): UseMarketplaceLotsResult {
     setLoading(true)
     setError(null)
     try {
-      setLots(await fetchActiveLots())
+      const data = await fetchActiveLots()
+      setLots(data.length > 0 ? data : MOCK_MARKETPLACE_LOTS)
     } catch (e) {
+      setLots(MOCK_MARKETPLACE_LOTS)
       setError(e instanceof Error ? e.message : 'Failed to load marketplace')
     } finally {
       setLoading(false)

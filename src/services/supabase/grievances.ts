@@ -1,4 +1,5 @@
 import { supabase } from '../../lib/supabase'
+import { uploadToCloudinary } from '../cloudinary'
 import type { DbGrievance, ComplaintStatus, ComplaintType, DbGrievanceEvent } from '../../types'
 
 let grievanceCounter = 1000
@@ -126,24 +127,12 @@ export async function addGrievanceResolution(
 }
 
 export async function uploadGrievanceEvidence(
-  grievanceId: string,
-  file: File
+  _grievanceId: string,
+  file: File,
+  onProgress?: (percent: number) => void,
 ): Promise<string> {
-  const ext = file.name.split('.').pop()
-  const path = `${grievanceId}/${Date.now()}.${ext}`
-
-  const { error } = await supabase.storage
-    .from('grievance-evidence')
-    .upload(path, file)
-
-  if (error) throw error
-
-  const { data } = await supabase.storage
-    .from('grievance-evidence')
-    .createSignedUrl(path, 60 * 60 * 24 * 7) // 7 days
-
-  if (!data?.signedUrl) throw new Error('Failed to get signed URL')
-  return data.signedUrl
+  const result = await uploadToCloudinary(file, 'krishi-mitra/grievances', onProgress)
+  return result.secure_url
 }
 
 export async function addEvidenceUrl(id: string, url: string): Promise<void> {

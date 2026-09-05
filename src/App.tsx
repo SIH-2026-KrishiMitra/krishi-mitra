@@ -76,11 +76,13 @@ function AuthGuard({ children }: { children: ReactNode }) {
 }
 
 function GuestGuard({ children }: { children: ReactNode }) {
-  const { role, loading } = useAuth()
+  const { user, role, loading } = useAuth()
   if (loading) return <LoadingScreen />
   if (role === 'farmer') return <Navigate to="/farmer/home" replace />
   if (role === 'buyer') return <Navigate to="/buyer/home" replace />
   if (role === 'admin') return <Navigate to="/admin/home" replace />
+  // Authenticated but profile not yet resolved — keep showing the loader
+  if (user && !role) return <LoadingScreen />
   return <>{children}</>
 }
 
@@ -100,11 +102,13 @@ function RoleGuard({ children, role: required }: { children: ReactNode; role: Us
 // ─── Root redirect based on role ─────────────────────────────────────────────
 
 function RootRedirect() {
-  const { role, loading } = useAuth()
+  const { user, role, loading } = useAuth()
   if (loading) return <LoadingScreen />
   if (role === 'farmer') return <Navigate to="/farmer/home" replace />
   if (role === 'buyer') return <Navigate to="/buyer/home" replace />
   if (role === 'admin') return <Navigate to="/admin/home" replace />
+  // Authenticated but profile not yet resolved — keep showing the loader
+  if (user && !role) return <LoadingScreen />
   return <Navigate to="/login" replace />
 }
 
@@ -146,6 +150,9 @@ export default function App() {
         <Routes>
           {/* Root */}
           <Route path="/" element={<RootRedirect />} />
+
+          {/* OAuth callback — shows loader while Supabase exchanges the code */}
+          <Route path="/auth/callback" element={<RootRedirect />} />
 
           {/* Auth (guest-only) */}
           <Route path="/login" element={<GuestGuard><LoginPage /></GuestGuard>} />

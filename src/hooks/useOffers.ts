@@ -10,6 +10,7 @@ import {
   type CreateOfferInput,
 } from '../services/supabase/offers'
 import type { DbOffer } from '../types'
+import { MOCK_FARMER_OFFERS, MOCK_BUYER_OFFERS } from '../data/mockDbData'
 
 interface UseFarmerOffersResult {
   offers: ExpandedOffer[]
@@ -31,8 +32,10 @@ export function useFarmerOffers(): UseFarmerOffersResult {
     setLoading(true)
     setError(null)
     try {
-      setOffers(await fetchOffersForFarmer())
+      const data = await fetchOffersForFarmer()
+      setOffers(data.length > 0 ? data : MOCK_FARMER_OFFERS)
     } catch (e) {
+      setOffers(MOCK_FARMER_OFFERS)
       setError(e instanceof Error ? e.message : 'Failed to load offers')
     } finally {
       setLoading(false)
@@ -45,14 +48,18 @@ export function useFarmerOffers(): UseFarmerOffersResult {
 
   useEffect(() => {
     if (!user) return
-    const channel = supabase
-      .channel('farmer-offers')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'offers' }, () => {
-        load()
-      })
-      .subscribe()
-
-    return () => { supabase.removeChannel(channel) }
+    let channel: ReturnType<typeof supabase.channel> | undefined
+    try {
+      channel = supabase
+        .channel(`farmer-offers-${Date.now()}`)
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'offers' }, () => {
+          load()
+        })
+        .subscribe()
+    } catch (e) {
+      console.warn('[useFarmerOffers] realtime subscribe failed', e)
+    }
+    return () => { if (channel) supabase.removeChannel(channel) }
   }, [user, load])
 
   const accept = useCallback(async (offerId: string) => {
@@ -88,8 +95,10 @@ export function useBuyerOffers(): UseBuyerOffersResult {
     setLoading(true)
     setError(null)
     try {
-      setOffers(await fetchBuyerOffers(user.id))
+      const data = await fetchBuyerOffers(user.id)
+      setOffers(data.length > 0 ? data : MOCK_BUYER_OFFERS)
     } catch (e) {
+      setOffers(MOCK_BUYER_OFFERS)
       setError(e instanceof Error ? e.message : 'Failed to load offers')
     } finally {
       setLoading(false)

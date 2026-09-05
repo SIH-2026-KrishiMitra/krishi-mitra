@@ -116,7 +116,7 @@ export default function LoginPage() {
 
   async function handleGoogle() {
     try {
-      await signInWithGoogle()
+      await signInWithGoogle(role)
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : 'Google sign-in failed')
     }

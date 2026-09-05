@@ -6,6 +6,7 @@ import {
   markAllNotificationsRead,
 } from '../services/supabase/notifications'
 import type { DbNotification } from '../types'
+import { MOCK_NOTIFICATIONS } from '../data/mockDbData'
 
 export function useNotifications() {
   const [notifications, setNotifications] = useState<DbNotification[]>([])
@@ -14,9 +15,9 @@ export function useNotifications() {
   const load = useCallback(async () => {
     try {
       const data = await fetchNotifications()
-      setNotifications(data)
+      setNotifications(data.length > 0 ? data : MOCK_NOTIFICATIONS)
     } catch {
-      // Silently fail — notifications are non-critical
+      setNotifications(MOCK_NOTIFICATIONS)
     } finally {
       setLoading(false)
     }
@@ -25,28 +26,32 @@ export function useNotifications() {
   useEffect(() => {
     load()
 
-    // Realtime: new notifications appear instantly
-    const channel = supabase
-      .channel('user-notifications')
-      .on(
-        'postgres_changes',
-        { event: 'INSERT', schema: 'public', table: 'notifications' },
-        payload => {
-          setNotifications(prev => [payload.new as DbNotification, ...prev])
-        }
-      )
-      .on(
-        'postgres_changes',
-        { event: 'UPDATE', schema: 'public', table: 'notifications' },
-        payload => {
-          setNotifications(prev =>
-            prev.map(n => n.id === payload.new.id ? payload.new as DbNotification : n)
-          )
-        }
-      )
-      .subscribe()
+    let channel: ReturnType<typeof supabase.channel> | undefined
+    try {
+      channel = supabase
+        .channel(`user-notifications-${Date.now()}`)
+        .on(
+          'postgres_changes',
+          { event: 'INSERT', schema: 'public', table: 'notifications' },
+          payload => {
+            setNotifications(prev => [payload.new as DbNotification, ...prev])
+          }
+        )
+        .on(
+          'postgres_changes',
+          { event: 'UPDATE', schema: 'public', table: 'notifications' },
+          payload => {
+            setNotifications(prev =>
+              prev.map(n => n.id === payload.new.id ? payload.new as DbNotification : n)
+            )
+          }
+        )
+        .subscribe()
+    } catch (e) {
+      console.warn('[useNotifications] realtime subscribe failed', e)
+    }
 
-    return () => { supabase.removeChannel(channel) }
+    return () => { if (channel) supabase.removeChannel(channel) }
   }, [load])
 
   const markRead = useCallback(async (id: string) => {

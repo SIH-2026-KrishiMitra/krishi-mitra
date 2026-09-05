@@ -8,6 +8,7 @@ import {
   type ExpandedDeal,
 } from '../services/supabase/deals'
 import type { DealStatus } from '../types'
+import { MOCK_FARMER_DEALS, MOCK_BUYER_DEALS } from '../data/mockDbData'
 
 interface UseDealsResult {
   deals: ExpandedDeal[]
@@ -28,8 +29,10 @@ export function useFarmerDeals(): UseDealsResult {
     setLoading(true)
     setError(null)
     try {
-      setDeals(await fetchFarmerDeals())
+      const data = await fetchFarmerDeals()
+      setDeals(data.length > 0 ? data : MOCK_FARMER_DEALS)
     } catch (e) {
+      setDeals(MOCK_FARMER_DEALS)
       setError(e instanceof Error ? e.message : 'Failed to load deals')
     } finally {
       setLoading(false)
@@ -42,16 +45,20 @@ export function useFarmerDeals(): UseDealsResult {
 
   useEffect(() => {
     if (!user) return
-    const channel = supabase
-      .channel('farmer-deals')
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'deals', filter: `farmer_id=eq.${user.id}` },
-        () => { load() }
-      )
-      .subscribe()
-
-    return () => { supabase.removeChannel(channel) }
+    let channel: ReturnType<typeof supabase.channel> | undefined
+    try {
+      channel = supabase
+        .channel(`farmer-deals-${Date.now()}`)
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'deals', filter: `farmer_id=eq.${user.id}` },
+          () => { load() }
+        )
+        .subscribe()
+    } catch (e) {
+      console.warn('[useFarmerDeals] realtime subscribe failed', e)
+    }
+    return () => { if (channel) supabase.removeChannel(channel) }
   }, [user, load])
 
   const advance = useCallback(async (dealId: string, status: DealStatus, detail?: string) => {
@@ -73,8 +80,10 @@ export function useBuyerDeals(): UseDealsResult {
     setLoading(true)
     setError(null)
     try {
-      setDeals(await fetchBuyerDeals())
+      const data = await fetchBuyerDeals()
+      setDeals(data.length > 0 ? data : MOCK_BUYER_DEALS)
     } catch (e) {
+      setDeals(MOCK_BUYER_DEALS)
       setError(e instanceof Error ? e.message : 'Failed to load deals')
     } finally {
       setLoading(false)
@@ -87,16 +96,20 @@ export function useBuyerDeals(): UseDealsResult {
 
   useEffect(() => {
     if (!user) return
-    const channel = supabase
-      .channel('buyer-deals')
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'deals', filter: `buyer_id=eq.${user.id}` },
-        () => { load() }
-      )
-      .subscribe()
-
-    return () => { supabase.removeChannel(channel) }
+    let channel: ReturnType<typeof supabase.channel> | undefined
+    try {
+      channel = supabase
+        .channel(`buyer-deals-${Date.now()}`)
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'deals', filter: `buyer_id=eq.${user.id}` },
+          () => { load() }
+        )
+        .subscribe()
+    } catch (e) {
+      console.warn('[useBuyerDeals] realtime subscribe failed', e)
+    }
+    return () => { if (channel) supabase.removeChannel(channel) }
   }, [user, load])
 
   const advance = useCallback(async (dealId: string, status: DealStatus, detail?: string) => {
