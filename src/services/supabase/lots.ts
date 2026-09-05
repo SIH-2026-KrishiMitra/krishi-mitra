@@ -1,4 +1,5 @@
 import { supabase } from '../../lib/supabase'
+import { uploadToCloudinary } from '../cloudinary'
 import type { DbLot, LotStatus } from '../../types'
 
 export interface CreateLotInput {
@@ -110,19 +111,11 @@ export async function deleteLot(id: string): Promise<void> {
 }
 
 export async function uploadLotImage(
-  farmerId: string,
-  lotId: string,
-  file: File
+  _farmerId: string,
+  _lotId: string,
+  file: File,
+  onProgress?: (percent: number) => void,
 ): Promise<string> {
-  const ext = file.name.split('.').pop()
-  const path = `${farmerId}/${lotId}/${Date.now()}.${ext}`
-
-  const { error } = await supabase.storage
-    .from('lot-images')
-    .upload(path, file, { upsert: false })
-
-  if (error) throw error
-
-  const { data } = supabase.storage.from('lot-images').getPublicUrl(path)
-  return data.publicUrl
+  const result = await uploadToCloudinary(file, 'krishi-mitra/lots', onProgress)
+  return result.secure_url
 }

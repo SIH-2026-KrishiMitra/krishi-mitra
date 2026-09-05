@@ -96,6 +96,46 @@
   color: var(--text-muted);
 }
 
+/* Avatar upload */
+.avatarWrapper {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.avatarImg {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.avatarOverlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  cursor: pointer;
+  border: none;
+  color: #fff;
+}
+
+.avatarWrapper:hover .avatarOverlay,
+.avatarOverlay:focus-visible { opacity: 1; }
+
+.avatarOverlay:disabled { cursor: not-allowed; opacity: 0.6; }
+
+.avatarProgress { font-size: 11px; font-weight: 700; color: #fff; }
+
+.hiddenInput { display: none; }
+
 .profileActions {}
 
 .editBtn {

@@ -1,16 +1,51 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { CheckCircle, LogOut, Bell, Globe, Volume2 } from 'lucide-react'
+import { CheckCircle, LogOut, Bell, Globe, Volume2, Camera } from 'lucide-react'
+import toast from 'react-hot-toast'
 import FarmerLayout from './FarmerLayout'
 import { useApp } from '../../context/AppContext'
+import { useAuth } from '../../context/AuthContext'
+import { uploadToCloudinary, validateImageFile } from '../../services/cloudinary'
+import { updateProfile } from '../../services/supabase/profiles'
 import styles from './FarmerProfile.module.css'
 
 export default function FarmerProfile() {
   const navigate = useNavigate()
   const { state, updateFarmer, logout } = useApp()
+  const { user, profile, refreshProfile } = useAuth()
   const { farmer } = state
   const [editing, setEditing] = useState(false)
   const [form, setForm] = useState({ name: farmer.name, village: farmer.village, district: farmer.district })
+  const photoRef = useRef<HTMLInputElement>(null)
+  const [photoUploading, setPhotoUploading] = useState(false)
+  const [uploadPct, setUploadPct] = useState(0)
+  const [localAvatar, setLocalAvatar] = useState<string | null>(null)
+
+  const avatarUrl = localAvatar ?? profile?.avatar_url ?? null
+
+  async function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file || !user) return
+    try { validateImageFile(file) } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Invalid file')
+      e.target.value = ''
+      return
+    }
+    setPhotoUploading(true)
+    setUploadPct(0)
+    try {
+      const result = await uploadToCloudinary(file, 'krishi-mitra/profiles', setUploadPct)
+      await updateProfile(user.id, { avatar_url: result.secure_url })
+      setLocalAvatar(result.secure_url)
+      await refreshProfile()
+      toast.success('Profile photo updated')
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Photo upload failed')
+    } finally {
+      setPhotoUploading(false)
+      e.target.value = ''
+    }
+  }
 
   async function handleSave() {
     await updateFarmer(form)
@@ -33,7 +68,26 @@ export default function FarmerProfile() {
         {/* Profile card */}
         <div className={styles.profileCard}>
           <div className={styles.profileAvatarSection}>
-            <div className={styles.avatar}>{farmer.name.charAt(0)}</div>
+            <div className={styles.avatarWrapper}>
+              {avatarUrl
+                ? <img src={avatarUrl} alt={farmer.name} className={styles.avatarImg} />
+                : <div className={styles.avatar}>{farmer.name.charAt(0)}</div>
+              }
+              <button
+                type="button"
+                className={styles.avatarOverlay}
+                onClick={() => photoRef.current?.click()}
+                disabled={photoUploading}
+                aria-label="Change profile photo"
+              >
+                {photoUploading
+                  ? <span className={styles.avatarProgress}>{uploadPct}%</span>
+                  : <Camera size={16} />
+                }
+              </button>
+              <input ref={photoRef} type="file" accept="image/jpeg,image/png,image/webp"
+                className={styles.hiddenInput} onChange={handlePhotoChange} aria-hidden="true" />
+            </div>
             <div>
               <h2 className={styles.profileName}>{farmer.name}</h2>
               <p className={styles.profileMeta}>{farmer.village}, {farmer.district}, {farmer.state}</p>

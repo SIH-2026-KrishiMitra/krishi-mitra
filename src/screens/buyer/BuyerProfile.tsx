@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { CheckCircle, LogOut, Globe, Bell } from 'lucide-react'
+import { CheckCircle, LogOut, Globe, Bell, Camera } from 'lucide-react'
+import toast from 'react-hot-toast'
 import BuyerLayout from './BuyerLayout'
 import { useBuyer } from '../../context/BuyerContext'
 import { useAuth } from '../../context/AuthContext'
+import { uploadToCloudinary, validateImageFile } from '../../services/cloudinary'
+import { updateProfile } from '../../services/supabase/profiles'
 import styles from './BuyerProfile.module.css'
 
 const BUYER_TYPE_LABELS: Record<string, string> = {
@@ -16,10 +19,40 @@ const BUYER_TYPE_LABELS: Record<string, string> = {
 
 export default function BuyerProfile() {
   const navigate = useNavigate()
-  const { buyerProfile, updateProfile, logout } = useBuyer()
-  const { profile } = useAuth()
+  const { buyerProfile, updateProfile: updateBuyerCtxProfile, logout } = useBuyer()
+  const { user, profile, refreshProfile } = useAuth()
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
+  const photoRef = useRef<HTMLInputElement>(null)
+  const [photoUploading, setPhotoUploading] = useState(false)
+  const [uploadPct, setUploadPct] = useState(0)
+  const [localAvatar, setLocalAvatar] = useState<string | null>(null)
+
+  const avatarUrl = localAvatar ?? profile?.avatar_url ?? null
+
+  async function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file || !user) return
+    try { validateImageFile(file) } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Invalid file')
+      e.target.value = ''
+      return
+    }
+    setPhotoUploading(true)
+    setUploadPct(0)
+    try {
+      const result = await uploadToCloudinary(file, 'krishi-mitra/profiles', setUploadPct)
+      await updateProfile(user.id, { avatar_url: result.secure_url })
+      setLocalAvatar(result.secure_url)
+      await refreshProfile()
+      toast.success('Profile photo updated')
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Photo upload failed')
+    } finally {
+      setPhotoUploading(false)
+      e.target.value = ''
+    }
+  }
   const [form, setForm] = useState({
     fullName: profile?.full_name ?? '',
     orgName: buyerProfile?.org_name ?? '',
@@ -31,7 +64,7 @@ export default function BuyerProfile() {
 
   async function handleSave() {
     setSaving(true)
-    await updateProfile(
+    await updateBuyerCtxProfile(
       { full_name: form.fullName },
       { org_name: form.orgName, contact_person: form.contactPerson, location: form.location, district: form.district, state: form.state }
     )
@@ -57,7 +90,26 @@ export default function BuyerProfile() {
         {/* Profile card */}
         <div className={styles.profileCard}>
           <div className={styles.profileLeft}>
-            <div className={styles.avatar}>{displayName.charAt(0).toUpperCase()}</div>
+            <div className={styles.avatarWrapper}>
+              {avatarUrl
+                ? <img src={avatarUrl} alt={displayName} className={styles.avatarImg} />
+                : <div className={styles.avatar}>{displayName.charAt(0).toUpperCase()}</div>
+              }
+              <button
+                type="button"
+                className={styles.avatarOverlay}
+                onClick={() => photoRef.current?.click()}
+                disabled={photoUploading}
+                aria-label="Change profile photo"
+              >
+                {photoUploading
+                  ? <span className={styles.avatarProgress}>{uploadPct}%</span>
+                  : <Camera size={14} />
+                }
+              </button>
+              <input ref={photoRef} type="file" accept="image/jpeg,image/png,image/webp"
+                className={styles.hiddenInput} onChange={handlePhotoChange} aria-hidden="true" />
+            </div>
             <div>
               <h2 className={styles.profileName}>{displayName}</h2>
               {buyerProfile?.org_name && profile?.full_name !== buyerProfile.org_name && (
