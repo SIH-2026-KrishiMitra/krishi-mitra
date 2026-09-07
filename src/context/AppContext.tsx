@@ -229,7 +229,7 @@ interface AppContextValue {
   state: AppState
   loading: boolean
   logout: () => Promise<void>
-  updateFarmer: (patch: Partial<Farmer>) => Promise<void>
+  updateFarmer: (patch: Partial<Farmer>) => Promise<boolean>
   createLot: (input: Omit<Lot, 'id' | 'createdAt' | 'updatedAt' | 'offersCount'>) => Promise<Lot>
   updateLot: (id: string, patch: Partial<Lot>) => Promise<void>
   selectCrop: (cropId: string) => void
@@ -297,23 +297,29 @@ export function AppProvider({ children }: { children: ReactNode }) {
     storage.clear()
   }, [])
 
-  const updateFarmer = useCallback(async (patch: Partial<Farmer>) => {
-    if (!user) return
+  const updateFarmer = useCallback(async (patch: Partial<Farmer>): Promise<boolean> => {
+    if (!user) return false
     try {
       const basePatch: Record<string, unknown> = {}
       const farmerPatch: Record<string, unknown> = {}
 
-      if (patch.name) basePatch.full_name = patch.name
-      if (patch.language) basePatch.language = patch.language
-      if (patch.village) farmerPatch.village = patch.village
-      if (patch.district) farmerPatch.district = patch.district
-      if (patch.state) farmerPatch.state = patch.state
+      if (patch.name !== undefined) basePatch.full_name = patch.name
+      if (patch.mobile !== undefined) basePatch.phone = patch.mobile
+      if (patch.language !== undefined) basePatch.language = patch.language
+      if (patch.village !== undefined) farmerPatch.village = patch.village
+      if (patch.district !== undefined) farmerPatch.district = patch.district
+      if (patch.state !== undefined) farmerPatch.state = patch.state
       if (patch.listenEnabled !== undefined) farmerPatch.listen_enabled = patch.listenEnabled
+      if (patch.bankName !== undefined) farmerPatch.bank_name = patch.bankName
+      if (patch.bankAccount !== undefined) farmerPatch.bank_account = patch.bankAccount
+      if (patch.ifsc !== undefined) farmerPatch.ifsc = patch.ifsc
 
       if (Object.keys(basePatch).length) await saveBase(basePatch as Parameters<typeof saveBase>[0])
       if (Object.keys(farmerPatch).length) await saveFarmer(farmerPatch as Parameters<typeof saveFarmer>[0])
+      return true
     } catch {
       toast.error('Failed to save profile')
+      return false
     }
   }, [user, saveBase, saveFarmer])
 

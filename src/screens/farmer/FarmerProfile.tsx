@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CheckCircle, LogOut, Bell, Globe, Volume2, Camera } from 'lucide-react'
 import toast from 'react-hot-toast'
@@ -9,17 +9,51 @@ import { uploadToCloudinary, validateImageFile } from '../../services/cloudinary
 import { updateProfile } from '../../services/supabase/profiles'
 import styles from './FarmerProfile.module.css'
 
+interface EditForm {
+  name: string
+  mobile: string
+  village: string
+  district: string
+  state: string
+  bankName: string
+  bankAccount: string
+  ifsc: string
+}
+
+function farmerToForm(farmer: ReturnType<typeof useApp>['state']['farmer']): EditForm {
+  return {
+    name: farmer.name,
+    mobile: farmer.mobile,
+    village: farmer.village,
+    district: farmer.district,
+    state: farmer.state,
+    bankName: farmer.bankName,
+    bankAccount: farmer.bankAccount,
+    ifsc: farmer.ifsc,
+  }
+}
+
 export default function FarmerProfile() {
   const navigate = useNavigate()
   const { state, updateFarmer, logout } = useApp()
   const { user, profile, refreshProfile } = useAuth()
   const { farmer } = state
   const [editing, setEditing] = useState(false)
-  const [form, setForm] = useState({ name: farmer.name, village: farmer.village, district: farmer.district })
+  const [saving, setSaving] = useState(false)
+  const [form, setForm] = useState<EditForm>(() => farmerToForm(farmer))
   const photoRef = useRef<HTMLInputElement>(null)
   const [photoUploading, setPhotoUploading] = useState(false)
   const [uploadPct, setUploadPct] = useState(0)
   const [localAvatar, setLocalAvatar] = useState<string | null>(null)
+
+  // Keep form in sync with latest farmer data while not actively editing.
+  // This fixes the stale-initialization bug: useFarmerProfile is async, so
+  // farmer.village etc. are '' at mount and only arrive after the DB fetch.
+  useEffect(() => {
+    if (!editing) {
+      setForm(farmerToForm(farmer))
+    }
+  }, [farmer, editing])
 
   const avatarUrl = localAvatar ?? profile?.avatar_url ?? null
 
@@ -48,14 +82,32 @@ export default function FarmerProfile() {
   }
 
   async function handleSave() {
-    await updateFarmer(form)
-    setEditing(false)
+    setSaving(true)
+    const success = await updateFarmer(form)
+    setSaving(false)
+    if (success) {
+      toast.success('Profile saved')
+      setEditing(false)
+    }
+  }
+
+  function handleEditToggle() {
+    if (!editing) {
+      // Re-snapshot current farmer values when opening the edit panel
+      setForm(farmerToForm(farmer))
+    }
+    setEditing(e => !e)
   }
 
   async function handleLogout() {
     await logout()
     navigate('/login')
   }
+
+  const displayMobile = farmer.mobile ? `+91 ${farmer.mobile}` : '—'
+  const displayBank = farmer.bankName || '—'
+  const displayAccount = farmer.bankAccount ? `••••••${farmer.bankAccount.slice(-4)}` : '—'
+  const displayIfsc = farmer.ifsc || '—'
 
   return (
     <FarmerLayout>
@@ -102,7 +154,7 @@ export default function FarmerProfile() {
             </div>
           </div>
           <div className={styles.profileActions}>
-            <button type="button" className={styles.editBtn} onClick={() => setEditing(!editing)}>
+            <button type="button" className={styles.editBtn} onClick={handleEditToggle}>
               {editing ? 'Cancel' : 'Edit profile'}
             </button>
           </div>
@@ -116,24 +168,40 @@ export default function FarmerProfile() {
               <div className={styles.editForm}>
                 <div className={styles.fieldGroup}>
                   <label className={styles.fieldLabel}>Full name</label>
-                  <input className={styles.fieldInput} value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
+                  <input className={styles.fieldInput} value={form.name}
+                    onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
+                </div>
+                <div className={styles.fieldGroup}>
+                  <label className={styles.fieldLabel}>Mobile number</label>
+                  <input className={styles.fieldInput} value={form.mobile}
+                    placeholder="10-digit mobile number"
+                    onChange={e => setForm(f => ({ ...f, mobile: e.target.value }))} />
                 </div>
                 <div className={styles.fieldGroup}>
                   <label className={styles.fieldLabel}>Village</label>
-                  <input className={styles.fieldInput} value={form.village} onChange={e => setForm(f => ({ ...f, village: e.target.value }))} />
+                  <input className={styles.fieldInput} value={form.village}
+                    onChange={e => setForm(f => ({ ...f, village: e.target.value }))} />
                 </div>
                 <div className={styles.fieldGroup}>
                   <label className={styles.fieldLabel}>District</label>
-                  <input className={styles.fieldInput} value={form.district} onChange={e => setForm(f => ({ ...f, district: e.target.value }))} />
+                  <input className={styles.fieldInput} value={form.district}
+                    onChange={e => setForm(f => ({ ...f, district: e.target.value }))} />
                 </div>
-                <button type="button" className={styles.saveBtn} onClick={handleSave}>Save changes</button>
+                <div className={styles.fieldGroup}>
+                  <label className={styles.fieldLabel}>State</label>
+                  <input className={styles.fieldInput} value={form.state}
+                    onChange={e => setForm(f => ({ ...f, state: e.target.value }))} />
+                </div>
+                <button type="button" className={styles.saveBtn} onClick={handleSave} disabled={saving}>
+                  {saving ? 'Saving…' : 'Save changes'}
+                </button>
               </div>
             ) : (
               <>
-                <DetailRow label="Mobile number" value={`+91 ${farmer.mobile}`} />
-                <DetailRow label="Village" value={farmer.village} />
-                <DetailRow label="District" value={farmer.district} />
-                <DetailRow label="State" value={farmer.state} />
+                <DetailRow label="Mobile number" value={displayMobile} />
+                <DetailRow label="Village" value={farmer.village || '—'} />
+                <DetailRow label="District" value={farmer.district || '—'} />
+                <DetailRow label="State" value={farmer.state || '—'} />
               </>
             )}
           </div>
@@ -152,9 +220,31 @@ export default function FarmerProfile() {
         <div className={styles.section}>
           <h2 className={styles.sectionTitle}>Bank account</h2>
           <div className={styles.detailCard}>
-            <DetailRow label="Bank" value={farmer.bankName} />
-            <DetailRow label="Account number" value={`••••••${farmer.bankAccount}`} />
-            <DetailRow label="IFSC" value={farmer.ifsc} />
+            {editing ? (
+              <div className={styles.editForm}>
+                <div className={styles.fieldGroup}>
+                  <label className={styles.fieldLabel}>Bank name</label>
+                  <input className={styles.fieldInput} value={form.bankName}
+                    onChange={e => setForm(f => ({ ...f, bankName: e.target.value }))} />
+                </div>
+                <div className={styles.fieldGroup}>
+                  <label className={styles.fieldLabel}>Account number</label>
+                  <input className={styles.fieldInput} value={form.bankAccount}
+                    onChange={e => setForm(f => ({ ...f, bankAccount: e.target.value }))} />
+                </div>
+                <div className={styles.fieldGroup}>
+                  <label className={styles.fieldLabel}>IFSC code</label>
+                  <input className={styles.fieldInput} value={form.ifsc}
+                    onChange={e => setForm(f => ({ ...f, ifsc: e.target.value }))} />
+                </div>
+              </div>
+            ) : (
+              <>
+                <DetailRow label="Bank" value={displayBank} />
+                <DetailRow label="Account number" value={displayAccount} />
+                <DetailRow label="IFSC" value={displayIfsc} />
+              </>
+            )}
           </div>
         </div>
 
@@ -173,7 +263,7 @@ export default function FarmerProfile() {
               <button
                 type="button"
                 className={`${styles.toggle} ${farmer.notifications ? styles.toggleOn : ''}`}
-                onClick={() => updateFarmer({ notifications: !farmer.notifications })}
+                onClick={() => void updateFarmer({ notifications: !farmer.notifications })}
                 role="switch"
                 aria-checked={farmer.notifications}
               >
@@ -191,7 +281,7 @@ export default function FarmerProfile() {
               <button
                 type="button"
                 className={`${styles.toggle} ${farmer.listenEnabled ? styles.toggleOn : ''}`}
-                onClick={() => updateFarmer({ listenEnabled: !farmer.listenEnabled })}
+                onClick={() => void updateFarmer({ listenEnabled: !farmer.listenEnabled })}
                 role="switch"
                 aria-checked={farmer.listenEnabled}
               >
@@ -210,7 +300,7 @@ export default function FarmerProfile() {
                     key={lang}
                     type="button"
                     className={`${styles.langOption} ${farmer.language === lang ? styles.langOptionActive : ''}`}
-                    onClick={() => updateFarmer({ language: lang })}
+                    onClick={() => void updateFarmer({ language: lang })}
                   >
                     {lang === 'en' ? 'EN' : lang === 'mr' ? 'मर' : 'हि'}
                   </button>
