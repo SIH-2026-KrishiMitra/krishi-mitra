@@ -3,6 +3,7 @@ import { uploadToCloudinary } from '../cloudinary'
 import type { DbLot, LotStatus } from '../../types'
 
 export interface CreateLotInput {
+  farmer_id?: string
   crop_id?: string
   crop: string
   variety: string
@@ -16,6 +17,7 @@ export interface CreateLotInput {
   description?: string
   selling_method?: string
   image_urls?: string[]
+  status?: LotStatus
 }
 
 export async function fetchFarmerLots(farmerId: string): Promise<DbLot[]> {
@@ -55,6 +57,7 @@ export async function createLot(input: CreateLotInput): Promise<DbLot> {
   const { data, error } = await supabase
     .from('lots')
     .insert({
+      farmer_id: input.farmer_id,
       crop_id: input.crop_id ?? input.crop.toLowerCase(),
       crop: input.crop,
       variety: input.variety,
@@ -68,7 +71,7 @@ export async function createLot(input: CreateLotInput): Promise<DbLot> {
       description: input.description ?? null,
       selling_method: input.selling_method ?? 'direct',
       image_urls: input.image_urls ?? [],
-      status: 'draft',
+      status: input.status ?? 'draft',
     })
     .select()
     .single()

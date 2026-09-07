@@ -319,6 +319,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const createLot = useCallback(async (input: Omit<Lot, 'id' | 'createdAt' | 'updatedAt' | 'offersCount'>): Promise<Lot> => {
     const db = await lotsHook.create({
+      farmer_id: user?.id,
       crop_id: input.cropId,
       crop: input.crop,
       variety: input.variety,
@@ -332,9 +333,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       description: input.description,
       selling_method: input.sellingMethod,
       image_urls: input.imagePreviews,
+      status: input.status,
     })
     return dbLotToLot(db)
-  }, [lotsHook])
+  }, [lotsHook, user])
 
   const updateLot = useCallback(async (id: string, patch: Partial<Lot>) => {
     const dbPatch: Partial<Parameters<typeof updateLotDb>[1]> = {}

@@ -36,7 +36,7 @@ export function useFarmerLots(): UseLotsResult {
     setError(null)
     try {
       const data = await fetchFarmerLots(user.id)
-      setLots(data.length > 0 ? data : MOCK_DB_LOTS)
+      setLots(data)
     } catch (e) {
       setLots(MOCK_DB_LOTS)
       setError(e instanceof Error ? e.message : 'Failed to load lots')
@@ -110,7 +110,7 @@ export function useMarketplaceLots(): UseMarketplaceLotsResult {
     setError(null)
     try {
       const data = await fetchActiveLots()
-      setLots(data.length > 0 ? data : MOCK_MARKETPLACE_LOTS)
+      setLots(data)
     } catch (e) {
       setLots(MOCK_MARKETPLACE_LOTS)
       setError(e instanceof Error ? e.message : 'Failed to load marketplace')
