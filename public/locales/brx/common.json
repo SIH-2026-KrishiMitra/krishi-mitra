@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "बासुमति-आर्थि मण्डल"
+  },
+  "actions": {
+    "save": "थाखो राखो",
+    "saving": "राखनाय जादों…",
+    "cancel": "बाहायनाय",
+    "back": "उलायनाय",
+    "continue": "आगे",
+    "sign_out": "साइन आउट",
+    "signing_out": "साइन आउट जादों…",
+    "edit_profile": "प्रोफाइल सोंलाय",
+    "loading": "रोखोमानो…",
+    "creating": "खाता थापि जादों…",
+    "sending": "लाखिनाय जादों…"
+  },
+  "status": {
+    "verified": "खालामनाय",
+    "pending": "थाखनाय",
+    "complete": "सायख्लाय",
+    "not_verified": "खालामनाय नङा",
+    "yes": "आं",
+    "no": "नङा"
+  },
+  "errors": {
+    "generic": "गोलाव",
+    "invalid_file": "थाखो नानगौ फाइल",
+    "photo_upload_failed": "फटो अपलोड गोलाव"
+  },
+  "trust": {
+    "ncfm": "NCFM",
+    "direct_mandi": "हाबनायसिम मंडी",
+    "escrow": "एस्क्रो",
+    "pledge": "बिसायख",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "नान्थायनाय",
+    "kyc_enabled": "KYC",
+    "secure_registration": "सुरक्षित",
+    "secure_reset": "सुरक्षित"
+  },
+  "or": "नत्राय"
+}

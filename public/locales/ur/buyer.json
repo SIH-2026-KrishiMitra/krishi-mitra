@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · ڈ.",
+    "title": "ڈیش"
+  },
+  "marketplace": {
+    "breadcrumb": "02 · ب.",
+    "title": "بازار"
+  },
+  "offers": {
+    "breadcrumb": "03 · پ.",
+    "title": "پیشکش"
+  },
+  "deals": {
+    "breadcrumb": "04 · س.",
+    "title": "سودے"
+  },
+  "payments": {
+    "breadcrumb": "05 · ا.",
+    "title": "ادائیگی"
+  },
+  "profile": {
+    "breadcrumb": "06 · پروفائل",
+    "title": "پروفائل",
+    "verified_buyer": "تصدیق",
+    "change_photo": "تصویر",
+    "business_title": "کاروبار",
+    "settings_title": "ترتیبات",
+    "score_title": "اسکور",
+    "trust_score": "اعتماد",
+    "deals_completed": "مکمل",
+    "kyc_verified": "KYC",
+    "notifications_label": "اطلاع",
+    "notifications_sub": "پیشکش",
+    "language_label": "زبان",
+    "field_contact": "رابطہ",
+    "field_org": "ادارہ",
+    "field_org_input": "ادارہ",
+    "field_location": "مقام",
+    "field_district": "ضلع",
+    "field_state": "صوبہ",
+    "field_email": "ای میل",
+    "field_phone": "فون",
+    "field_buyer_type": "قسم",
+    "photo_saved": "تصویر",
+    "buyer_types": {
+      "processor": "مل",
+      "trader": "تاجر",
+      "retailer": "ریٹیل",
+      "mandi": "APMC",
+      "fpo": "FPO"
+    }
+  }
+}

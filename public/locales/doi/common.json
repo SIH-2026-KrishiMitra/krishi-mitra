@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "खेती-वित्त मंच"
+  },
+  "actions": {
+    "save": "बदलाव संभालो",
+    "saving": "संभाली दा…",
+    "cancel": "रद्द",
+    "back": "पिच्छें",
+    "continue": "अग्गें",
+    "sign_out": "साइन आउट",
+    "signing_out": "साइन आउट…",
+    "edit_profile": "प्रोफाइल बदलो",
+    "loading": "रुको…",
+    "creating": "खाता बनी दा…",
+    "sending": "घल्ली दा…"
+  },
+  "status": {
+    "verified": "पक्का",
+    "pending": "लंबित",
+    "complete": "पूरा",
+    "not_verified": "पक्का नेईं",
+    "yes": "हाँ",
+    "no": "नेईं"
+  },
+  "errors": {
+    "generic": "गलती",
+    "invalid_file": "गलत फाइल",
+    "photo_upload_failed": "फोटो अपलोड नेई होया"
+  },
+  "trust": {
+    "ncfm": "NCFM",
+    "direct_mandi": "सिधी मंडी",
+    "escrow": "एस्क्रो",
+    "pledge": "वचन",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "गुप्त",
+    "kyc_enabled": "KYC",
+    "secure_registration": "सुरक्षित",
+    "secure_reset": "सुरक्षित"
+  },
+  "or": "जां"
+}

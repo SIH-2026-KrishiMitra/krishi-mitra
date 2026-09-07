@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "गृहम्",
+    "markets": "आपणः",
+    "lots": "मम लाट्",
+    "offers": "प्रस्तावाः",
+    "deals": "सन्धिः",
+    "money": "धनम्",
+    "help": "सहायता",
+    "profile": "प्रोफाइल",
+    "workspace": "कृषक क्षेत्रम्"
+  },
+  "buyer": {
+    "home": "डैशबोर्ड",
+    "marketplace": "आपणः",
+    "discover": "अन्वेषणम्",
+    "offers": "प्रस्तावाः",
+    "deals": "सन्धिः",
+    "payments": "भुगतानम्",
+    "profile": "प्रोफाइल",
+    "portal": "क्रेतृ-पोर्टल",
+    "portal_label": "क्रेता"
+  },
+  "admin": {
+    "home": "डैश",
+    "users": "उपयोक्ता",
+    "lots": "सूची",
+    "deals": "सन्धिः",
+    "payments": "भुगतानम्",
+    "grievances": "शिकायतः",
+    "settings": "सेटिंग",
+    "dashboard": "प्रशासक डैश",
+    "dashboard_label": "प्रशासकः"
+  },
+  "common": {
+    "notifications": "सूचना",
+    "no_notifications": "सूचना नास्ति",
+    "mark_all_read": "सर्वं पठितम्",
+    "listen": "श्रृणुतु",
+    "sell_produce": "विक्रयतु",
+    "main_navigation": "नेव्हिगेसन",
+    "listen_title": "पृष्ठं श्रृणुतु",
+    "listen_sub": "स्वर मार्गदर्शनम्"
+  },
+  "user": {
+    "verified": "सत्यापितम्",
+    "admin_access": "प्रशासकः",
+    "administrator": "प्रशासकः"
+  },
+  "select_language": "भाषा",
+  "select_location": "स्थानम्"
+}

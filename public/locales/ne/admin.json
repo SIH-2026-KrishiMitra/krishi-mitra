@@ -1,0 +1,36 @@
+{
+  "home": {
+    "breadcrumb": "01 · ड्यास",
+    "title": "ड्यास"
+  },
+  "users": {
+    "breadcrumb": "02 · प्रयोगकर्ता",
+    "title": "प्रयोगकर्ता"
+  },
+  "lots": {
+    "breadcrumb": "03 · सूची",
+    "title": "सूची"
+  },
+  "deals": {
+    "breadcrumb": "04 · सम्झौता",
+    "title": "सम्झौता"
+  },
+  "payments": {
+    "breadcrumb": "05 · भुक्तानी",
+    "title": "भुक्तानी"
+  },
+  "grievances": {
+    "breadcrumb": "06 · गुनासो",
+    "title": "गुनासो"
+  },
+  "settings": {
+    "breadcrumb": "07 · सेटिङ",
+    "title": "सेटिङ",
+    "account_title": "खाता",
+    "field_email": "इमेल",
+    "field_phone": "फोन",
+    "field_language": "भाषा",
+    "admin_badge": "प्रशासक",
+    "security_note": "Supabase."
+  }
+}

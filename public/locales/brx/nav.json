@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "घर",
+    "markets": "बाजार",
+    "lots": "मोनो लट",
+    "offers": "अफर",
+    "deals": "सिगान",
+    "money": "बिसि",
+    "help": "सायख",
+    "profile": "प्रोफाइल",
+    "workspace": "बासुमती थाव"
+  },
+  "buyer": {
+    "home": "डैश",
+    "marketplace": "बाजार",
+    "discover": "नागिरना",
+    "offers": "अफर",
+    "deals": "सिगान",
+    "payments": "मोनलांनाय",
+    "profile": "प्रोफाइल",
+    "portal": "किनानाय पोर्टल",
+    "portal_label": "किनानाय"
+  },
+  "admin": {
+    "home": "डैश",
+    "users": "युजार",
+    "lots": "सुचि",
+    "deals": "सिगान",
+    "payments": "मोनलांनाय",
+    "grievances": "आरजी",
+    "settings": "सेटिंग",
+    "dashboard": "एडमिन डैश",
+    "dashboard_label": "एडमिन"
+  },
+  "common": {
+    "notifications": "खबर",
+    "no_notifications": "खबर नङा",
+    "mark_all_read": "मोन बांनायखौ पागलाय",
+    "listen": "थोंनाय",
+    "sell_produce": "बेचनाय",
+    "main_navigation": "नेभिगेसन",
+    "listen_title": "पेज थोंनाय",
+    "listen_sub": "जिउ गाइड"
+  },
+  "user": {
+    "verified": "खालामनाय",
+    "admin_access": "एडमिन",
+    "administrator": "एडमिन"
+  },
+  "select_language": "बिसोर",
+  "select_location": "थाव"
+}

@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · डैश",
+    "title": "डैश"
+  },
+  "marketplace": {
+    "breadcrumb": "02 · बाजार",
+    "title": "बाजार"
+  },
+  "offers": {
+    "breadcrumb": "03 · अफर",
+    "title": "अफर"
+  },
+  "deals": {
+    "breadcrumb": "04 · सिगान",
+    "title": "सिगान"
+  },
+  "payments": {
+    "breadcrumb": "05 · मोनलांनाय",
+    "title": "मोनलांनाय"
+  },
+  "profile": {
+    "breadcrumb": "06 · प्रोफाइल",
+    "title": "प्रोफाइल",
+    "verified_buyer": "खालामनाय",
+    "change_photo": "फटो",
+    "business_title": "बेपार",
+    "settings_title": "सेटिंग",
+    "score_title": "स्कोर",
+    "trust_score": "बिसाय",
+    "deals_completed": "सायख्लाय",
+    "kyc_verified": "KYC",
+    "notifications_label": "खबर",
+    "notifications_sub": "अफर",
+    "language_label": "बिसोर",
+    "field_contact": "सायख",
+    "field_org": "सोद्रोम",
+    "field_org_input": "सोद्रोम",
+    "field_location": "थाव",
+    "field_district": "जिला",
+    "field_state": "आरोग",
+    "field_email": "ईमेल",
+    "field_phone": "फोन",
+    "field_buyer_type": "जाथाय",
+    "photo_saved": "फटो",
+    "buyer_types": {
+      "processor": "मिल",
+      "trader": "बेपारि",
+      "retailer": "रिटेल",
+      "mandi": "APMC",
+      "fpo": "FPO"
+    }
+  }
+}

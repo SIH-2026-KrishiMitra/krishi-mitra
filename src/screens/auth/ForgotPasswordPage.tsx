@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Shield, CheckCircle, Mail } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../context/AuthContext'
 import toast from 'react-hot-toast'
 import styles from './ForgotPasswordPage.module.css'
 
 export default function ForgotPasswordPage() {
   const { resetPassword } = useAuth()
+  const { t } = useTranslation('auth')
   const [email, setEmail] = useState('')
   const [emailError, setEmailError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -14,7 +16,7 @@ export default function ForgotPasswordPage() {
 
   async function handleSubmit() {
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setEmailError('Enter a valid email address')
+      setEmailError(t('forgot.email_invalid'))
       return
     }
     setEmailError('')
@@ -23,7 +25,7 @@ export default function ForgotPasswordPage() {
       await resetPassword(email.trim())
       setSent(true)
     } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : 'Failed to send reset email')
+      toast.error(err instanceof Error ? err.message : t('forgot.send_failed'))
     } finally {
       setLoading(false)
     }
@@ -34,32 +36,27 @@ export default function ForgotPasswordPage() {
       <div className={styles.card}>
         <div className={styles.logoRow}>
           <div className={styles.logoMark}>KM</div>
-          <span className={styles.logoName}>Krishi Mitra</span>
+          <span className={styles.logoName}>{t('common:app.name')}</span>
         </div>
 
         {sent ? (
           <div className={styles.successState}>
             <CheckCircle size={40} className={styles.successIcon} />
-            <h2 className={styles.title}>Check your email</h2>
-            <p className={styles.sub}>
-              We've sent a password reset link to <strong>{email}</strong>.
-              Please check your inbox and follow the instructions.
-            </p>
-            <Link to="/login" className={styles.backToLogin}>Back to login</Link>
+            <h2 className={styles.title}>{t('forgot.success_title')}</h2>
+            <p className={styles.sub}>{t('forgot.success_sub', { email })}</p>
+            <Link to="/login" className={styles.backToLogin}>{t('forgot.back_to_login')}</Link>
           </div>
         ) : (
           <>
             <div className={styles.badge}>
               <Shield size={12} aria-hidden />
-              <span>Secure reset</span>
+              <span>{t('common:trust.secure_reset')}</span>
             </div>
-            <h2 className={styles.title}>Reset your password</h2>
-            <p className={styles.sub}>
-              Enter your registered email address. We'll send you a secure link to reset your password.
-            </p>
+            <h2 className={styles.title}>{t('forgot.title')}</h2>
+            <p className={styles.sub}>{t('forgot.sub')}</p>
 
             <div className={styles.fieldGroup}>
-              <label className={styles.fieldLabel} htmlFor="email">Email address</label>
+              <label className={styles.fieldLabel} htmlFor="email">{t('fields.email')}</label>
               <div className={styles.inputWrapper}>
                 <Mail size={16} className={styles.inputIcon} aria-hidden />
                 <input
@@ -84,10 +81,10 @@ export default function ForgotPasswordPage() {
               disabled={loading}
               onClick={handleSubmit}
             >
-              {loading ? 'Sending…' : 'Send reset link'}
+              {loading ? t('common:actions.sending') : t('forgot.cta')}
             </button>
 
-            <Link to="/login" className={styles.backToLogin}>← Back to login</Link>
+            <Link to="/login" className={styles.backToLogin}>{t('forgot.back_to_login')}</Link>
           </>
         )}
       </div>

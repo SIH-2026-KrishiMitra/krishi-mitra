@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "घर",
+    "markets": "बजार",
+    "lots": "हमर लॉट",
+    "offers": "ऑफर",
+    "deals": "सौदा",
+    "money": "पयसा",
+    "help": "मदति",
+    "profile": "प्रोफाइल",
+    "workspace": "किसान क्षेत्र"
+  },
+  "buyer": {
+    "home": "डैशबोर्ड",
+    "marketplace": "बजार",
+    "discover": "खोजू",
+    "offers": "ऑफर",
+    "deals": "सौदा",
+    "payments": "भुगतान",
+    "profile": "प्रोफाइल",
+    "portal": "खरीददार पोर्टल",
+    "portal_label": "खरीददार"
+  },
+  "admin": {
+    "home": "डैश",
+    "users": "उपयोगकर्ता",
+    "lots": "सूची",
+    "deals": "सौदा",
+    "payments": "भुगतान",
+    "grievances": "शिकायत",
+    "settings": "सेटिंग",
+    "dashboard": "प्रशासक डैश",
+    "dashboard_label": "प्रशासक"
+  },
+  "common": {
+    "notifications": "सूचना",
+    "no_notifications": "सूचना नहि",
+    "mark_all_read": "सब पढ़ल",
+    "listen": "सुनू",
+    "sell_produce": "बेचू",
+    "main_navigation": "नेविगेशन",
+    "listen_title": "पृष्ठ सुनू",
+    "listen_sub": "आवाज मार्गदर्शन"
+  },
+  "user": {
+    "verified": "सत्यापित",
+    "admin_access": "प्रशासक",
+    "administrator": "प्रशासक"
+  },
+  "select_language": "भाषा",
+  "select_location": "स्थान"
+}

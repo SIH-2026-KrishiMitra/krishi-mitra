@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "హోమ్",
+    "markets": "మార్కెట్",
+    "lots": "నా లాట్లు",
+    "offers": "ఆఫర్లు",
+    "deals": "ఒప్పందాలు",
+    "money": "డబ్బు",
+    "help": "సహాయం",
+    "profile": "ప్రొఫైల్",
+    "workspace": "రైతు విభాగం"
+  },
+  "buyer": {
+    "home": "డాష్బోర్డ్",
+    "marketplace": "మార్కెట్",
+    "discover": "కనుగొను",
+    "offers": "ఆఫర్లు",
+    "deals": "ఒప్పందాలు",
+    "payments": "చెల్లింపులు",
+    "profile": "ప్రొఫైల్",
+    "portal": "కొనుగోలుదారు పోర్టల్",
+    "portal_label": "కొనుగోలుదారు"
+  },
+  "admin": {
+    "home": "డాష్",
+    "users": "వినియోగదారులు",
+    "lots": "జాబితా",
+    "deals": "ఒప్పందం",
+    "payments": "చెల్లింపు",
+    "grievances": "ఫిర్యాదులు",
+    "settings": "సెట్టింగులు",
+    "dashboard": "అడ్మిన్ డాష్",
+    "dashboard_label": "అడ్మిన్ డాష్"
+  },
+  "common": {
+    "notifications": "నోటిఫికేషన్లు",
+    "no_notifications": "నోటిఫికేషన్లు లేవు",
+    "mark_all_read": "అన్నీ చదివాను",
+    "listen": "వినండి",
+    "sell_produce": "విక్రయించు",
+    "main_navigation": "నావిగేషన్",
+    "listen_title": "ఈ పేజీ వినండి",
+    "listen_sub": "వాయిస్ గైడ్"
+  },
+  "user": {
+    "verified": "ధృవీకరించబడింది",
+    "admin_access": "అడ్మిన్",
+    "administrator": "అడ్మిన్"
+  },
+  "select_language": "భాష",
+  "select_location": "స్థానం"
+}

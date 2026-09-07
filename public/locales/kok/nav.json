@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "मुखपान",
+    "markets": "बाजार",
+    "lots": "माझे लॉट",
+    "offers": "ऑफर",
+    "deals": "सौदे",
+    "money": "पयसे",
+    "help": "मदत",
+    "profile": "प्रोफाइल",
+    "workspace": "शेतकार क्षेत्र"
+  },
+  "buyer": {
+    "home": "डॅशबोर्ड",
+    "marketplace": "बाजार",
+    "discover": "सोध",
+    "offers": "ऑफर",
+    "deals": "सौदे",
+    "payments": "पेमेंट",
+    "profile": "प्रोफाइल",
+    "portal": "विकतो पोर्टल",
+    "portal_label": "विकतो"
+  },
+  "admin": {
+    "home": "डॅश",
+    "users": "वापरकार",
+    "lots": "यादी",
+    "deals": "सौदो",
+    "payments": "पेमेंट",
+    "grievances": "तक्रारी",
+    "settings": "सेटिंग",
+    "dashboard": "प्रशासक डॅश",
+    "dashboard_label": "प्रशासक"
+  },
+  "common": {
+    "notifications": "सूचना",
+    "no_notifications": "सूचना ना",
+    "mark_all_read": "सगळ्यो वाचल्यो",
+    "listen": "आयक",
+    "sell_produce": "विका",
+    "main_navigation": "नेव्हिगेशन",
+    "listen_title": "पान आयका",
+    "listen_sub": "आवाज मार्गदर्शन"
+  },
+  "user": {
+    "verified": "सत्यापित",
+    "admin_access": "प्रशासक",
+    "administrator": "प्रशासक"
+  },
+  "select_language": "भाशा",
+  "select_location": "जागो"
+}

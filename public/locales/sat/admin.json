@@ -1,0 +1,36 @@
+{
+  "home": {
+    "breadcrumb": "01 · ᱰᱮᱥ",
+    "title": "ᱰᱮᱥ"
+  },
+  "users": {
+    "breadcrumb": "02 · ᱦᱩᱰᱤᱧ",
+    "title": "ᱦᱩᱰᱤᱧ"
+  },
+  "lots": {
+    "breadcrumb": "03 · ᱞᱤᱥᱴ",
+    "title": "ᱞᱤᱥᱴ"
+  },
+  "deals": {
+    "breadcrumb": "04 · ᱥᱚᱫᱟ",
+    "title": "ᱥᱚᱫᱟ"
+  },
+  "payments": {
+    "breadcrumb": "05 · ᱯᱮᱢᱮᱱᱴ",
+    "title": "ᱯᱮᱢᱮᱱᱴ"
+  },
+  "grievances": {
+    "breadcrumb": "06 · ᱛᱟᱞᱟᱧ",
+    "title": "ᱛᱟᱞᱟᱧ"
+  },
+  "settings": {
+    "breadcrumb": "07 · ᱥᱮᱴᱤᱝ",
+    "title": "ᱥᱮᱴᱤᱝ",
+    "account_title": "ᱯᱷᱤᱡᱚᱛ",
+    "field_email": "ᱤᱢᱮᱞ",
+    "field_phone": "ᱯᱷᱚᱱ",
+    "field_language": "ᱵᱷᱟᱥᱟ",
+    "admin_badge": "ᱮᱰᱢᱤᱱ",
+    "security_note": "Supabase."
+  }
+}

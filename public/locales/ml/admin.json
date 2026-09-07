@@ -1,0 +1,36 @@
+{
+  "home": {
+    "breadcrumb": "01 · ഡ.",
+    "title": "ഡ."
+  },
+  "users": {
+    "breadcrumb": "02 · ഉ.",
+    "title": "ഉ."
+  },
+  "lots": {
+    "breadcrumb": "03 · ലി.",
+    "title": "ലി."
+  },
+  "deals": {
+    "breadcrumb": "04 · ഇ.",
+    "title": "ഇ."
+  },
+  "payments": {
+    "breadcrumb": "05 · പ.",
+    "title": "പ."
+  },
+  "grievances": {
+    "breadcrumb": "06 · പ.",
+    "title": "പ."
+  },
+  "settings": {
+    "breadcrumb": "07 · ക്.",
+    "title": "ക്.",
+    "account_title": "അ.",
+    "field_email": "ഇ.",
+    "field_phone": "ഫ.",
+    "field_language": "ഭ.",
+    "admin_badge": "അ.",
+    "security_note": "Supabase."
+  }
+}

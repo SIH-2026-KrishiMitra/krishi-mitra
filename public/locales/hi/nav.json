@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "होम",
+    "markets": "बाज़ार",
+    "lots": "मेरे लॉट",
+    "offers": "खरीदार और ऑफर",
+    "deals": "मेरे सौदे",
+    "money": "पैसे",
+    "help": "मदद और शिकायत",
+    "profile": "प्रोफ़ाइल",
+    "workspace": "किसान कार्यस्थल"
+  },
+  "buyer": {
+    "home": "डैशबोर्ड",
+    "marketplace": "बाज़ार",
+    "discover": "खोजें",
+    "offers": "मेरे ऑफर",
+    "deals": "मेरे सौदे",
+    "payments": "भुगतान",
+    "profile": "प्रोफ़ाइल",
+    "portal": "खरीदार पोर्टल",
+    "portal_label": "खरीदार पोर्टल"
+  },
+  "admin": {
+    "home": "डैशबोर्ड",
+    "users": "उपयोगकर्ता",
+    "lots": "लिस्टिंग",
+    "deals": "सौदे",
+    "payments": "भुगतान",
+    "grievances": "शिकायतें",
+    "settings": "सेटिंग",
+    "dashboard": "व्यवस्थापक डैशबोर्ड",
+    "dashboard_label": "व्यवस्थापक डैशबोर्ड"
+  },
+  "common": {
+    "notifications": "सूचनाएं",
+    "no_notifications": "अभी तक कोई सूचना नहीं",
+    "mark_all_read": "सभी पढ़े हुए चिह्नित करें",
+    "listen": "सुनें",
+    "sell_produce": "उपज बेचें",
+    "main_navigation": "मुख्य नेविगेशन",
+    "listen_title": "इस पृष्ठ को सुनें",
+    "listen_sub": "मराठी, हिंदी और अंग्रेज़ी में वॉइस गाइडेंस"
+  },
+  "user": {
+    "verified": "सत्यापित",
+    "admin_access": "व्यवस्थापक पहुँच",
+    "administrator": "व्यवस्थापक"
+  },
+  "select_language": "भाषा चुनें",
+  "select_location": "स्थान चुनें"
+}

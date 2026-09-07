@@ -1,0 +1,36 @@
+{
+  "home": {
+    "breadcrumb": "01 · ட.",
+    "title": "டாஷ்"
+  },
+  "users": {
+    "breadcrumb": "02 · ப.",
+    "title": "பயனர்கள்"
+  },
+  "lots": {
+    "breadcrumb": "03 · ப.",
+    "title": "பட்டியல்"
+  },
+  "deals": {
+    "breadcrumb": "04 · ஒ.",
+    "title": "ஒப்பந்தம்"
+  },
+  "payments": {
+    "breadcrumb": "05 · ப.",
+    "title": "பணம்"
+  },
+  "grievances": {
+    "breadcrumb": "06 · பு.",
+    "title": "புகார்கள்"
+  },
+  "settings": {
+    "breadcrumb": "07 · அ.",
+    "title": "அமைப்புகள்",
+    "account_title": "கணக்கு",
+    "field_email": "மின்னஞ்சல்",
+    "field_phone": "தொலைபேசி",
+    "field_language": "மொழி",
+    "admin_badge": "நிர்வாகி",
+    "security_note": "Supabase."
+  }
+}

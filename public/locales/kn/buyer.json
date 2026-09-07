@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · ಡ.",
+    "title": "ಡ್ಯಾಶ್"
+  },
+  "marketplace": {
+    "breadcrumb": "02 · ಮ.",
+    "title": "ಮಾರುಕಟ್ಟೆ"
+  },
+  "offers": {
+    "breadcrumb": "03 · ಆ.",
+    "title": "ಆಫರ್"
+  },
+  "deals": {
+    "breadcrumb": "04 · ಒ.",
+    "title": "ಒಪ್ಪಂದ"
+  },
+  "payments": {
+    "breadcrumb": "05 · ಪ.",
+    "title": "ಪಾವತಿ"
+  },
+  "profile": {
+    "breadcrumb": "06 · ಪ್ರ.",
+    "title": "ಪ್ರೊಫೈಲ್",
+    "verified_buyer": "ಪರಿಶೀಲಿಸಲಾಗಿದೆ",
+    "change_photo": "ಫೋಟೋ",
+    "business_title": "ವ್ಯಾಪಾರ",
+    "settings_title": "ಸೆಟ್ಟಿಂಗ್",
+    "score_title": "ಸ್ಕೋರ್",
+    "trust_score": "ವಿಶ್ವಾಸ",
+    "deals_completed": "ಮುಗಿದ",
+    "kyc_verified": "KYC",
+    "notifications_label": "ಅಧಿಸೂಚನೆ",
+    "notifications_sub": "ಆಫರ್",
+    "language_label": "ಭಾಷೆ",
+    "field_contact": "ಸಂಪರ್ಕ",
+    "field_org": "ಸಂಸ್ಥೆ",
+    "field_org_input": "ಸಂಸ್ಥೆ",
+    "field_location": "ಸ್ಥಳ",
+    "field_district": "ಜಿಲ್ಲೆ",
+    "field_state": "ರಾಜ್ಯ",
+    "field_email": "ಇಮೇಲ್",
+    "field_phone": "ಫೋನ್",
+    "field_buyer_type": "ಪ್ರಕಾರ",
+    "photo_saved": "ಫೋಟೋ",
+    "buyer_types": {
+      "processor": "ಮಿಲ್",
+      "trader": "ವ್ಯಾಪಾರಿ",
+      "retailer": "ಚಿಲ್ಲರೆ",
+      "mandi": "APMC",
+      "fpo": "FPO"
+    }
+  }
+}

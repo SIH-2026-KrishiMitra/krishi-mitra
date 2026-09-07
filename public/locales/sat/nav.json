@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "ᱜᱷᱟᱨ",
+    "markets": "ᱵᱟᱡᱟᱨ",
+    "lots": "ᱟᱢ ᱞᱚᱴ",
+    "offers": "ᱟᱯᱷᱟᱨ",
+    "deals": "ᱥᱚᱫᱟ",
+    "money": "ᱴᱟᱠᱟ",
+    "help": "ᱢᱟᱯᱷ",
+    "profile": "ᱯᱨᱚᱯᱷᱟᱭᱤᱞ",
+    "workspace": "ᱠᱤᱥᱟᱱ ᱡᱟᱭᱜᱟ"
+  },
+  "buyer": {
+    "home": "ᱰᱮᱥᱵᱚᱨᱰ",
+    "marketplace": "ᱵᱟᱡᱟᱨ",
+    "discover": "ᱥᱚᱫᱷᱮᱜ",
+    "offers": "ᱟᱯᱷᱟᱨ",
+    "deals": "ᱥᱚᱫᱟ",
+    "payments": "ᱯᱮᱢᱮᱱᱴ",
+    "profile": "ᱯᱨᱚᱯᱷᱟᱭᱤᱞ",
+    "portal": "ᱠᱤᱱᱮᱭ ᱯᱚᱨᱴᱟᱞ",
+    "portal_label": "ᱠᱤᱱᱮᱭ"
+  },
+  "admin": {
+    "home": "ᱰᱮᱥ",
+    "users": "ᱦᱩᱰᱤᱧ",
+    "lots": "ᱞᱤᱥᱴ",
+    "deals": "ᱥᱚᱫᱟ",
+    "payments": "ᱯᱮᱢᱮᱱᱴ",
+    "grievances": "ᱛᱟᱞᱟᱧ",
+    "settings": "ᱥᱮᱴᱤᱝ",
+    "dashboard": "ᱮᱰᱢᱤᱱ ᱰᱮᱥ",
+    "dashboard_label": "ᱮᱰᱢᱤᱱ"
+  },
+  "common": {
+    "notifications": "ᱥᱩᱪᱮᱱ",
+    "no_notifications": "ᱥᱩᱪᱮᱱ ᱵᱟᱝ",
+    "mark_all_read": "ᱢᱤᱫ ᱯᱟᱲᱷᱟᱣ",
+    "listen": "ᱥᱩᱱᱩ",
+    "sell_produce": "ᱵᱮᱪᱚ",
+    "main_navigation": "ᱱᱮᱵᱷᱤᱜᱮᱥᱱ",
+    "listen_title": "ᱯᱮᱡ ᱥᱩᱱᱩ",
+    "listen_sub": "ᱠᱷᱚᱲᱟ ᱜᱟᱭᱰ"
+  },
+  "user": {
+    "verified": "ᱯᱨᱚᱢᱟᱱ",
+    "admin_access": "ᱮᱰᱢᱤᱱ",
+    "administrator": "ᱮᱰᱢᱤᱱ"
+  },
+  "select_language": "ᱵᱷᱟᱥᱟ",
+  "select_location": "ᱡᱟᱭᱜᱟ"
+}

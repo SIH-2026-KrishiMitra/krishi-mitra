@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "হোম",
+    "markets": "বাজার",
+    "lots": "আমার লট",
+    "offers": "অফার",
+    "deals": "চুক্তি",
+    "money": "অর্থ",
+    "help": "সাহায্য",
+    "profile": "প্রোফাইল",
+    "workspace": "কৃষক এলাকা"
+  },
+  "buyer": {
+    "home": "ড্যাশবোর্ড",
+    "marketplace": "বাজার",
+    "discover": "খুঁজুন",
+    "offers": "অফার",
+    "deals": "চুক্তি",
+    "payments": "পেমেন্ট",
+    "profile": "প্রোফাইল",
+    "portal": "ক্রেতা পোর্টাল",
+    "portal_label": "ক্রেতা"
+  },
+  "admin": {
+    "home": "ড্যাশ",
+    "users": "ব্যবহারকারী",
+    "lots": "তালিকা",
+    "deals": "চুক্তি",
+    "payments": "পেমেন্ট",
+    "grievances": "অভিযোগ",
+    "settings": "সেটিংস",
+    "dashboard": "অ্যাডমিন ড্যাশ",
+    "dashboard_label": "অ্যাডমিন"
+  },
+  "common": {
+    "notifications": "বিজ্ঞপ্তি",
+    "no_notifications": "কোনো বিজ্ঞপ্তি নেই",
+    "mark_all_read": "সব পঠিত",
+    "listen": "শুনুন",
+    "sell_produce": "বিক্রি করুন",
+    "main_navigation": "নেভিগেশন",
+    "listen_title": "পৃষ্ঠা শুনুন",
+    "listen_sub": "ভয়েস গাইড"
+  },
+  "user": {
+    "verified": "যাচাই",
+    "admin_access": "অ্যাডমিন",
+    "administrator": "অ্যাডমিন"
+  },
+  "select_language": "ভাষা",
+  "select_location": "স্থান"
+}

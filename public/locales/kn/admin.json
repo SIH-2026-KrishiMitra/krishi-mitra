@@ -1,0 +1,36 @@
+{
+  "home": {
+    "breadcrumb": "01 · ಡ.",
+    "title": "ಡ್ಯಾಶ್"
+  },
+  "users": {
+    "breadcrumb": "02 · ಬ.",
+    "title": "ಬಳಕೆದಾರರು"
+  },
+  "lots": {
+    "breadcrumb": "03 · ಪ.",
+    "title": "ಪಟ್ಟಿ"
+  },
+  "deals": {
+    "breadcrumb": "04 · ಒ.",
+    "title": "ಒಪ್ಪಂದ"
+  },
+  "payments": {
+    "breadcrumb": "05 · ಪ.",
+    "title": "ಪಾವತಿ"
+  },
+  "grievances": {
+    "breadcrumb": "06 · ದ.",
+    "title": "ದೂರು"
+  },
+  "settings": {
+    "breadcrumb": "07 · ಸ.",
+    "title": "ಸೆಟ್ಟಿಂಗ್",
+    "account_title": "ಖಾತೆ",
+    "field_email": "ಇಮೇಲ್",
+    "field_phone": "ಫೋನ್",
+    "field_language": "ಭಾಷೆ",
+    "admin_badge": "ನಿರ್ವಾಹಕ",
+    "security_note": "Supabase."
+  }
+}

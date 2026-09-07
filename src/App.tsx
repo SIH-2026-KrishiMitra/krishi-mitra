@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { Suspense } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { AuthProvider, useAuth } from './context/AuthContext'
+import { LanguageProvider } from './context/LanguageContext'
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 import { AppProvider } from './context/AppContext'
 import type { ReactNode } from 'react'
@@ -136,7 +138,9 @@ export default function App() {
   return (
     <ErrorBoundary>
     <AuthProvider>
+      <LanguageProvider>
       <BrowserRouter>
+        <Suspense fallback={<LoadingScreen />}>
         <Toaster
           position="top-center"
           toastOptions={{
@@ -243,7 +247,9 @@ export default function App() {
           {/* Catch-all */}
           <Route path="*" element={<AuthGuard><RootRedirect /></AuthGuard>} />
         </Routes>
+        </Suspense>
       </BrowserRouter>
+      </LanguageProvider>
     </AuthProvider>
     </ErrorBoundary>
   )

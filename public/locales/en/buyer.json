@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · DASHBOARD",
+    "title": "Dashboard"
+  },
+  "marketplace": {
+    "breadcrumb": "02 · MARKETPLACE",
+    "title": "Marketplace"
+  },
+  "offers": {
+    "breadcrumb": "03 · MY OFFERS",
+    "title": "My offers"
+  },
+  "deals": {
+    "breadcrumb": "04 · MY DEALS",
+    "title": "My deals"
+  },
+  "payments": {
+    "breadcrumb": "05 · PAYMENTS",
+    "title": "Payments"
+  },
+  "profile": {
+    "breadcrumb": "06 · PROFILE",
+    "title": "Profile & settings",
+    "verified_buyer": "Verified buyer",
+    "change_photo": "Change profile photo",
+    "business_title": "Business details",
+    "settings_title": "Settings",
+    "score_title": "Buyer score",
+    "trust_score": "Trust score",
+    "deals_completed": "Deals completed",
+    "kyc_verified": "KYC verified",
+    "notifications_label": "Notifications",
+    "notifications_sub": "Offer updates, deal alerts, price changes",
+    "language_label": "Language",
+    "field_contact": "Contact person",
+    "field_org": "Organisation name",
+    "field_org_input": "Organisation / Company name",
+    "field_location": "Location",
+    "field_district": "District",
+    "field_state": "State",
+    "field_email": "Email",
+    "field_phone": "Phone",
+    "field_buyer_type": "Buyer type",
+    "photo_saved": "Profile photo updated",
+    "buyer_types": {
+      "processor": "Processor",
+      "trader": "Trader / Commission agent",
+      "retailer": "Retailer",
+      "mandi": "Mandi / APMC",
+      "fpo": "FPO / Cooperative"
+    }
+  }
+}

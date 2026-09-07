@@ -1,0 +1,36 @@
+{
+  "home": {
+    "breadcrumb": "01 · ডাশ",
+    "title": "ডাশ"
+  },
+  "users": {
+    "breadcrumb": "02 · ইউজার",
+    "title": "ইউজার"
+  },
+  "lots": {
+    "breadcrumb": "03 · লিস্ট",
+    "title": "লিস্ট"
+  },
+  "deals": {
+    "breadcrumb": "04 · ডিল",
+    "title": "ডিল"
+  },
+  "payments": {
+    "breadcrumb": "05 · পেমেন্ট",
+    "title": "পেমেন্ট"
+  },
+  "grievances": {
+    "breadcrumb": "06 · মরুওইবা",
+    "title": "মরুওইবা"
+  },
+  "settings": {
+    "breadcrumb": "07 · সেটিং",
+    "title": "সেটিং",
+    "account_title": "একাউন্ট",
+    "field_email": "ইমেল",
+    "field_phone": "ফোন",
+    "field_language": "লোন",
+    "admin_badge": "এডমিন",
+    "security_note": "Supabase."
+  }
+}

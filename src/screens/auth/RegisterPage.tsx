@@ -1,39 +1,34 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { Shield, CheckCircle, ChevronRight, ChevronLeft, Eye, EyeOff } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../context/AuthContext'
 import type { FarmerSignUpData, BuyerSignUpData } from '../../context/AuthContext'
+import { SUPPORTED_LANGUAGES } from '../../i18n'
 import toast from 'react-hot-toast'
 import styles from './RegisterPage.module.css'
 
 type Role = 'farmer' | 'buyer'
 type Step = 'role' | 'details' | 'success'
 
-const BUYER_TYPES = [
-  { value: 'processor', label: 'Processor / Mill' },
-  { value: 'trader', label: 'Trader' },
-  { value: 'retailer', label: 'Retailer / Supermarket' },
-  { value: 'mandi', label: 'APMC / Mandi' },
-  { value: 'fpo', label: 'FPO / Cooperative' },
-] as const
+const BUYER_TYPE_KEYS = ['processor', 'trader', 'retailer', 'mandi', 'fpo'] as const
 
 export default function RegisterPage() {
   const navigate = useNavigate()
   const { signUpFarmer, signUpBuyer } = useAuth()
+  const { t } = useTranslation('auth')
 
   const [role, setRole] = useState<Role>('farmer')
   const [step, setStep] = useState<Step>('role')
   const [loading, setLoading] = useState(false)
   const [showPw, setShowPw] = useState(false)
 
-  // Farmer form
   const [farmerForm, setFarmerForm] = useState<FarmerSignUpData>({
     full_name: '', phone: '', email: '', password: '',
     village: '', district: '', state: '', language: 'en',
   })
   const [farmerErrors, setFarmerErrors] = useState<Partial<Record<keyof FarmerSignUpData, string>>>({})
 
-  // Buyer form
   const [buyerForm, setBuyerForm] = useState<BuyerSignUpData>({
     org_name: '', contact_person: '', phone: '', email: '', password: '',
     buyer_type: 'processor', location: '', district: '', state: '',
@@ -42,26 +37,26 @@ export default function RegisterPage() {
 
   function validateFarmer(): boolean {
     const errs: typeof farmerErrors = {}
-    if (!farmerForm.full_name.trim()) errs.full_name = 'Name is required'
-    if (!farmerForm.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(farmerForm.email)) errs.email = 'Valid email required'
-    if (!farmerForm.phone || !/^\d{10}$/.test(farmerForm.phone)) errs.phone = 'Valid 10-digit number required'
-    if (!farmerForm.password || farmerForm.password.length < 8) errs.password = 'Minimum 8 characters'
-    if (!farmerForm.village.trim()) errs.village = 'Village is required'
-    if (!farmerForm.district.trim()) errs.district = 'District is required'
-    if (!farmerForm.state.trim()) errs.state = 'State is required'
+    if (!farmerForm.full_name.trim()) errs.full_name = t('errors.name_required')
+    if (!farmerForm.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(farmerForm.email)) errs.email = t('errors.email_valid_required')
+    if (!farmerForm.phone || !/^\d{10}$/.test(farmerForm.phone)) errs.phone = t('errors.mobile_valid_required')
+    if (!farmerForm.password || farmerForm.password.length < 8) errs.password = t('errors.password_min')
+    if (!farmerForm.village.trim()) errs.village = t('errors.village_required')
+    if (!farmerForm.district.trim()) errs.district = t('errors.district_required')
+    if (!farmerForm.state.trim()) errs.state = t('errors.state_required')
     setFarmerErrors(errs)
     return Object.keys(errs).length === 0
   }
 
   function validateBuyer(): boolean {
     const errs: typeof buyerErrors = {}
-    if (!buyerForm.org_name.trim()) errs.org_name = 'Organisation name is required'
-    if (!buyerForm.contact_person.trim()) errs.contact_person = 'Contact person is required'
-    if (!buyerForm.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerForm.email)) errs.email = 'Valid email required'
-    if (!buyerForm.phone || !/^\d{10}$/.test(buyerForm.phone)) errs.phone = 'Valid 10-digit number required'
-    if (!buyerForm.password || buyerForm.password.length < 8) errs.password = 'Minimum 8 characters'
-    if (!buyerForm.location.trim()) errs.location = 'Location is required'
-    if (!buyerForm.state.trim()) errs.state = 'State is required'
+    if (!buyerForm.org_name.trim()) errs.org_name = t('errors.org_required')
+    if (!buyerForm.contact_person.trim()) errs.contact_person = t('errors.contact_required')
+    if (!buyerForm.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerForm.email)) errs.email = t('errors.email_valid_required')
+    if (!buyerForm.phone || !/^\d{10}$/.test(buyerForm.phone)) errs.phone = t('errors.mobile_valid_required')
+    if (!buyerForm.password || buyerForm.password.length < 8) errs.password = t('errors.password_min')
+    if (!buyerForm.location.trim()) errs.location = t('errors.location_required')
+    if (!buyerForm.state.trim()) errs.state = t('errors.state_required')
     setBuyerErrors(errs)
     return Object.keys(errs).length === 0
   }
@@ -74,9 +69,9 @@ export default function RegisterPage() {
         await signUpFarmer(farmerForm)
         setStep('success')
       } catch (err: unknown) {
-        const msg = err instanceof Error ? err.message : 'Registration failed'
+        const msg = err instanceof Error ? err.message : t('errors.registration_failed')
         if (msg.includes('already registered')) {
-          setFarmerErrors({ email: 'This email is already registered' })
+          setFarmerErrors({ email: t('errors.already_registered') })
         } else {
           toast.error(msg)
         }
@@ -90,9 +85,9 @@ export default function RegisterPage() {
         await signUpBuyer(buyerForm)
         setStep('success')
       } catch (err: unknown) {
-        const msg = err instanceof Error ? err.message : 'Registration failed'
+        const msg = err instanceof Error ? err.message : t('errors.registration_failed')
         if (msg.includes('already registered')) {
-          setBuyerErrors({ email: 'This email is already registered' })
+          setBuyerErrors({ email: t('errors.already_registered') })
         } else {
           toast.error(msg)
         }
@@ -110,22 +105,18 @@ export default function RegisterPage() {
           <div className={styles.logo}>
             <div className={styles.logoMark}>KM</div>
             <div>
-              <p className={styles.logoName}>Krishi Mitra</p>
-              <p className={styles.logoTagline}>Agri-Fintech Platform</p>
+              <p className={styles.logoName}>{t('common:app.name')}</p>
+              <p className={styles.logoTagline}>{t('common:app.tagline')}</p>
             </div>
           </div>
           <div className={styles.headline}>
-            <h1 className={styles.headlineTitle}>
-              Join India's<br />largest farmer<br />marketplace
-            </h1>
-            <p className={styles.headlineSub}>
-              Over 3,400 verified farmers and buyers transacting ₹200Cr+ annually on Krishi Mitra.
-            </p>
+            <h1 className={styles.headlineTitle}>{t('register.headline')}</h1>
+            <p className={styles.headlineSub}>{t('register.headline_sub')}</p>
           </div>
           <div className={styles.steps}>
-            <StepItem num={1} label="Create your account" active={step === 'role' || step === 'details'} done={step === 'success'} />
-            <StepItem num={2} label="Complete your profile" active={false} done={false} />
-            <StepItem num={3} label="Start trading" active={false} done={false} />
+            <StepItem num={1} label={t('register.step1')} active={step === 'role' || step === 'details'} done={step === 'success'} />
+            <StepItem num={2} label={t('register.step2')} active={false} done={false} />
+            <StepItem num={3} label={t('register.step3')} active={false} done={false} />
           </div>
         </div>
       </div>
@@ -136,14 +127,10 @@ export default function RegisterPage() {
           {step === 'success' ? (
             <div className={styles.successState}>
               <div className={styles.successIcon}><CheckCircle size={48} /></div>
-              <h2 className={styles.successTitle}>Account created!</h2>
-              <p className={styles.successSub}>
-                {role === 'farmer'
-                  ? 'Check your email to verify your account, then log in.'
-                  : 'Check your email to verify your account, then log in.'}
-              </p>
+              <h2 className={styles.successTitle}>{t('register.success_title')}</h2>
+              <p className={styles.successSub}>{t('register.success_sub')}</p>
               <button type="button" className={styles.primaryBtn} onClick={() => navigate('/login')}>
-                Go to Login
+                {t('register.go_login')}
               </button>
             </div>
           ) : (
@@ -151,35 +138,38 @@ export default function RegisterPage() {
               <div className={styles.formHeader}>
                 <div className={styles.kycBadge}>
                   <Shield size={12} aria-hidden />
-                  <span>Secure Registration</span>
+                  <span>{t('common:trust.secure_registration')}</span>
                 </div>
                 <h2 className={styles.formTitle}>
-                  {step === 'role' ? 'Create your account' : role === 'farmer' ? 'Farmer details' : 'Buyer details'}
+                  {step === 'role'
+                    ? t('register.title_role')
+                    : role === 'farmer'
+                      ? t('register.title_farmer')
+                      : t('register.title_buyer')}
                 </h2>
                 <p className={styles.formSub}>
                   {step === 'role'
-                    ? 'Select your role to get started.'
-                    : `Setting up your ${role === 'farmer' ? 'farmer' : 'buyer'} account.`}
+                    ? t('register.sub_role')
+                    : role === 'farmer'
+                      ? t('register.sub_farmer')
+                      : t('register.sub_buyer')}
                 </p>
               </div>
 
               {/* Step: Role selection */}
               {step === 'role' && (
                 <div className={styles.roleGroup}>
-                  <p className={styles.fieldLabel}>I am a…</p>
+                  <p className={styles.fieldLabel}>{t('register.role_label')}</p>
                   <div className={styles.roleCards}>
-                    {([
-                      { id: 'farmer' as Role, title: 'Farmer / Producer', subtitle: 'Sell your produce directly to verified buyers' },
-                      { id: 'buyer' as Role, title: 'Institutional Buyer', subtitle: 'Processor, Trader, FPO or Retailer' },
-                    ]).map(r => (
+                    {(['farmer', 'buyer'] as Role[]).map(r => (
                       <button
-                        key={r.id}
+                        key={r}
                         type="button"
-                        className={`${styles.roleCard} ${role === r.id ? styles.roleCardActive : ''}`}
-                        onClick={() => setRole(r.id)}
+                        className={`${styles.roleCard} ${role === r ? styles.roleCardActive : ''}`}
+                        onClick={() => setRole(r)}
                       >
-                        <span className={styles.roleTitle}>{r.title}</span>
-                        <span className={styles.roleSub}>{r.subtitle}</span>
+                        <span className={styles.roleTitle}>{t(`roles.${r}_title`)}</span>
+                        <span className={styles.roleSub}>{t(`roles.${r}_sub_long`)}</span>
                       </button>
                     ))}
                   </div>
@@ -189,7 +179,7 @@ export default function RegisterPage() {
               {/* Farmer details */}
               {step === 'details' && role === 'farmer' && (
                 <div className={styles.formGrid}>
-                  <Field label="Full name" error={farmerErrors.full_name}>
+                  <Field label={t('fields.full_name')} error={farmerErrors.full_name}>
                     <input
                       className={`${styles.input} ${farmerErrors.full_name ? styles.inputError : ''}`}
                       value={farmerForm.full_name}
@@ -198,7 +188,7 @@ export default function RegisterPage() {
                       autoFocus
                     />
                   </Field>
-                  <Field label="Mobile number" error={farmerErrors.phone}>
+                  <Field label={t('fields.mobile')} error={farmerErrors.phone}>
                     <div className={styles.phoneInput}>
                       <span className={styles.phonePrefix}>+91</span>
                       <input
@@ -212,7 +202,7 @@ export default function RegisterPage() {
                       />
                     </div>
                   </Field>
-                  <Field label="Email address" error={farmerErrors.email}>
+                  <Field label={t('fields.email')} error={farmerErrors.email}>
                     <input
                       className={`${styles.input} ${farmerErrors.email ? styles.inputError : ''}`}
                       type="email"
@@ -221,14 +211,14 @@ export default function RegisterPage() {
                       placeholder="you@example.com"
                     />
                   </Field>
-                  <Field label="Password" error={farmerErrors.password}>
+                  <Field label={t('fields.password')} error={farmerErrors.password}>
                     <div className={styles.passwordInput}>
                       <input
                         className={`${styles.input} ${styles.passwordField} ${farmerErrors.password ? styles.inputError : ''}`}
                         type={showPw ? 'text' : 'password'}
                         value={farmerForm.password}
                         onChange={e => setFarmerForm(f => ({ ...f, password: e.target.value }))}
-                        placeholder="Min. 8 characters"
+                        placeholder={t('fields.password_placeholder')}
                         autoComplete="new-password"
                       />
                       <button type="button" className={styles.eyeBtn} onClick={() => setShowPw(v => !v)} aria-label="Toggle password">
@@ -236,7 +226,7 @@ export default function RegisterPage() {
                       </button>
                     </div>
                   </Field>
-                  <Field label="Village" error={farmerErrors.village}>
+                  <Field label={t('fields.village')} error={farmerErrors.village}>
                     <input
                       className={`${styles.input} ${farmerErrors.village ? styles.inputError : ''}`}
                       value={farmerForm.village}
@@ -244,7 +234,7 @@ export default function RegisterPage() {
                       placeholder="Lasalgaon"
                     />
                   </Field>
-                  <Field label="District" error={farmerErrors.district}>
+                  <Field label={t('fields.district')} error={farmerErrors.district}>
                     <input
                       className={`${styles.input} ${farmerErrors.district ? styles.inputError : ''}`}
                       value={farmerForm.district}
@@ -252,7 +242,7 @@ export default function RegisterPage() {
                       placeholder="Nashik"
                     />
                   </Field>
-                  <Field label="State" error={farmerErrors.state}>
+                  <Field label={t('fields.state')} error={farmerErrors.state}>
                     <input
                       className={`${styles.input} ${farmerErrors.state ? styles.inputError : ''}`}
                       value={farmerForm.state}
@@ -260,15 +250,15 @@ export default function RegisterPage() {
                       placeholder="Maharashtra"
                     />
                   </Field>
-                  <Field label="Preferred language">
+                  <Field label={t('register.preferred_language')}>
                     <select
                       className={styles.input}
                       value={farmerForm.language}
                       onChange={e => setFarmerForm(f => ({ ...f, language: e.target.value }))}
                     >
-                      <option value="en">English</option>
-                      <option value="mr">मराठी (Marathi)</option>
-                      <option value="hi">हिंदी (Hindi)</option>
+                      {SUPPORTED_LANGUAGES.map(l => (
+                        <option key={l.code} value={l.code} lang={l.code}>{l.nativeLabel}</option>
+                      ))}
                     </select>
                   </Field>
                 </div>
@@ -277,7 +267,7 @@ export default function RegisterPage() {
               {/* Buyer details */}
               {step === 'details' && role === 'buyer' && (
                 <div className={styles.formGrid}>
-                  <Field label="Organisation / Company name" error={buyerErrors.org_name}>
+                  <Field label={t('fields.org_name')} error={buyerErrors.org_name}>
                     <input
                       className={`${styles.input} ${buyerErrors.org_name ? styles.inputError : ''}`}
                       value={buyerForm.org_name}
@@ -286,7 +276,7 @@ export default function RegisterPage() {
                       autoFocus
                     />
                   </Field>
-                  <Field label="Contact person" error={buyerErrors.contact_person}>
+                  <Field label={t('fields.contact_person')} error={buyerErrors.contact_person}>
                     <input
                       className={`${styles.input} ${buyerErrors.contact_person ? styles.inputError : ''}`}
                       value={buyerForm.contact_person}
@@ -294,18 +284,18 @@ export default function RegisterPage() {
                       placeholder="Suresh Kumar"
                     />
                   </Field>
-                  <Field label="Buyer type">
+                  <Field label={t('register.buyer_type')}>
                     <select
                       className={styles.input}
                       value={buyerForm.buyer_type}
                       onChange={e => setBuyerForm(f => ({ ...f, buyer_type: e.target.value as BuyerSignUpData['buyer_type'] }))}
                     >
-                      {BUYER_TYPES.map(bt => (
-                        <option key={bt.value} value={bt.value}>{bt.label}</option>
+                      {BUYER_TYPE_KEYS.map(key => (
+                        <option key={key} value={key}>{t(`register.buyer_types.${key}`)}</option>
                       ))}
                     </select>
                   </Field>
-                  <Field label="Mobile number" error={buyerErrors.phone}>
+                  <Field label={t('fields.mobile')} error={buyerErrors.phone}>
                     <div className={styles.phoneInput}>
                       <span className={styles.phonePrefix}>+91</span>
                       <input
@@ -319,7 +309,7 @@ export default function RegisterPage() {
                       />
                     </div>
                   </Field>
-                  <Field label="Email address" error={buyerErrors.email}>
+                  <Field label={t('fields.email')} error={buyerErrors.email}>
                     <input
                       className={`${styles.input} ${buyerErrors.email ? styles.inputError : ''}`}
                       type="email"
@@ -328,14 +318,14 @@ export default function RegisterPage() {
                       placeholder="procurement@company.com"
                     />
                   </Field>
-                  <Field label="Password" error={buyerErrors.password}>
+                  <Field label={t('fields.password')} error={buyerErrors.password}>
                     <div className={styles.passwordInput}>
                       <input
                         className={`${styles.input} ${styles.passwordField} ${buyerErrors.password ? styles.inputError : ''}`}
                         type={showPw ? 'text' : 'password'}
                         value={buyerForm.password}
                         onChange={e => setBuyerForm(f => ({ ...f, password: e.target.value }))}
-                        placeholder="Min. 8 characters"
+                        placeholder={t('fields.password_placeholder')}
                         autoComplete="new-password"
                       />
                       <button type="button" className={styles.eyeBtn} onClick={() => setShowPw(v => !v)} aria-label="Toggle password">
@@ -343,7 +333,7 @@ export default function RegisterPage() {
                       </button>
                     </div>
                   </Field>
-                  <Field label="City / Location" error={buyerErrors.location}>
+                  <Field label={t('fields.city_location')} error={buyerErrors.location}>
                     <input
                       className={`${styles.input} ${buyerErrors.location ? styles.inputError : ''}`}
                       value={buyerForm.location}
@@ -351,7 +341,7 @@ export default function RegisterPage() {
                       placeholder="Pune"
                     />
                   </Field>
-                  <Field label="District" error={buyerErrors.district}>
+                  <Field label={t('fields.district')} error={buyerErrors.district}>
                     <input
                       className={`${styles.input} ${buyerErrors.district ? styles.inputError : ''}`}
                       value={buyerForm.district}
@@ -359,7 +349,7 @@ export default function RegisterPage() {
                       placeholder="Pune"
                     />
                   </Field>
-                  <Field label="State" error={buyerErrors.state}>
+                  <Field label={t('fields.state')} error={buyerErrors.state}>
                     <input
                       className={`${styles.input} ${buyerErrors.state ? styles.inputError : ''}`}
                       value={buyerForm.state}
@@ -374,7 +364,7 @@ export default function RegisterPage() {
               <div className={styles.ctaGroup}>
                 {step === 'role' ? (
                   <button type="button" className={styles.primaryBtn} onClick={() => setStep('details')}>
-                    <span>Continue</span>
+                    <span>{t('common:actions.continue')}</span>
                     <ChevronRight size={16} />
                   </button>
                 ) : (
@@ -385,18 +375,20 @@ export default function RegisterPage() {
                       disabled={loading}
                       onClick={handleSubmit}
                     >
-                      {loading ? 'Creating account…' : <><span>Create account</span><ChevronRight size={16} /></>}
+                      {loading
+                        ? t('common:actions.creating')
+                        : <><span>{t('login.create_account')}</span><ChevronRight size={16} /></>}
                     </button>
                     <button type="button" className={styles.backLink} onClick={() => setStep('role')}>
-                      <ChevronLeft size={14} /> Back
+                      <ChevronLeft size={14} /> {t('common:actions.back')}
                     </button>
                   </>
                 )}
               </div>
 
               <p className={styles.loginLink}>
-                Already have an account?{' '}
-                <Link to="/login" className={styles.inlineLink}>Sign in</Link>
+                {t('register.have_account')}{' '}
+                <Link to="/login" className={styles.inlineLink}>{t('register.sign_in')}</Link>
               </p>
             </>
           )}

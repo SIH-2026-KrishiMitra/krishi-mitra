@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "Agri-Fintech Platform"
+  },
+  "actions": {
+    "save": "Save changes",
+    "saving": "Saving…",
+    "cancel": "Cancel",
+    "back": "Back",
+    "continue": "Continue",
+    "sign_out": "Sign out",
+    "signing_out": "Signing out…",
+    "edit_profile": "Edit profile",
+    "loading": "Please wait…",
+    "creating": "Creating account…",
+    "sending": "Sending…"
+  },
+  "status": {
+    "verified": "Verified",
+    "pending": "Pending",
+    "complete": "Complete",
+    "not_verified": "Not verified",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "errors": {
+    "generic": "Something went wrong",
+    "invalid_file": "Invalid file",
+    "photo_upload_failed": "Photo upload failed"
+  },
+  "trust": {
+    "ncfm": "NCFM Registered",
+    "direct_mandi": "Direct Mandi Connect",
+    "escrow": "Escrow Guarantee",
+    "pledge": "Pledge Section Time",
+    "iso": "ISO 27001 Certified",
+    "rbi": "RBI Regulated Entity",
+    "privacy": "Privacy Policy",
+    "kyc_enabled": "KYC Enabled",
+    "secure_registration": "Secure Registration",
+    "secure_reset": "Secure reset"
+  },
+  "or": "or"
+}

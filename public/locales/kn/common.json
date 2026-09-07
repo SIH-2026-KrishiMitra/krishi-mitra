@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "ಕೃಷಿ-ಹಣಕಾಸು ವೇದಿಕೆ"
+  },
+  "actions": {
+    "save": "ಬದಲಾವಣೆಗಳನ್ನು ಉಳಿಸಿ",
+    "saving": "ಉಳಿಸಲಾಗುತ್ತಿದೆ…",
+    "cancel": "ರದ್ದು",
+    "back": "ಹಿಂದೆ",
+    "continue": "ಮುಂದುವರಿ",
+    "sign_out": "ಸೈನ್ ಔಟ್",
+    "signing_out": "ಸೈನ್ ಔಟ್ ಆಗುತ್ತಿದೆ…",
+    "edit_profile": "ಪ್ರೊಫೈಲ್ ಸಂಪಾದಿಸಿ",
+    "loading": "ನಿರೀಕ್ಷಿಸಿ…",
+    "creating": "ಖಾತೆ ರಚಿಸಲಾಗುತ್ತಿದೆ…",
+    "sending": "ಕಳುಹಿಸಲಾಗುತ್ತಿದೆ…"
+  },
+  "status": {
+    "verified": "ಪರಿಶೀಲಿಸಲಾಗಿದೆ",
+    "pending": "ಬಾಕಿ",
+    "complete": "ಸಂಪೂರ್ಣ",
+    "not_verified": "ಪರಿಶೀಲಿಸಿಲ್ಲ",
+    "yes": "ಹೌದು",
+    "no": "ಇಲ್ಲ"
+  },
+  "errors": {
+    "generic": "ದೋಷ",
+    "invalid_file": "ಅಮಾನ್ಯ ಫೈಲ್",
+    "photo_upload_failed": "ಫೋಟೋ ಅಪ್‌ಲೋಡ್ ವಿಫಲ"
+  },
+  "trust": {
+    "ncfm": "NCFM ನೋಂದಾಯಿತ",
+    "direct_mandi": "ನೇರ ಮಂಡಿ",
+    "escrow": "ಎಸ್ಕ್ರೋ",
+    "pledge": "ಭರವಸೆ",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "ಗೌಪ್ಯತೆ",
+    "kyc_enabled": "KYC",
+    "secure_registration": "ಸುರಕ್ಷಿತ",
+    "secure_reset": "ಸುರಕ್ಷಿತ"
+  },
+  "or": "ಅಥವಾ"
+}

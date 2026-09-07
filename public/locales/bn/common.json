@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "কৃষি-অর্থ প্ল্যাটফর্ম"
+  },
+  "actions": {
+    "save": "পরিবর্তন সংরক্ষণ",
+    "saving": "সংরক্ষণ হচ্ছে…",
+    "cancel": "বাতিল",
+    "back": "পিছনে",
+    "continue": "চালিয়ে যান",
+    "sign_out": "সাইন আউট",
+    "signing_out": "সাইন আউট হচ্ছে…",
+    "edit_profile": "প্রোফাইল সম্পাদনা",
+    "loading": "অপেক্ষা করুন…",
+    "creating": "অ্যাকাউন্ট তৈরি হচ্ছে…",
+    "sending": "পাঠানো হচ্ছে…"
+  },
+  "status": {
+    "verified": "যাচাই",
+    "pending": "মুলতবি",
+    "complete": "সম্পূর্ণ",
+    "not_verified": "যাচাই নয়",
+    "yes": "হ্যাঁ",
+    "no": "না"
+  },
+  "errors": {
+    "generic": "ত্রুটি",
+    "invalid_file": "অবৈধ ফাইল",
+    "photo_upload_failed": "ছবি আপলোড ব্যর্থ"
+  },
+  "trust": {
+    "ncfm": "NCFM",
+    "direct_mandi": "সরাসরি মান্ডি",
+    "escrow": "এস্ক্রো",
+    "pledge": "প্রতিশ্রুতি",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "গোপনীয়তা",
+    "kyc_enabled": "KYC",
+    "secure_registration": "নিরাপদ",
+    "secure_reset": "নিরাপদ"
+  },
+  "or": "অথবা"
+}

@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "ഹോം",
+    "markets": "മാർക്കറ്റ്",
+    "lots": "എന്റെ ലോട്ടുകൾ",
+    "offers": "ഓഫറുകൾ",
+    "deals": "ഇടപാടുകൾ",
+    "money": "പണം",
+    "help": "സഹായം",
+    "profile": "പ്രൊഫൈൽ",
+    "workspace": "കർഷക ഇടം"
+  },
+  "buyer": {
+    "home": "ഡാഷ്ബോർഡ്",
+    "marketplace": "മാർക്കറ്റ്",
+    "discover": "കണ്ടെത്തുക",
+    "offers": "ഓഫറുകൾ",
+    "deals": "ഇടപാടുകൾ",
+    "payments": "പേമെന്റ്",
+    "profile": "പ്രൊഫൈൽ",
+    "portal": "വാങ്ങുന്നവർ",
+    "portal_label": "വാങ്ങുന്നവർ"
+  },
+  "admin": {
+    "home": "ഡാഷ്",
+    "users": "ഉപയോക്താക്കൾ",
+    "lots": "ലിസ്റ്റ്",
+    "deals": "ഇടപാട്",
+    "payments": "പേമെന്റ്",
+    "grievances": "പരാതി",
+    "settings": "ക്രമീകരണം",
+    "dashboard": "അഡ്‌മിൻ ഡാഷ്",
+    "dashboard_label": "അഡ്‌മിൻ ഡാഷ്"
+  },
+  "common": {
+    "notifications": "അറിയിപ്പ്",
+    "no_notifications": "അറിയിപ്പ് ഇല്ല",
+    "mark_all_read": "വായിച്ചു",
+    "listen": "കേൾക്കുക",
+    "sell_produce": "വിൽക്കുക",
+    "main_navigation": "നാവിഗേഷൻ",
+    "listen_title": "ഈ പേജ് കേൾക്കുക",
+    "listen_sub": "ശബ്ദ ഗൈഡ്"
+  },
+  "user": {
+    "verified": "സ്ഥിരീകരിച്ചു",
+    "admin_access": "അഡ്‌മിൻ",
+    "administrator": "അഡ്‌മിൻ"
+  },
+  "select_language": "ഭാഷ",
+  "select_location": "സ്ഥലം"
+}

@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "ਘਰ",
+    "markets": "ਬਾਜ਼ਾਰ",
+    "lots": "ਮੇਰੇ ਲਾਟ",
+    "offers": "ਪੇਸ਼ਕਸ਼ਾਂ",
+    "deals": "ਸੌਦੇ",
+    "money": "ਪੈਸੇ",
+    "help": "ਮਦਦ",
+    "profile": "ਪ੍ਰੋਫਾਈਲ",
+    "workspace": "ਕਿਸਾਨ ਖੇਤਰ"
+  },
+  "buyer": {
+    "home": "ਡੈਸ਼ਬੋਰਡ",
+    "marketplace": "ਬਾਜ਼ਾਰ",
+    "discover": "ਲੱਭੋ",
+    "offers": "ਪੇਸ਼ਕਸ਼ਾਂ",
+    "deals": "ਸੌਦੇ",
+    "payments": "ਭੁਗਤਾਨ",
+    "profile": "ਪ੍ਰੋਫਾਈਲ",
+    "portal": "ਖਰੀਦਦਾਰ ਪੋਰਟਲ",
+    "portal_label": "ਖਰੀਦਦਾਰ"
+  },
+  "admin": {
+    "home": "ਡੈਸ਼",
+    "users": "ਉਪਭੋਗਤਾ",
+    "lots": "ਸੂਚੀ",
+    "deals": "ਸੌਦਾ",
+    "payments": "ਭੁਗਤਾਨ",
+    "grievances": "ਸ਼ਿਕਾਇਤਾਂ",
+    "settings": "ਸੈਟਿੰਗ",
+    "dashboard": "ਐਡਮਿਨ ਡੈਸ਼",
+    "dashboard_label": "ਐਡਮਿਨ"
+  },
+  "common": {
+    "notifications": "ਸੂਚਨਾਵਾਂ",
+    "no_notifications": "ਕੋਈ ਸੂਚਨਾ ਨਹੀਂ",
+    "mark_all_read": "ਸਭ ਪੜ੍ਹੇ",
+    "listen": "ਸੁਣੋ",
+    "sell_produce": "ਵੇਚੋ",
+    "main_navigation": "ਨੈਵੀਗੇਸ਼ਨ",
+    "listen_title": "ਪੰਨਾ ਸੁਣੋ",
+    "listen_sub": "ਆਵਾਜ਼ ਗਾਈਡ"
+  },
+  "user": {
+    "verified": "ਤਸਦੀਕ",
+    "admin_access": "ਐਡਮਿਨ",
+    "administrator": "ਐਡਮਿਨ"
+  },
+  "select_language": "ਭਾਸ਼ਾ",
+  "select_location": "ਸਥਾਨ"
+}

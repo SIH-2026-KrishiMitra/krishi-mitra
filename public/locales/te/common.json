@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "వ్యవసాయ-ఆర్థిక వేదిక"
+  },
+  "actions": {
+    "save": "మార్పులు సేవ్ చేయి",
+    "saving": "సేవ్ అవుతోంది…",
+    "cancel": "రద్దు",
+    "back": "వెనక్కి",
+    "continue": "కొనసాగించు",
+    "sign_out": "సైన్ ఔట్",
+    "signing_out": "సైన్ ఔట్ అవుతోంది…",
+    "edit_profile": "ప్రొఫైల్ సవరించు",
+    "loading": "వేచి ఉండు…",
+    "creating": "ఖాతా సృష్టిస్తోంది…",
+    "sending": "పంపుతోంది…"
+  },
+  "status": {
+    "verified": "ధృవీకరించబడింది",
+    "pending": "పెండింగ్",
+    "complete": "పూర్తయింది",
+    "not_verified": "ధృవీకరించబడలేదు",
+    "yes": "అవును",
+    "no": "కాదు"
+  },
+  "errors": {
+    "generic": "లోపం",
+    "invalid_file": "చెల్లని ఫైల్",
+    "photo_upload_failed": "ఫోటో అప్లోడ్ విఫలం"
+  },
+  "trust": {
+    "ncfm": "NCFM నమోదు",
+    "direct_mandi": "నేరుగా మండి",
+    "escrow": "ఎస్క్రో",
+    "pledge": "హామీ",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "గోప్యత",
+    "kyc_enabled": "KYC",
+    "secure_registration": "సురక్షిత",
+    "secure_reset": "సురక్షిత"
+  },
+  "or": "లేదా"
+}

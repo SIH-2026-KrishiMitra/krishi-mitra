@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "Home",
+    "markets": "Markets",
+    "lots": "My lots",
+    "offers": "Buyers & offers",
+    "deals": "My deals",
+    "money": "Money",
+    "help": "Help & complaints",
+    "profile": "Profile",
+    "workspace": "FARMER WORKSPACE"
+  },
+  "buyer": {
+    "home": "Dashboard",
+    "marketplace": "Marketplace",
+    "discover": "Discover",
+    "offers": "My offers",
+    "deals": "My deals",
+    "payments": "Payments",
+    "profile": "Profile",
+    "portal": "BUYER PORTAL",
+    "portal_label": "Buyer Portal"
+  },
+  "admin": {
+    "home": "Dashboard",
+    "users": "Users",
+    "lots": "Listings",
+    "deals": "Deals",
+    "payments": "Payments",
+    "grievances": "Grievances",
+    "settings": "Settings",
+    "dashboard": "ADMIN DASHBOARD",
+    "dashboard_label": "Admin Dashboard"
+  },
+  "common": {
+    "notifications": "Notifications",
+    "no_notifications": "No notifications yet",
+    "mark_all_read": "Mark all read",
+    "listen": "Listen",
+    "sell_produce": "Sell produce",
+    "main_navigation": "Main navigation",
+    "listen_title": "Listen to this page",
+    "listen_sub": "Voice guidance in Marathi, Hindi and English"
+  },
+  "user": {
+    "verified": "Verified",
+    "admin_access": "Admin access",
+    "administrator": "Administrator"
+  },
+  "select_language": "Select language",
+  "select_location": "Select location"
+}

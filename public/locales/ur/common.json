@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "زرعی مالیاتی پلیٹ فارم"
+  },
+  "actions": {
+    "save": "تبدیلیاں محفوظ کریں",
+    "saving": "محفوظ ہو رہا ہے…",
+    "cancel": "منسوخ",
+    "back": "واپس",
+    "continue": "جاری",
+    "sign_out": "سائن آوٹ",
+    "signing_out": "سائن آوٹ…",
+    "edit_profile": "پروفائل ترمیم",
+    "loading": "انتظار…",
+    "creating": "اکاؤنٹ بن رہا ہے…",
+    "sending": "بھیجا جا رہا ہے…"
+  },
+  "status": {
+    "verified": "تصدیق",
+    "pending": "زیر التواء",
+    "complete": "مکمل",
+    "not_verified": "غیر تصدیق",
+    "yes": "ہاں",
+    "no": "نہیں"
+  },
+  "errors": {
+    "generic": "خطا",
+    "invalid_file": "غلط فائل",
+    "photo_upload_failed": "تصویر اپ لوڈ ناکام"
+  },
+  "trust": {
+    "ncfm": "NCFM",
+    "direct_mandi": "براہ راست منڈی",
+    "escrow": "ایسکرو",
+    "pledge": "ضمانت",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "رازداری",
+    "kyc_enabled": "KYC",
+    "secure_registration": "محفوظ",
+    "secure_reset": "محفوظ"
+  },
+  "or": "یا"
+}

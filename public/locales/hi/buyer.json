@@ -1,0 +1,39 @@
+{
+  "home": { "breadcrumb": "01 · डैशबोर्ड", "title": "डैशबोर्ड" },
+  "marketplace": { "breadcrumb": "02 · बाज़ार", "title": "बाज़ार" },
+  "offers": { "breadcrumb": "03 · मेरे ऑफर", "title": "मेरे ऑफर" },
+  "deals": { "breadcrumb": "04 · मेरे सौदे", "title": "मेरे सौदे" },
+  "payments": { "breadcrumb": "05 · भुगतान", "title": "भुगतान" },
+  "profile": {
+    "breadcrumb": "06 · प्रोफ़ाइल",
+    "title": "प्रोफ़ाइल और सेटिंग",
+    "verified_buyer": "सत्यापित खरीदार",
+    "change_photo": "प्रोफ़ाइल फ़ोटो बदलें",
+    "business_title": "व्यावसायिक विवरण",
+    "settings_title": "सेटिंग",
+    "score_title": "खरीदार स्कोर",
+    "trust_score": "विश्वास स्कोर",
+    "deals_completed": "पूरे हुए सौदे",
+    "kyc_verified": "KYC सत्यापित",
+    "notifications_label": "सूचनाएं",
+    "notifications_sub": "ऑफर अपडेट, सौदे अलर्ट, भाव परिवर्तन",
+    "language_label": "भाषा",
+    "field_contact": "संपर्क व्यक्ति",
+    "field_org": "संगठन का नाम",
+    "field_org_input": "संगठन / कंपनी का नाम",
+    "field_location": "स्थान",
+    "field_district": "जिला",
+    "field_state": "राज्य",
+    "field_email": "ईमेल",
+    "field_phone": "फ़ोन",
+    "field_buyer_type": "खरीदार प्रकार",
+    "photo_saved": "प्रोफ़ाइल फ़ोटो अपडेट हुई",
+    "buyer_types": {
+      "processor": "प्रसंस्करणकर्ता",
+      "trader": "व्यापारी / आढ़तिया",
+      "retailer": "खुदरा विक्रेता",
+      "mandi": "मंडी / APMC",
+      "fpo": "FPO / सहकारिता"
+    }
+  }
+}

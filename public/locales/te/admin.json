@@ -1,0 +1,36 @@
+{
+  "home": {
+    "breadcrumb": "01 · డ.",
+    "title": "డాష్"
+  },
+  "users": {
+    "breadcrumb": "02 · వ.",
+    "title": "వినియోగదారులు"
+  },
+  "lots": {
+    "breadcrumb": "03 · జ.",
+    "title": "జాబితా"
+  },
+  "deals": {
+    "breadcrumb": "04 · ఒ.",
+    "title": "ఒప్పందం"
+  },
+  "payments": {
+    "breadcrumb": "05 · చ.",
+    "title": "చెల్లింపు"
+  },
+  "grievances": {
+    "breadcrumb": "06 · ఫి.",
+    "title": "ఫిర్యాదులు"
+  },
+  "settings": {
+    "breadcrumb": "07 · సె.",
+    "title": "సెట్టింగులు",
+    "account_title": "ఖాతా",
+    "field_email": "ఈమెయిల్",
+    "field_phone": "ఫోన్",
+    "field_language": "భాష",
+    "admin_badge": "అడ్మిన్",
+    "security_note": "Supabase."
+  }
+}

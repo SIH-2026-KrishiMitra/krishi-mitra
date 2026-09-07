@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · డ.",
+    "title": "డాష్"
+  },
+  "marketplace": {
+    "breadcrumb": "02 · మ.",
+    "title": "మార్కెట్"
+  },
+  "offers": {
+    "breadcrumb": "03 · ఆ.",
+    "title": "ఆఫర్లు"
+  },
+  "deals": {
+    "breadcrumb": "04 · ఒ.",
+    "title": "ఒప్పందాలు"
+  },
+  "payments": {
+    "breadcrumb": "05 · చ.",
+    "title": "చెల్లింపులు"
+  },
+  "profile": {
+    "breadcrumb": "06 · ప్.",
+    "title": "ప్రొఫైల్",
+    "verified_buyer": "ధృవీకరించబడింది",
+    "change_photo": "ఫోటో",
+    "business_title": "వ్యాపారం",
+    "settings_title": "సెట్టింగులు",
+    "score_title": "స్కోర్",
+    "trust_score": "నమ్మకం",
+    "deals_completed": "పూర్తయింది",
+    "kyc_verified": "KYC",
+    "notifications_label": "నోటిఫికేషన్",
+    "notifications_sub": "ఆఫర్",
+    "language_label": "భాష",
+    "field_contact": "సంప్రదింపు",
+    "field_org": "సంస్థ",
+    "field_org_input": "సంస్థ",
+    "field_location": "స్థానం",
+    "field_district": "జిల్లా",
+    "field_state": "రాష్ట్రం",
+    "field_email": "ఈమెయిల్",
+    "field_phone": "ఫోన్",
+    "field_buyer_type": "రకం",
+    "photo_saved": "ఫోటో",
+    "buyer_types": {
+      "processor": "మిల్",
+      "trader": "వ్యాపారి",
+      "retailer": "చిల్లర",
+      "mandi": "APMC",
+      "fpo": "FPO"
+    }
+  }
+}

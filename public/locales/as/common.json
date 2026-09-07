@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "কৃষি-বিত্ত প্লেটফৰ্ম"
+  },
+  "actions": {
+    "save": "পৰিৱৰ্তন সংৰক্ষণ",
+    "saving": "সংৰক্ষণ হৈছে…",
+    "cancel": "বাতিল",
+    "back": "পিছলৈ",
+    "continue": "অব্যাহত",
+    "sign_out": "ছাইন আউট",
+    "signing_out": "ছাইন আউট হৈছে…",
+    "edit_profile": "প্ৰ'ফাইল সম্পাদনা",
+    "loading": "অপেক্ষা কৰক…",
+    "creating": "একাউন্ট সৃষ্টি হৈছে…",
+    "sending": "পঠোৱা হৈছে…"
+  },
+  "status": {
+    "verified": "নিশ্চিত",
+    "pending": "বাকী",
+    "complete": "সম্পূৰ্ণ",
+    "not_verified": "নিশ্চিত নহয়",
+    "yes": "হয়",
+    "no": "নহয়"
+  },
+  "errors": {
+    "generic": "ভুল",
+    "invalid_file": "অবৈধ ফাইল",
+    "photo_upload_failed": "ফটো আপলোড বিফল"
+  },
+  "trust": {
+    "ncfm": "NCFM",
+    "direct_mandi": "পোনপটীয়া মণ্ডি",
+    "escrow": "এস্ক্ৰ",
+    "pledge": "প্ৰতিশ্ৰুতি",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "গোপনীয়তা",
+    "kyc_enabled": "KYC",
+    "secure_registration": "সুৰক্ষিত",
+    "secure_reset": "সুৰক্ষিত"
+  },
+  "or": "বা"
+}

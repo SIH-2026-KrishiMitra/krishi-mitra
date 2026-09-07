@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "হোম",
+    "markets": "বাজার",
+    "lots": "ঙাইরম লট",
+    "offers": "অফার",
+    "deals": "ডিল",
+    "money": "পায়সা",
+    "help": "মতৌ",
+    "profile": "প্রোফাইল",
+    "workspace": "লৈবাক চাকখৎ থাকচৎ"
+  },
+  "buyer": {
+    "home": "ডাশবোর্ড",
+    "marketplace": "বাজার",
+    "discover": "মাংনবা",
+    "offers": "অফার",
+    "deals": "ডিল",
+    "payments": "পেমেন্ট",
+    "profile": "প্রোফাইল",
+    "portal": "হন্না নিংথিজবা পোর্টল",
+    "portal_label": "হন্না নিংথিজবা"
+  },
+  "admin": {
+    "home": "ডাশ",
+    "users": "ইউজার",
+    "lots": "লিস্ট",
+    "deals": "ডিল",
+    "payments": "পেমেন্ট",
+    "grievances": "মরুওইবা",
+    "settings": "সেটিং",
+    "dashboard": "এডমিন ডাশ",
+    "dashboard_label": "এডমিন"
+  },
+  "common": {
+    "notifications": "হৌজিক্তা",
+    "no_notifications": "হৌজিক্তা অমদা নত্তে",
+    "mark_all_read": "মরম য়াওখৎলু",
+    "listen": "থোংনবা",
+    "sell_produce": "শাজিনবা",
+    "main_navigation": "নেভিগেসন",
+    "listen_title": "পেজ থোংনবা",
+    "listen_sub": "ভোইস গাইড"
+  },
+  "user": {
+    "verified": "সত্যাপিত",
+    "admin_access": "এডমিন",
+    "administrator": "এডমিন"
+  },
+  "select_language": "লোন",
+  "select_location": "থৌরাং"
+}

@@ -1,0 +1,36 @@
+{
+  "home": {
+    "breadcrumb": "01 · ડ.",
+    "title": "ડ."
+  },
+  "users": {
+    "breadcrumb": "02 · વ.",
+    "title": "વ."
+  },
+  "lots": {
+    "breadcrumb": "03 · લ.",
+    "title": "લ."
+  },
+  "deals": {
+    "breadcrumb": "04 · સ.",
+    "title": "સ."
+  },
+  "payments": {
+    "breadcrumb": "05 · ચ.",
+    "title": "ચ."
+  },
+  "grievances": {
+    "breadcrumb": "06 · ફ.",
+    "title": "ફ."
+  },
+  "settings": {
+    "breadcrumb": "07 · સ.",
+    "title": "સ.",
+    "account_title": "ખ.",
+    "field_email": "ઈ.",
+    "field_phone": "ફ.",
+    "field_language": "ભ.",
+    "admin_badge": "A",
+    "security_note": "Supabase."
+  }
+}

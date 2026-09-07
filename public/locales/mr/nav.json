@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "मुखपृष्ठ",
+    "markets": "बाजार",
+    "lots": "माझे लॉट",
+    "offers": "खरेदीदार आणि ऑफर",
+    "deals": "माझे व्यवहार",
+    "money": "पैसे",
+    "help": "मदत आणि तक्रार",
+    "profile": "प्रोफाइल",
+    "workspace": "शेतकरी कार्यक्षेत्र"
+  },
+  "buyer": {
+    "home": "डॅशबोर्ड",
+    "marketplace": "बाजारपेठ",
+    "discover": "शोधा",
+    "offers": "माझे ऑफर",
+    "deals": "माझे व्यवहार",
+    "payments": "पेमेंट",
+    "profile": "प्रोफाइल",
+    "portal": "खरेदीदार पोर्टल",
+    "portal_label": "खरेदीदार पोर्टल"
+  },
+  "admin": {
+    "home": "डॅशबोर्ड",
+    "users": "वापरकर्ते",
+    "lots": "यादी",
+    "deals": "व्यवहार",
+    "payments": "पेमेंट",
+    "grievances": "तक्रारी",
+    "settings": "सेटिंग",
+    "dashboard": "प्रशासक डॅशबोर्ड",
+    "dashboard_label": "प्रशासक डॅशबोर्ड"
+  },
+  "common": {
+    "notifications": "सूचना",
+    "no_notifications": "अद्याप कोणत्याही सूचना नाहीत",
+    "mark_all_read": "सर्व वाचले म्हणून चिन्हांकित करा",
+    "listen": "ऐका",
+    "sell_produce": "माल विका",
+    "main_navigation": "मुख्य नेव्हिगेशन",
+    "listen_title": "हे पान ऐका",
+    "listen_sub": "मराठी, हिंदी आणि इंग्रजीत व्हॉइस मार्गदर्शन"
+  },
+  "user": {
+    "verified": "सत्यापित",
+    "admin_access": "प्रशासक प्रवेश",
+    "administrator": "प्रशासक"
+  },
+  "select_language": "भाषा निवडा",
+  "select_location": "ठिकाण निवडा"
+}

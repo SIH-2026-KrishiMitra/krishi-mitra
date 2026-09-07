@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "शेती-वित्त व्यासपीठ"
+  },
+  "actions": {
+    "save": "बदल जतन करा",
+    "saving": "जतन होतां…",
+    "cancel": "रद्द",
+    "back": "मागीर",
+    "continue": "फुडें",
+    "sign_out": "साइन आउट",
+    "signing_out": "साइन आउट…",
+    "edit_profile": "प्रोफाइल संपादन",
+    "loading": "वाट पळयात…",
+    "creating": "खातें तयार जातां…",
+    "sending": "धाडतां…"
+  },
+  "status": {
+    "verified": "सत्यापित",
+    "pending": "प्रलंबित",
+    "complete": "पूर्ण",
+    "not_verified": "सत्यापित ना",
+    "yes": "हय",
+    "no": "ना"
+  },
+  "errors": {
+    "generic": "चूक",
+    "invalid_file": "अवैध फाइल",
+    "photo_upload_failed": "फोटो अपलोड अयशस्वी"
+  },
+  "trust": {
+    "ncfm": "NCFM",
+    "direct_mandi": "थेट मंडी",
+    "escrow": "एस्क्रो",
+    "pledge": "वचन",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "गोपनीयता",
+    "kyc_enabled": "KYC",
+    "secure_registration": "सुरक्षित",
+    "secure_reset": "सुरक्षित"
+  },
+  "or": "वा"
+}

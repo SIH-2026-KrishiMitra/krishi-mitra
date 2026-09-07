@@ -1,0 +1,36 @@
+{
+  "home": {
+    "breadcrumb": "01 · ڊ.",
+    "title": "ڊيش"
+  },
+  "users": {
+    "breadcrumb": "02 · ص.",
+    "title": "صارف"
+  },
+  "lots": {
+    "breadcrumb": "03 · ف.",
+    "title": "فهرست"
+  },
+  "deals": {
+    "breadcrumb": "04 · س.",
+    "title": "سودو"
+  },
+  "payments": {
+    "breadcrumb": "05 · ا.",
+    "title": "ادائيگي"
+  },
+  "grievances": {
+    "breadcrumb": "06 · ش.",
+    "title": "شڪايتون"
+  },
+  "settings": {
+    "breadcrumb": "07 · سي.",
+    "title": "سيٽنگون",
+    "account_title": "اڪائونٽ",
+    "field_email": "اي ميل",
+    "field_phone": "فون",
+    "field_language": "ٻولي",
+    "admin_badge": "ايڊمن",
+    "security_note": "Supabase."
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "home": {
+    "breadcrumb": "01 · DASHBOARD",
+    "title": "Dashboard"
+  },
+  "users": {
+    "breadcrumb": "02 · USERS",
+    "title": "Users"
+  },
+  "lots": {
+    "breadcrumb": "03 · LISTINGS",
+    "title": "Listings"
+  },
+  "deals": {
+    "breadcrumb": "04 · DEALS",
+    "title": "Deals"
+  },
+  "payments": {
+    "breadcrumb": "05 · PAYMENTS",
+    "title": "Payments"
+  },
+  "grievances": {
+    "breadcrumb": "06 · GRIEVANCES",
+    "title": "Grievances"
+  },
+  "settings": {
+    "breadcrumb": "07 · SETTINGS",
+    "title": "Settings",
+    "account_title": "Account",
+    "field_email": "Email",
+    "field_phone": "Phone",
+    "field_language": "Language",
+    "admin_badge": "Admin",
+    "security_note": "Admin accounts are managed through the Supabase dashboard. To add or remove admins, contact your system administrator."
+  }
+}

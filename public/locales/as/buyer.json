@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · ড.",
+    "title": "ডেচ"
+  },
+  "marketplace": {
+    "breadcrumb": "02 · ব.",
+    "title": "বজাৰ"
+  },
+  "offers": {
+    "breadcrumb": "03 · অ.",
+    "title": "অফাৰ"
+  },
+  "deals": {
+    "breadcrumb": "04 · চ.",
+    "title": "চুক্তি"
+  },
+  "payments": {
+    "breadcrumb": "05 · প.",
+    "title": "পেমেন্ট"
+  },
+  "profile": {
+    "breadcrumb": "06 · প্ৰ.",
+    "title": "প্ৰ'ফাইল",
+    "verified_buyer": "নিশ্চিত",
+    "change_photo": "ফটো",
+    "business_title": "ব্যৱসায়",
+    "settings_title": "ছেটিং",
+    "score_title": "স্কোৰ",
+    "trust_score": "আস্থা",
+    "deals_completed": "সম্পন্ন",
+    "kyc_verified": "KYC",
+    "notifications_label": "জাননী",
+    "notifications_sub": "অফাৰ",
+    "language_label": "ভাষা",
+    "field_contact": "যোগাযোগ",
+    "field_org": "প্ৰতিষ্ঠান",
+    "field_org_input": "প্ৰতিষ্ঠান",
+    "field_location": "ঠাই",
+    "field_district": "জিলা",
+    "field_state": "ৰাজ্য",
+    "field_email": "ইমেইল",
+    "field_phone": "ফোন",
+    "field_buyer_type": "ধৰণ",
+    "photo_saved": "ফটো",
+    "buyer_types": {
+      "processor": "মিল",
+      "trader": "ব্যৱসায়ী",
+      "retailer": "খুচুৰা",
+      "mandi": "APMC",
+      "fpo": "FPO"
+    }
+  }
+}

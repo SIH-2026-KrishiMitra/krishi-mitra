@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · ڊ.",
+    "title": "ڊيش"
+  },
+  "marketplace": {
+    "breadcrumb": "02 · ب.",
+    "title": "بازار"
+  },
+  "offers": {
+    "breadcrumb": "03 · آ.",
+    "title": "آڇون"
+  },
+  "deals": {
+    "breadcrumb": "04 · س.",
+    "title": "سودا"
+  },
+  "payments": {
+    "breadcrumb": "05 · ا.",
+    "title": "ادائيگي"
+  },
+  "profile": {
+    "breadcrumb": "06 · پروفائل",
+    "title": "پروفائل",
+    "verified_buyer": "تصديق",
+    "change_photo": "تصوير",
+    "business_title": "ڪاروبار",
+    "settings_title": "سيٽنگون",
+    "score_title": "اسڪور",
+    "trust_score": "اعتماد",
+    "deals_completed": "مڪمل",
+    "kyc_verified": "KYC",
+    "notifications_label": "اطلاع",
+    "notifications_sub": "آڇ",
+    "language_label": "ٻولي",
+    "field_contact": "رابطو",
+    "field_org": "ادارو",
+    "field_org_input": "ادارو",
+    "field_location": "جاءِ",
+    "field_district": "ضلعو",
+    "field_state": "صوبو",
+    "field_email": "اي ميل",
+    "field_phone": "فون",
+    "field_buyer_type": "قسم",
+    "photo_saved": "تصوير",
+    "buyer_types": {
+      "processor": "مل",
+      "trader": "واپاري",
+      "retailer": "ريٽيل",
+      "mandi": "APMC",
+      "fpo": "FPO"
+    }
+  }
+}

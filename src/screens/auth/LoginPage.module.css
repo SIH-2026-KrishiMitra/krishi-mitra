@@ -545,3 +545,39 @@
 .footerLink:hover {
   color: var(--text-secondary);
 }
+
+/* ─── Language selector (pre-auth) ───────────────────────────── */
+
+.rightHeader {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 440px;
+}
+
+@media (min-width: 1024px) {
+  .rightHeader {
+    max-width: 100%;
+  }
+}
+
+.langSelector {
+  appearance: none;
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-5);
+  font-size: var(--text-xs);
+  font-family: var(--font-core);
+  color: var(--text-secondary);
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-3) center;
+  padding-right: var(--space-9);
+}
+
+.langSelector:hover {
+  border-color: var(--border-brand);
+  color: var(--text-brand);
+}

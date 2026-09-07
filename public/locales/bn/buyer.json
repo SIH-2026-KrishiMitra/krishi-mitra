@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · ড.",
+    "title": "ড্যাশ"
+  },
+  "marketplace": {
+    "breadcrumb": "02 · ব.",
+    "title": "বাজার"
+  },
+  "offers": {
+    "breadcrumb": "03 · অ.",
+    "title": "অফার"
+  },
+  "deals": {
+    "breadcrumb": "04 · চ.",
+    "title": "চুক্তি"
+  },
+  "payments": {
+    "breadcrumb": "05 · প.",
+    "title": "পেমেন্ট"
+  },
+  "profile": {
+    "breadcrumb": "06 · প্র.",
+    "title": "প্রোফাইল",
+    "verified_buyer": "যাচাই",
+    "change_photo": "ছবি",
+    "business_title": "ব্যবসা",
+    "settings_title": "সেটিংস",
+    "score_title": "স্কোর",
+    "trust_score": "আস্থা",
+    "deals_completed": "সম্পন্ন",
+    "kyc_verified": "KYC",
+    "notifications_label": "বিজ্ঞপ্তি",
+    "notifications_sub": "অফার",
+    "language_label": "ভাষা",
+    "field_contact": "যোগাযোগ",
+    "field_org": "প্রতিষ্ঠান",
+    "field_org_input": "প্রতিষ্ঠান",
+    "field_location": "স্থান",
+    "field_district": "জেলা",
+    "field_state": "রাজ্য",
+    "field_email": "ইমেইল",
+    "field_phone": "ফোন",
+    "field_buyer_type": "ধরন",
+    "photo_saved": "ছবি",
+    "buyer_types": {
+      "processor": "মিল",
+      "trader": "ব্যবসায়ী",
+      "retailer": "খুচরা",
+      "mandi": "APMC",
+      "fpo": "FPO"
+    }
+  }
+}

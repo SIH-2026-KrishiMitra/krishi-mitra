@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "ہوم",
+    "markets": "بازار",
+    "lots": "میٚ لاٹ",
+    "offers": "پیشکَش",
+    "deals": "سودہٕ",
+    "money": "رقَم",
+    "help": "مَدَد",
+    "profile": "پروفائل",
+    "workspace": "کاشتکار علاقہ"
+  },
+  "buyer": {
+    "home": "ڈیش",
+    "marketplace": "بازار",
+    "discover": "لَبھ",
+    "offers": "پیشکَش",
+    "deals": "سودہٕ",
+    "payments": "ادائیگی",
+    "profile": "پروفائل",
+    "portal": "خریداری پورٹل",
+    "portal_label": "خریداری"
+  },
+  "admin": {
+    "home": "ڈیش",
+    "users": "یوزر",
+    "lots": "لِسٹ",
+    "deals": "سودہٕ",
+    "payments": "ادائیگی",
+    "grievances": "شکایت",
+    "settings": "سیٹنگ",
+    "dashboard": "ایڈمن ڈیش",
+    "dashboard_label": "ایڈمن"
+  },
+  "common": {
+    "notifications": "اطلاع",
+    "no_notifications": "اطلاع نہٕ",
+    "mark_all_read": "سب پَرِتھ",
+    "listen": "سُنو",
+    "sell_produce": "بیچو",
+    "main_navigation": "نیوی گیشن",
+    "listen_title": "صفحہ سُنو",
+    "listen_sub": "آواز رہنمائی"
+  },
+  "user": {
+    "verified": "تصدیق",
+    "admin_access": "ایڈمن",
+    "administrator": "ایڈمن"
+  },
+  "select_language": "زَبان",
+  "select_location": "جاے"
+}

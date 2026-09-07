@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "লৈবাক চাকখৎ মঙ্গল পান্থোকপা"
+  },
+  "actions": {
+    "save": "শেমগৎ চহি লৌখৎউ",
+    "saving": "শেমগৎ তাই…",
+    "cancel": "মখল",
+    "back": "হাউজিক",
+    "continue": "চৎশিন",
+    "sign_out": "সাইন আউট",
+    "signing_out": "সাইন আউট তাই…",
+    "edit_profile": "প্রোফাইল শেমদোকউ",
+    "loading": "চাউখৎলু…",
+    "creating": "একাউন্ট শেমগৎ তাই…",
+    "sending": "থাজখৎ তাই…"
+  },
+  "status": {
+    "verified": "সত্যাপিত",
+    "pending": "থাজবা",
+    "complete": "য়াউনা",
+    "not_verified": "সত্যাপিত নত্তে",
+    "yes": "হয়",
+    "no": "নত্তে"
+  },
+  "errors": {
+    "generic": "নংনবা",
+    "invalid_file": "অমান্য ফাইল",
+    "photo_upload_failed": "ফোটো অপলোড নংখ্রে"
+  },
+  "trust": {
+    "ncfm": "NCFM",
+    "direct_mandi": "সীধা মন্ডি",
+    "escrow": "এস্ক্রো",
+    "pledge": "শরুক",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "থৌরাং",
+    "kyc_enabled": "KYC",
+    "secure_registration": "অকায়বা",
+    "secure_reset": "অকায়বা"
+  },
+  "or": "নত্ত্রগা"
+}

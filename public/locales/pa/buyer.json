@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · ਡ.",
+    "title": "ਡੈਸ਼"
+  },
+  "marketplace": {
+    "breadcrumb": "02 · ਬ.",
+    "title": "ਬਾਜ਼ਾਰ"
+  },
+  "offers": {
+    "breadcrumb": "03 · ਪੇ.",
+    "title": "ਪੇਸ਼ਕਸ਼ਾਂ"
+  },
+  "deals": {
+    "breadcrumb": "04 · ਸੌ.",
+    "title": "ਸੌਦੇ"
+  },
+  "payments": {
+    "breadcrumb": "05 · ਭ.",
+    "title": "ਭੁਗਤਾਨ"
+  },
+  "profile": {
+    "breadcrumb": "06 · ਪ੍ਰ.",
+    "title": "ਪ੍ਰੋਫਾਈਲ",
+    "verified_buyer": "ਤਸਦੀਕ",
+    "change_photo": "ਫੋਟੋ",
+    "business_title": "ਵਪਾਰ",
+    "settings_title": "ਸੈਟਿੰਗ",
+    "score_title": "ਸਕੋਰ",
+    "trust_score": "ਭਰੋਸਾ",
+    "deals_completed": "ਪੂਰੇ",
+    "kyc_verified": "KYC",
+    "notifications_label": "ਸੂਚਨਾ",
+    "notifications_sub": "ਪੇਸ਼ਕਸ਼",
+    "language_label": "ਭਾਸ਼ਾ",
+    "field_contact": "ਸੰਪਰਕ",
+    "field_org": "ਸੰਸਥਾ",
+    "field_org_input": "ਸੰਸਥਾ",
+    "field_location": "ਸਥਾਨ",
+    "field_district": "ਜ਼ਿਲ੍ਹਾ",
+    "field_state": "ਰਾਜ",
+    "field_email": "ਈਮੇਲ",
+    "field_phone": "ਫ਼ੋਨ",
+    "field_buyer_type": "ਕਿਸਮ",
+    "photo_saved": "ਫੋਟੋ",
+    "buyer_types": {
+      "processor": "ਮਿੱਲ",
+      "trader": "ਵਪਾਰੀ",
+      "retailer": "ਰਿਟੇਲ",
+      "mandi": "APMC",
+      "fpo": "FPO"
+    }
+  }
+}

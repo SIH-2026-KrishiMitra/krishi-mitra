@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · ડૅ.",
+    "title": "ડૅ."
+  },
+  "marketplace": {
+    "breadcrumb": "02 · બ.",
+    "title": "બ."
+  },
+  "offers": {
+    "breadcrumb": "03 · ઑ.",
+    "title": "ઑ."
+  },
+  "deals": {
+    "breadcrumb": "04 · સ.",
+    "title": "સ."
+  },
+  "payments": {
+    "breadcrumb": "05 · ચ.",
+    "title": "ચ."
+  },
+  "profile": {
+    "breadcrumb": "06 · પ.",
+    "title": "પ.",
+    "verified_buyer": "ચ.",
+    "change_photo": "ફ.",
+    "business_title": "વ.",
+    "settings_title": "સ.",
+    "score_title": " સ.",
+    "trust_score": "વ.",
+    "deals_completed": "સ.",
+    "kyc_verified": "KYC",
+    "notifications_label": "સૂ.",
+    "notifications_sub": "ઑ.",
+    "language_label": "ભ.",
+    "field_contact": "સ.",
+    "field_org": "સ.",
+    "field_org_input": "સ.",
+    "field_location": "સ.",
+    "field_district": "જ.",
+    "field_state": "ર.",
+    "field_email": "ઈ.",
+    "field_phone": "ફ.",
+    "field_buyer_type": "પ.",
+    "photo_saved": "ફ.",
+    "buyer_types": {
+      "processor": "મ.",
+      "trader": "વ.",
+      "retailer": "ર.",
+      "mandi": "APMC",
+      "fpo": "FPO"
+    }
+  }
+}

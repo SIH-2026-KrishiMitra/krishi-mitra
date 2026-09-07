@@ -1,0 +1,36 @@
+{
+  "home": {
+    "breadcrumb": "01 · ਡ.",
+    "title": "ਡੈਸ਼"
+  },
+  "users": {
+    "breadcrumb": "02 · ਉ.",
+    "title": "ਉਪਭੋਗਤਾ"
+  },
+  "lots": {
+    "breadcrumb": "03 · ਸੂ.",
+    "title": "ਸੂਚੀ"
+  },
+  "deals": {
+    "breadcrumb": "04 · ਸੌ.",
+    "title": "ਸੌਦਾ"
+  },
+  "payments": {
+    "breadcrumb": "05 · ਭ.",
+    "title": "ਭੁਗਤਾਨ"
+  },
+  "grievances": {
+    "breadcrumb": "06 · ਸ਼.",
+    "title": "ਸ਼ਿਕਾਇਤਾਂ"
+  },
+  "settings": {
+    "breadcrumb": "07 · ਸੈ.",
+    "title": "ਸੈਟਿੰਗ",
+    "account_title": "ਖਾਤਾ",
+    "field_email": "ਈਮੇਲ",
+    "field_phone": "ਫ਼ੋਨ",
+    "field_language": "ਭਾਸ਼ਾ",
+    "admin_badge": "ਐਡਮਿਨ",
+    "security_note": "Supabase."
+  }
+}

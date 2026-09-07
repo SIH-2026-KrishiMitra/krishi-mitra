@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · ட.",
+    "title": "டாஷ்"
+  },
+  "marketplace": {
+    "breadcrumb": "02 · ச.",
+    "title": "சந்தை"
+  },
+  "offers": {
+    "breadcrumb": "03 · ச.",
+    "title": "சலுகைகள்"
+  },
+  "deals": {
+    "breadcrumb": "04 · ஒ.",
+    "title": "ஒப்பந்தங்கள்"
+  },
+  "payments": {
+    "breadcrumb": "05 · ப.",
+    "title": "கொடுப்பனவுகள்"
+  },
+  "profile": {
+    "breadcrumb": "06 · சு.",
+    "title": "சுயவிவரம்",
+    "verified_buyer": "சரிபார்",
+    "change_photo": "புகைப்படம்",
+    "business_title": "வணிகம்",
+    "settings_title": "அமைப்பு",
+    "score_title": "மதிப்பெண்",
+    "trust_score": "நம்பிக்கை",
+    "deals_completed": "முடிந்தது",
+    "kyc_verified": "KYC",
+    "notifications_label": "அறிவிப்பு",
+    "notifications_sub": "சலுகை",
+    "language_label": "மொழி",
+    "field_contact": "தொடர்பு",
+    "field_org": "நிறுவனம்",
+    "field_org_input": "நிறுவனம்",
+    "field_location": "இடம்",
+    "field_district": "மாவட்டம்",
+    "field_state": "மாநிலம்",
+    "field_email": "மின்னஞ்சல்",
+    "field_phone": "தொலைபேசி",
+    "field_buyer_type": "வகை",
+    "photo_saved": "புகைப்படம்",
+    "buyer_types": {
+      "processor": "மில்",
+      "trader": "வியாபாரி",
+      "retailer": "சில்லறை",
+      "mandi": "APMC",
+      "fpo": "FPO"
+    }
+  }
+}

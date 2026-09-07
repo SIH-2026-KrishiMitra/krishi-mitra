@@ -1,0 +1,36 @@
+{
+  "home": {
+    "breadcrumb": "01 · डॅश",
+    "title": "डॅश"
+  },
+  "users": {
+    "breadcrumb": "02 · वापरकार",
+    "title": "वापरकार"
+  },
+  "lots": {
+    "breadcrumb": "03 · यादी",
+    "title": "यादी"
+  },
+  "deals": {
+    "breadcrumb": "04 · सौदो",
+    "title": "सौदो"
+  },
+  "payments": {
+    "breadcrumb": "05 · पेमेंट",
+    "title": "पेमेंट"
+  },
+  "grievances": {
+    "breadcrumb": "06 · तक्रारी",
+    "title": "तक्रारी"
+  },
+  "settings": {
+    "breadcrumb": "07 · सेटिंग",
+    "title": "सेटिंग",
+    "account_title": "खातें",
+    "field_email": "इमेल",
+    "field_phone": "फोन",
+    "field_language": "भाशा",
+    "admin_badge": "प्रशासक",
+    "security_note": "Supabase."
+  }
+}

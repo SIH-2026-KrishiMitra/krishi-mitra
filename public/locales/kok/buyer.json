@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · डॅश",
+    "title": "डॅश"
+  },
+  "marketplace": {
+    "breadcrumb": "02 · बाजार",
+    "title": "बाजार"
+  },
+  "offers": {
+    "breadcrumb": "03 · ऑफर",
+    "title": "ऑफर"
+  },
+  "deals": {
+    "breadcrumb": "04 · सौदे",
+    "title": "सौदे"
+  },
+  "payments": {
+    "breadcrumb": "05 · पेमेंट",
+    "title": "पेमेंट"
+  },
+  "profile": {
+    "breadcrumb": "06 · प्रोफाइल",
+    "title": "प्रोफाइल",
+    "verified_buyer": "सत्यापित",
+    "change_photo": "फोटो",
+    "business_title": "व्यवसाय",
+    "settings_title": "सेटिंग",
+    "score_title": "स्कोअर",
+    "trust_score": "विश्वास",
+    "deals_completed": "पूर्ण",
+    "kyc_verified": "KYC",
+    "notifications_label": "सूचना",
+    "notifications_sub": "ऑफर",
+    "language_label": "भाशा",
+    "field_contact": "संपर्क",
+    "field_org": "संस्था",
+    "field_org_input": "संस्था",
+    "field_location": "जागो",
+    "field_district": "जिल्हो",
+    "field_state": "राज्य",
+    "field_email": "इमेल",
+    "field_phone": "फोन",
+    "field_buyer_type": "प्रकार",
+    "photo_saved": "फोटो",
+    "buyer_types": {
+      "processor": "मिल",
+      "trader": "व्यापारी",
+      "retailer": "किरकोळ",
+      "mandi": "APMC",
+      "fpo": "FPO"
+    }
+  }
+}

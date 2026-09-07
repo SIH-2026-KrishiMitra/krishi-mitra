@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "હોમ",
+    "markets": "બજાર",
+    "lots": "મારા લૉટ",
+    "offers": "ઑફર",
+    "deals": "સોદા",
+    "money": "પૈસા",
+    "help": "મદદ",
+    "profile": "પ્રોફાઇલ",
+    "workspace": "ખેડૂત કાર્યક્ષેત્ર"
+  },
+  "buyer": {
+    "home": "ડૅશબોર્ડ",
+    "marketplace": "બજારપેઠ",
+    "discover": "શોધો",
+    "offers": "ઑફર",
+    "deals": "સોદા",
+    "payments": "ચૂકવણી",
+    "profile": "પ્રોફાઇલ",
+    "portal": "ખરીદદાર પોર્ટલ",
+    "portal_label": "ખરીદદાર પોર્ટલ"
+  },
+  "admin": {
+    "home": "ડૅશબોર્ડ",
+    "users": "વપરાશકર્તા",
+    "lots": "લિસ્ટિંગ",
+    "deals": "સોદા",
+    "payments": "ચૂકવણી",
+    "grievances": "ફરિયાદ",
+    "settings": "સેટિંગ",
+    "dashboard": "એડ્મિન ડૅશ",
+    "dashboard_label": "એડ્મિન ડૅશ"
+  },
+  "common": {
+    "notifications": "સૂચના",
+    "no_notifications": "સૂચના નથી",
+    "mark_all_read": "બધા વાંચ્યા",
+    "listen": "સાંભળો",
+    "sell_produce": "ઉત્પાદ વેચો",
+    "main_navigation": "નેવિગેશન",
+    "listen_title": "પૃષ્ઠ સાંભળો",
+    "listen_sub": "વૉઇસ માર્ગ"
+  },
+  "user": {
+    "verified": "ચકાસાયેલ",
+    "admin_access": "એડ્મિન",
+    "administrator": "એડ્મિન"
+  },
+  "select_language": "ભાષા",
+  "select_location": "સ્થળ"
+}

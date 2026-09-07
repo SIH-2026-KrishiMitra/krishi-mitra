@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "କୃଷି-ଅର୍ଥ ପ୍ଲାଟଫର୍ମ"
+  },
+  "actions": {
+    "save": "ପରିବର୍ତ୍ତନ ସଞ୍ଚୟ",
+    "saving": "ସଞ୍ଚୟ ହେଉଛି…",
+    "cancel": "ବାତିଲ",
+    "back": "ପଛକୁ",
+    "continue": "ଜାରି",
+    "sign_out": "ସାଇନ ଆଉଟ",
+    "signing_out": "ସାଇନ ଆଉଟ…",
+    "edit_profile": "ପ୍ରୋଫାଇଲ ସଂପାଦନ",
+    "loading": "ଅପେକ୍ଷା…",
+    "creating": "ଖାତା ତୈରି…",
+    "sending": "ପଠାଉଛି…"
+  },
+  "status": {
+    "verified": "ଯାଞ୍ଚ",
+    "pending": "ବକ",
+    "complete": "ସଂପୂର୍ଣ",
+    "not_verified": "ଯାଞ୍ଚ ନୁହେ",
+    "yes": "ହଁ",
+    "no": "ନା"
+  },
+  "errors": {
+    "generic": "ତ୍ରୁଟି",
+    "invalid_file": "ଅବୈଧ ଫାଇଲ",
+    "photo_upload_failed": "ଫଟୋ ଅପଲୋଡ ବିଫଳ"
+  },
+  "trust": {
+    "ncfm": "NCFM",
+    "direct_mandi": "ସିଧା ମଣ୍ଡି",
+    "escrow": "ଏସ୍କ୍ରୋ",
+    "pledge": "ଓ.",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "ଗୋପନୀୟତା",
+    "kyc_enabled": "KYC",
+    "secure_registration": "ସୁରକ୍ଷିତ",
+    "secure_reset": "ସୁରକ୍ଷିତ"
+  },
+  "or": "ବା"
+}

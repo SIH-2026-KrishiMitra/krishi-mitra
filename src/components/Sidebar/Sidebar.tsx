@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import {
   Home, TrendingUp, Package, Users, FileText,
@@ -5,6 +6,7 @@ import {
   ShoppingBag, BarChart3, Settings, Shield,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../context/AuthContext'
 import { useAppSafe } from '../../context/AppContext'
 import styles from './Sidebar.module.css'
@@ -16,18 +18,6 @@ interface NavItem {
   Icon: LucideIcon
   badgeKey?: string
 }
-
-// ─── Farmer nav ───────────────────────────────────────────────────────────────
-
-const FARMER_NAV: NavItem[] = [
-  { id: 'home',    label: 'Home',             path: '/farmer/home',    Icon: Home },
-  { id: 'markets', label: 'Markets',           path: '/farmer/markets', Icon: TrendingUp },
-  { id: 'lots',    label: 'My lots',           path: '/farmer/lots',    Icon: Package,   badgeKey: 'lots' },
-  { id: 'offers',  label: 'Buyers & offers',   path: '/farmer/offers',  Icon: Users,     badgeKey: 'offers' },
-  { id: 'deals',   label: 'My deals',          path: '/farmer/deals',   Icon: FileText,  badgeKey: 'deals' },
-  { id: 'money',   label: 'Money',             path: '/farmer/money',   Icon: Wallet },
-  { id: 'help',    label: 'Help & complaints', path: '/farmer/help',    Icon: HelpCircle },
-]
 
 function getFarmerActiveId(pathname: string): string {
   if (pathname.startsWith('/farmer/markets')) return 'markets'
@@ -41,16 +31,6 @@ function getFarmerActiveId(pathname: string): string {
   return 'home'
 }
 
-// ─── Buyer nav ────────────────────────────────────────────────────────────────
-
-const BUYER_NAV: NavItem[] = [
-  { id: 'home',        label: 'Dashboard',     path: '/buyer/home',        Icon: Home },
-  { id: 'marketplace', label: 'Marketplace',   path: '/buyer/marketplace', Icon: ShoppingBag },
-  { id: 'offers',      label: 'My offers',     path: '/buyer/offers',      Icon: Users },
-  { id: 'deals',       label: 'My deals',      path: '/buyer/deals',       Icon: FileText },
-  { id: 'payments',    label: 'Payments',      path: '/buyer/payments',    Icon: Wallet },
-]
-
 function getBuyerActiveId(pathname: string): string {
   if (pathname.startsWith('/buyer/marketplace')) return 'marketplace'
   if (pathname.startsWith('/buyer/offers')) return 'offers'
@@ -59,18 +39,6 @@ function getBuyerActiveId(pathname: string): string {
   if (pathname.startsWith('/buyer/profile')) return 'profile'
   return 'home'
 }
-
-// ─── Admin nav ────────────────────────────────────────────────────────────────
-
-const ADMIN_NAV: NavItem[] = [
-  { id: 'home',       label: 'Dashboard',   path: '/admin/home',       Icon: BarChart3 },
-  { id: 'users',      label: 'Users',       path: '/admin/users',      Icon: Users },
-  { id: 'lots',       label: 'Listings',    path: '/admin/lots',       Icon: Package },
-  { id: 'deals',      label: 'Deals',       path: '/admin/deals',      Icon: FileText },
-  { id: 'payments',   label: 'Payments',    path: '/admin/payments',   Icon: Wallet },
-  { id: 'grievances', label: 'Grievances',  path: '/admin/grievances', Icon: HelpCircle },
-  { id: 'settings',   label: 'Settings',    path: '/admin/settings',   Icon: Settings },
-]
 
 function getAdminActiveId(pathname: string): string {
   if (pathname.startsWith('/admin/users')) return 'users'
@@ -82,21 +50,47 @@ function getAdminActiveId(pathname: string): string {
   return 'home'
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
-
 export default function Sidebar() {
   const navigate = useNavigate()
   const location = useLocation()
   const { profile, role } = useAuth()
+  const { t } = useTranslation('nav')
 
-  // Safe — returns null when outside AppProvider (buyer/admin routes)
   const farmerCtx = useAppSafe()
 
   const isFarmer = role === 'farmer'
   const isBuyer = role === 'buyer'
   const isAdmin = role === 'admin'
 
-  const navItems = isFarmer ? FARMER_NAV : isBuyer ? BUYER_NAV : ADMIN_NAV
+  const farmerNav = useMemo<NavItem[]>(() => [
+    { id: 'home',    label: t('farmer.home'),    path: '/farmer/home',    Icon: Home },
+    { id: 'markets', label: t('farmer.markets'), path: '/farmer/markets', Icon: TrendingUp },
+    { id: 'lots',    label: t('farmer.lots'),    path: '/farmer/lots',    Icon: Package,   badgeKey: 'lots' },
+    { id: 'offers',  label: t('farmer.offers'),  path: '/farmer/offers',  Icon: Users,     badgeKey: 'offers' },
+    { id: 'deals',   label: t('farmer.deals'),   path: '/farmer/deals',   Icon: FileText,  badgeKey: 'deals' },
+    { id: 'money',   label: t('farmer.money'),   path: '/farmer/money',   Icon: Wallet },
+    { id: 'help',    label: t('farmer.help'),    path: '/farmer/help',    Icon: HelpCircle },
+  ], [t])
+
+  const buyerNav = useMemo<NavItem[]>(() => [
+    { id: 'home',        label: t('buyer.home'),        path: '/buyer/home',        Icon: Home },
+    { id: 'marketplace', label: t('buyer.marketplace'), path: '/buyer/marketplace', Icon: ShoppingBag },
+    { id: 'offers',      label: t('buyer.offers'),      path: '/buyer/offers',      Icon: Users },
+    { id: 'deals',       label: t('buyer.deals'),       path: '/buyer/deals',       Icon: FileText },
+    { id: 'payments',    label: t('buyer.payments'),    path: '/buyer/payments',    Icon: Wallet },
+  ], [t])
+
+  const adminNav = useMemo<NavItem[]>(() => [
+    { id: 'home',       label: t('admin.home'),       path: '/admin/home',       Icon: BarChart3 },
+    { id: 'users',      label: t('admin.users'),      path: '/admin/users',      Icon: Users },
+    { id: 'lots',       label: t('admin.lots'),       path: '/admin/lots',       Icon: Package },
+    { id: 'deals',      label: t('admin.deals'),      path: '/admin/deals',      Icon: FileText },
+    { id: 'payments',   label: t('admin.payments'),   path: '/admin/payments',   Icon: Wallet },
+    { id: 'grievances', label: t('admin.grievances'), path: '/admin/grievances', Icon: HelpCircle },
+    { id: 'settings',   label: t('admin.settings'),   path: '/admin/settings',   Icon: Settings },
+  ], [t])
+
+  const navItems = isFarmer ? farmerNav : isBuyer ? buyerNav : adminNav
   const activeId = isFarmer
     ? getFarmerActiveId(location.pathname)
     : isBuyer
@@ -109,12 +103,16 @@ export default function Sidebar() {
 
   const homeRoute = isFarmer ? '/farmer/home' : isBuyer ? '/buyer/home' : '/admin/home'
   const profileRoute = isFarmer ? '/farmer/profile' : isBuyer ? '/buyer/profile' : '/admin/settings'
-  const roleLabel = isFarmer ? 'FARMER WORKSPACE' : isBuyer ? 'BUYER PORTAL' : 'ADMIN DASHBOARD'
+  const roleLabel = isFarmer
+    ? t('farmer.workspace').toUpperCase()
+    : isBuyer
+      ? t('buyer.portal').toUpperCase()
+      : t('admin.dashboard').toUpperCase()
 
   const sidebarClass = `${styles.sidebar} ${isBuyer ? styles.sidebarBuyer : isAdmin ? styles.sidebarAdmin : ''}`
 
   const displayName = profile?.full_name || (isBuyer ? 'Buyer' : isAdmin ? 'Admin' : 'Farmer')
-  const displayMeta = isBuyer ? (profile?.email ?? '') : isAdmin ? 'Administrator' : ''
+  const displayMeta = isBuyer ? (profile?.email ?? '') : isAdmin ? t('user.administrator') : ''
 
   return (
     <aside className={sidebarClass}>
@@ -136,7 +134,7 @@ export default function Sidebar() {
       </div>
 
       {/* Nav items */}
-      <nav className={styles.nav} aria-label="Main navigation">
+      <nav className={styles.nav} aria-label={t('common.main_navigation')}>
         {navItems.map(({ id, label, path, Icon, badgeKey }) => {
           const count = badgeKey ? (badges[badgeKey] ?? 0) : 0
           const isActive = activeId === id
@@ -163,8 +161,8 @@ export default function Sidebar() {
         <div className={styles.listenRow}>
           <Volume2 size={16} className={styles.listenIcon} aria-hidden />
           <div>
-            <p className={styles.listenTitle}>Listen to this page</p>
-            <p className={styles.listenSub}>Voice guidance in Marathi, Hindi and English</p>
+            <p className={styles.listenTitle}>{t('common.listen_title')}</p>
+            <p className={styles.listenSub}>{t('common.listen_sub')}</p>
           </div>
         </div>
       )}
@@ -173,7 +171,7 @@ export default function Sidebar() {
       {isAdmin && (
         <div className={styles.adminBadge}>
           <Shield size={14} aria-hidden />
-          <span>Admin access</span>
+          <span>{t('user.admin_access')}</span>
         </div>
       )}
 
@@ -195,9 +193,9 @@ export default function Sidebar() {
               <>
                 {(farmerCtx?.state.farmer.village ?? '')}
                 {farmerCtx?.state.farmer.verified && (
-                  <CheckCircle size={10} className={styles.verifiedIcon} aria-label="Verified" />
+                  <CheckCircle size={10} className={styles.verifiedIcon} aria-label={t('user.verified')} />
                 )}
-                {farmerCtx?.state.farmer.verified ? ' Verified' : ''}
+                {farmerCtx?.state.farmer.verified ? ` ${t('user.verified')}` : ''}
               </>
             ) : (
               displayMeta

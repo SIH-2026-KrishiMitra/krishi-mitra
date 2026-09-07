@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "ᱥᱮᱛᱟᱝ-ᱟᱨᱛᱷᱤ ᱢᱟᱸᱪ"
+  },
+  "actions": {
+    "save": "ᱵᱚᱫᱚᱞ ᱥᱟᱡᱚᱣ",
+    "saving": "ᱥᱟᱡᱚᱣ ᱦᱩᱭᱩᱜ ᱠᱟᱱᱟ…",
+    "cancel": "ᱨᱚᱫ",
+    "back": "ᱚᱠᱟ",
+    "continue": "ᱡᱟᱹᱨᱤ",
+    "sign_out": "ᱥᱟᱭᱤᱱ ᱟᱣᱴ",
+    "signing_out": "ᱥᱟᱭᱤᱱ ᱟᱣᱴ…",
+    "edit_profile": "ᱯᱨᱚᱯᱷᱟᱭᱤᱞ ᱴᱷᱤᱠ",
+    "loading": "ᱩᱱᱤᱡᱽ…",
+    "creating": "ᱯᱷᱤᱡᱚᱛ ᱦᱚᱸᱟᱣ…",
+    "sending": "ᱡᱚᱦᱚᱨ…"
+  },
+  "status": {
+    "verified": "ᱯᱨᱚᱢᱟᱱ",
+    "pending": "ᱢᱟᱯ",
+    "complete": "ᱯᱩᱨᱟ",
+    "not_verified": "ᱵᱮ ᱯᱨᱚᱢᱟᱱ",
+    "yes": "ᱟᱹᱭᱤ",
+    "no": "ᱵᱟᱝ"
+  },
+  "errors": {
+    "generic": "ᱵᱷᱩᱞ",
+    "invalid_file": "ᱵᱮ ᱢᱟᱱᱟᱣ",
+    "photo_upload_failed": "ᱯᱷᱚᱴᱚ ᱟᱯᱞᱚᱰ ᱵᱮ ᱦᱩᱭ"
+  },
+  "trust": {
+    "ncfm": "NCFM",
+    "direct_mandi": "ᱠᱷᱟᱴᱤ ᱢᱟᱸᱰᱤ",
+    "escrow": "ᱮᱥᱠᱨᱚ",
+    "pledge": "ᱵᱚᱪᱚᱱ",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "ᱜᱩᱯᱛᱤ",
+    "kyc_enabled": "KYC",
+    "secure_registration": "ᱥᱩᱨᱩᱠᱷᱤᱛ",
+    "secure_reset": "ᱥᱩᱨᱩᱠᱷᱤᱛ"
+  },
+  "or": "ᱵᱟ"
+}

@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "முகப்பு",
+    "markets": "சந்தை",
+    "lots": "என் லாட்கள்",
+    "offers": "வாங்குபவர்கள்",
+    "deals": "ஒப்பந்தங்கள்",
+    "money": "பணம்",
+    "help": "உதவி",
+    "profile": "சுயவிவரம்",
+    "workspace": "விவசாயி பகுதி"
+  },
+  "buyer": {
+    "home": "டாஷ்போர்டு",
+    "marketplace": "சந்தை",
+    "discover": "கண்டுபிடி",
+    "offers": "சலுகைகள்",
+    "deals": "ஒப்பந்தங்கள்",
+    "payments": "கொடுப்பனவுகள்",
+    "profile": "சுயவிவரம்",
+    "portal": "வாங்குபவர் போர்டல்",
+    "portal_label": "வாங்குபவர் போர்டல்"
+  },
+  "admin": {
+    "home": "டாஷ்",
+    "users": "பயனர்கள்",
+    "lots": "பட்டியல்",
+    "deals": "ஒப்பந்தம்",
+    "payments": "கொடுப்பு",
+    "grievances": "புகார்கள்",
+    "settings": "அமைப்புகள்",
+    "dashboard": "நிர்வாக டாஷ்",
+    "dashboard_label": "நிர்வாக டாஷ்"
+  },
+  "common": {
+    "notifications": "அறிவிப்புகள்",
+    "no_notifications": "அறிவிப்பு இல்லை",
+    "mark_all_read": "படித்தது",
+    "listen": "கேள்",
+    "sell_produce": "விற்க",
+    "main_navigation": "வழிகாட்டி",
+    "listen_title": "இந்த பக்கம் கேள்",
+    "listen_sub": "குரல் வழிகாட்டி"
+  },
+  "user": {
+    "verified": "சரிபார்க்கப்பட்டது",
+    "admin_access": "நிர்வாகி",
+    "administrator": "நிர்வாகி"
+  },
+  "select_language": "மொழி",
+  "select_location": "இடம்"
+}

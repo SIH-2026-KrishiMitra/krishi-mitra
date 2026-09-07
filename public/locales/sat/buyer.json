@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · ᱰᱮᱥ",
+    "title": "ᱰᱮᱥ"
+  },
+  "marketplace": {
+    "breadcrumb": "02 · ᱵᱟᱡᱟᱨ",
+    "title": "ᱵᱟᱡᱟᱨ"
+  },
+  "offers": {
+    "breadcrumb": "03 · ᱟᱯᱷᱟᱨ",
+    "title": "ᱟᱯᱷᱟᱨ"
+  },
+  "deals": {
+    "breadcrumb": "04 · ᱥᱚᱫᱟ",
+    "title": "ᱥᱚᱫᱟ"
+  },
+  "payments": {
+    "breadcrumb": "05 · ᱯᱮᱢᱮᱱᱴ",
+    "title": "ᱯᱮᱢᱮᱱᱴ"
+  },
+  "profile": {
+    "breadcrumb": "06 · ᱯᱨᱚᱯᱷᱟᱭᱤᱞ",
+    "title": "ᱯᱨᱚᱯᱷᱟᱭᱤᱞ",
+    "verified_buyer": "ᱯᱨᱚᱢᱟᱱ",
+    "change_photo": "ᱯᱷᱚᱴᱚ",
+    "business_title": "ᱵᱤᱥᱚᱭ",
+    "settings_title": "ᱥᱮᱴᱤᱝ",
+    "score_title": "ᱥᱠᱚᱨ",
+    "trust_score": "ᱵᱷᱚᱨᱚᱥᱟ",
+    "deals_completed": "ᱯᱩᱨᱟ",
+    "kyc_verified": "KYC",
+    "notifications_label": "ᱥᱩᱪᱮᱱ",
+    "notifications_sub": "ᱟᱯᱷᱟᱨ",
+    "language_label": "ᱵᱷᱟᱥᱟ",
+    "field_contact": "ᱥᱚᱝᱯᱚᱨᱠ",
+    "field_org": "ᱥᱚᱛ",
+    "field_org_input": "ᱥᱚᱛ",
+    "field_location": "ᱡᱟᱭᱜᱟ",
+    "field_district": "ᱡᱤᱞᱟ",
+    "field_state": "ᱨᱟᱡ",
+    "field_email": "ᱤᱢᱮᱞ",
+    "field_phone": "ᱯᱷᱚᱱ",
+    "field_buyer_type": "ᱡᱟᱹᱛ",
+    "photo_saved": "ᱯᱷᱚᱴᱚ",
+    "buyer_types": {
+      "processor": "ᱢᱤᱞ",
+      "trader": "ᱵᱮᱯᱟᱨᱤ",
+      "retailer": "ᱨᱤᱴᱮᱞ",
+      "mandi": "APMC",
+      "fpo": "FPO"
+    }
+  }
+}

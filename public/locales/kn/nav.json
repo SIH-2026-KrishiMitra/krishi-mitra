@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "ಮನೆ",
+    "markets": "ಮಾರುಕಟ್ಟೆ",
+    "lots": "ನನ್ನ ಲಾಟ್‌ಗಳು",
+    "offers": "ಆಫರ್‌ಗಳು",
+    "deals": "ಒಪ್ಪಂದಗಳು",
+    "money": "ಹಣ",
+    "help": "ಸಹಾಯ",
+    "profile": "ಪ್ರೊಫೈಲ್",
+    "workspace": "ರೈತ ಕ್ಷೇತ್ರ"
+  },
+  "buyer": {
+    "home": "ಡ್ಯಾಶ್‌ಬೋರ್ಡ್",
+    "marketplace": "ಮಾರುಕಟ್ಟೆ",
+    "discover": "ಹುಡುಕಿ",
+    "offers": "ಆಫರ್‌ಗಳು",
+    "deals": "ಒಪ್ಪಂದ",
+    "payments": "ಪಾವತಿ",
+    "profile": "ಪ್ರೊಫೈಲ್",
+    "portal": "ಖರೀದಿದಾರ ಪೋರ್ಟಲ್",
+    "portal_label": "ಖರೀದಿದಾರ"
+  },
+  "admin": {
+    "home": "ಡ್ಯಾಶ್",
+    "users": "ಬಳಕೆದಾರರು",
+    "lots": "ಪಟ್ಟಿ",
+    "deals": "ಒಪ್ಪಂದ",
+    "payments": "ಪಾವತಿ",
+    "grievances": "ದೂರುಗಳು",
+    "settings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
+    "dashboard": "ನಿರ್ವಾಹಕ ಡ್ಯಾಶ್",
+    "dashboard_label": "ನಿರ್ವಾಹಕ ಡ್ಯಾಶ್"
+  },
+  "common": {
+    "notifications": "ಅಧಿಸೂಚನೆ",
+    "no_notifications": "ಅಧಿಸೂಚನೆ ಇಲ್ಲ",
+    "mark_all_read": "ಎಲ್ಲ ಓದಿದ್ದು",
+    "listen": "ಕೇಳಿ",
+    "sell_produce": "ಮಾರಿ",
+    "main_navigation": "ನ್ಯಾವಿಗೇಶನ್",
+    "listen_title": "ಪುಟ ಕೇಳಿ",
+    "listen_sub": "ಧ್ವನಿ ಮಾರ್ಗದರ್ಶಿ"
+  },
+  "user": {
+    "verified": "ಪರಿಶೀಲಿಸಲಾಗಿದೆ",
+    "admin_access": "ನಿರ್ವಾಹಕ",
+    "administrator": "ನಿರ್ವಾಹಕ"
+  },
+  "select_language": "ಭಾಷೆ",
+  "select_location": "ಸ್ಥಳ"
+}

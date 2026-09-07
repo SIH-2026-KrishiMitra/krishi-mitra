@@ -1,0 +1,42 @@
+{
+  "app": { "name": "Krishi Mitra", "tagline": "कृषी-वित्त व्यासपीठ" },
+  "actions": {
+    "save": "बदल जतन करा",
+    "saving": "जतन होत आहे…",
+    "cancel": "रद्द करा",
+    "back": "मागे",
+    "continue": "पुढे जा",
+    "sign_out": "साइन आउट",
+    "signing_out": "साइन आउट होत आहे…",
+    "edit_profile": "प्रोफाइल संपादित करा",
+    "loading": "कृपया प्रतीक्षा करा…",
+    "creating": "खाते तयार होत आहे…",
+    "sending": "पाठवत आहे…"
+  },
+  "status": {
+    "verified": "सत्यापित",
+    "pending": "प्रलंबित",
+    "complete": "पूर्ण",
+    "not_verified": "असत्यापित",
+    "yes": "होय",
+    "no": "नाही"
+  },
+  "errors": {
+    "generic": "काहीतरी चुकले",
+    "invalid_file": "अवैध फाइल",
+    "photo_upload_failed": "फोटो अपलोड अयशस्वी"
+  },
+  "trust": {
+    "ncfm": "NCFM नोंदणीकृत",
+    "direct_mandi": "थेट मंडी कनेक्ट",
+    "escrow": "एस्क्रो हमी",
+    "pledge": "तारण वेळ",
+    "iso": "ISO 27001 प्रमाणित",
+    "rbi": "RBI नियंत्रित संस्था",
+    "privacy": "गोपनीयता धोरण",
+    "kyc_enabled": "KYC सक्षम",
+    "secure_registration": "सुरक्षित नोंदणी",
+    "secure_reset": "सुरक्षित रीसेट"
+  },
+  "or": "किंवा"
+}

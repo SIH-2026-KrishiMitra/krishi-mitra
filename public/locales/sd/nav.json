@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "هوم",
+    "markets": "بازار",
+    "lots": "منهنجا لاٽ",
+    "offers": "آڇون",
+    "deals": "سودا",
+    "money": "رقم",
+    "help": "مدد",
+    "profile": "پروفائل",
+    "workspace": "هاري علائقو"
+  },
+  "buyer": {
+    "home": "ڊيش بورڊ",
+    "marketplace": "بازار",
+    "discover": "ڳولا",
+    "offers": "آڇون",
+    "deals": "سودا",
+    "payments": "ادائيگي",
+    "profile": "پروفائل",
+    "portal": "خريدار پورٽل",
+    "portal_label": "خريدار"
+  },
+  "admin": {
+    "home": "ڊيش",
+    "users": "صارف",
+    "lots": "فهرست",
+    "deals": "سودو",
+    "payments": "ادائيگي",
+    "grievances": "شڪايتون",
+    "settings": "سيٽنگون",
+    "dashboard": "ايڊمن ڊيش",
+    "dashboard_label": "ايڊمن"
+  },
+  "common": {
+    "notifications": "اطلاع",
+    "no_notifications": "ڪا به اطلاع ناهي",
+    "mark_all_read": "سڀ پڙهيل",
+    "listen": "ٻڌو",
+    "sell_produce": "وڪرو ڪريو",
+    "main_navigation": "نيوي گيشن",
+    "listen_title": "صفحو ٻڌو",
+    "listen_sub": "آواز رهنمائي"
+  },
+  "user": {
+    "verified": "تصديق",
+    "admin_access": "ايڊمن",
+    "administrator": "ايڊمن"
+  },
+  "select_language": "ٻولي",
+  "select_location": "جاءِ"
+}

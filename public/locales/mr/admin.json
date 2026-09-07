@@ -1,0 +1,18 @@
+{
+  "home": { "breadcrumb": "01 · डॅशबोर्ड", "title": "डॅशबोर्ड" },
+  "users": { "breadcrumb": "02 · वापरकर्ते", "title": "वापरकर्ते" },
+  "lots": { "breadcrumb": "03 · यादी", "title": "यादी" },
+  "deals": { "breadcrumb": "04 · व्यवहार", "title": "व्यवहार" },
+  "payments": { "breadcrumb": "05 · पेमेंट", "title": "पेमेंट" },
+  "grievances": { "breadcrumb": "06 · तक्रारी", "title": "तक्रारी" },
+  "settings": {
+    "breadcrumb": "07 · सेटिंग",
+    "title": "सेटिंग",
+    "account_title": "खाते",
+    "field_email": "ईमेल",
+    "field_phone": "फोन",
+    "field_language": "भाषा",
+    "admin_badge": "प्रशासक",
+    "security_note": "प्रशासक खाती Supabase डॅशबोर्डद्वारे व्यवस्थापित केली जातात. प्रशासक जोडण्यासाठी किंवा काढण्यासाठी आपल्या सिस्टम प्रशासकाशी संपर्क साधा."
+  }
+}

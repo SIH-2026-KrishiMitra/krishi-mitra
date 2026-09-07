@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "कृषि-वित्त मञ्च"
+  },
+  "actions": {
+    "save": "परिवर्तन सुरक्षित गर्नुस्",
+    "saving": "सुरक्षित हुँदैछ…",
+    "cancel": "रद्द",
+    "back": "पछाडि",
+    "continue": "जारी",
+    "sign_out": "साइन आउट",
+    "signing_out": "साइन आउट हुँदैछ…",
+    "edit_profile": "प्रोफाइल सम्पादन",
+    "loading": "पर्खनुस्…",
+    "creating": "खाता बन्दैछ…",
+    "sending": "पठाइँदैछ…"
+  },
+  "status": {
+    "verified": "प्रमाणित",
+    "pending": "लम्बित",
+    "complete": "पूर्ण",
+    "not_verified": "प्रमाणित छैन",
+    "yes": "हो",
+    "no": "होइन"
+  },
+  "errors": {
+    "generic": "त्रुटि",
+    "invalid_file": "अमान्य फाइल",
+    "photo_upload_failed": "फोटो अपलोड असफल"
+  },
+  "trust": {
+    "ncfm": "NCFM",
+    "direct_mandi": "सिधा मन्डी",
+    "escrow": "एस्क्रो",
+    "pledge": "वचन",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "गोपनीयता",
+    "kyc_enabled": "KYC",
+    "secure_registration": "सुरक्षित",
+    "secure_reset": "सुरक्षित"
+  },
+  "or": "वा"
+}

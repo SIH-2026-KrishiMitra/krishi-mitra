@@ -1,0 +1,36 @@
+{
+  "home": {
+    "breadcrumb": "01 · ড.",
+    "title": "ড্যাশ"
+  },
+  "users": {
+    "breadcrumb": "02 · ব.",
+    "title": "ব্যবহারকারী"
+  },
+  "lots": {
+    "breadcrumb": "03 · ত.",
+    "title": "তালিকা"
+  },
+  "deals": {
+    "breadcrumb": "04 · চ.",
+    "title": "চুক্তি"
+  },
+  "payments": {
+    "breadcrumb": "05 · প.",
+    "title": "পেমেন্ট"
+  },
+  "grievances": {
+    "breadcrumb": "06 · অ.",
+    "title": "অভিযোগ"
+  },
+  "settings": {
+    "breadcrumb": "07 · সে.",
+    "title": "সেটিংস",
+    "account_title": "অ্যাকাউন্ট",
+    "field_email": "ইমেইল",
+    "field_phone": "ফোন",
+    "field_language": "ভাষা",
+    "admin_badge": "অ্যাডমিন",
+    "security_note": "Supabase."
+  }
+}

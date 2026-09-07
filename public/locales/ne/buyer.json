@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · ड्यास",
+    "title": "ड्यास"
+  },
+  "marketplace": {
+    "breadcrumb": "02 · बजार",
+    "title": "बजार"
+  },
+  "offers": {
+    "breadcrumb": "03 · अफर",
+    "title": "अफर"
+  },
+  "deals": {
+    "breadcrumb": "04 · सम्झौता",
+    "title": "सम्झौता"
+  },
+  "payments": {
+    "breadcrumb": "05 · भुक्तानी",
+    "title": "भुक्तानी"
+  },
+  "profile": {
+    "breadcrumb": "06 · प्रोफाइल",
+    "title": "प्रोफाइल",
+    "verified_buyer": "प्रमाणित",
+    "change_photo": "फोटो",
+    "business_title": "व्यवसाय",
+    "settings_title": "सेटिङ",
+    "score_title": "स्कोर",
+    "trust_score": "विश्वास",
+    "deals_completed": "पूर्ण",
+    "kyc_verified": "KYC",
+    "notifications_label": "सूचना",
+    "notifications_sub": "अफर",
+    "language_label": "भाषा",
+    "field_contact": "सम्पर्क",
+    "field_org": "संस्था",
+    "field_org_input": "संस्था",
+    "field_location": "स्थान",
+    "field_district": "जिल्ला",
+    "field_state": "प्रदेश",
+    "field_email": "इमेल",
+    "field_phone": "फोन",
+    "field_buyer_type": "प्रकार",
+    "photo_saved": "फोटो",
+    "buyer_types": {
+      "processor": "मिल",
+      "trader": "व्यापारी",
+      "retailer": "खुद्रा",
+      "mandi": "APMC",
+      "fpo": "FPO"
+    }
+  }
+}

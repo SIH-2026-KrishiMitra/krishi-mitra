@@ -1,0 +1,36 @@
+{
+  "home": {
+    "breadcrumb": "01 · ڈ.",
+    "title": "ڈیش"
+  },
+  "users": {
+    "breadcrumb": "02 · ص.",
+    "title": "صارفین"
+  },
+  "lots": {
+    "breadcrumb": "03 · ف.",
+    "title": "فہرست"
+  },
+  "deals": {
+    "breadcrumb": "04 · س.",
+    "title": "سودا"
+  },
+  "payments": {
+    "breadcrumb": "05 · ا.",
+    "title": "ادائیگی"
+  },
+  "grievances": {
+    "breadcrumb": "06 · ش.",
+    "title": "شکایات"
+  },
+  "settings": {
+    "breadcrumb": "07 · ت.",
+    "title": "ترتیبات",
+    "account_title": "اکاؤنٹ",
+    "field_email": "ای میل",
+    "field_phone": "فون",
+    "field_language": "زبان",
+    "admin_badge": "ایڈمن",
+    "security_note": "Supabase."
+  }
+}

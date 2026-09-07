@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · ডাশ",
+    "title": "ডাশ"
+  },
+  "marketplace": {
+    "breadcrumb": "02 · বাজার",
+    "title": "বাজার"
+  },
+  "offers": {
+    "breadcrumb": "03 · অফার",
+    "title": "অফার"
+  },
+  "deals": {
+    "breadcrumb": "04 · ডিল",
+    "title": "ডিল"
+  },
+  "payments": {
+    "breadcrumb": "05 · পেমেন্ট",
+    "title": "পেমেন্ট"
+  },
+  "profile": {
+    "breadcrumb": "06 · প্রোফাইল",
+    "title": "প্রোফাইল",
+    "verified_buyer": "সত্যাপিত",
+    "change_photo": "ফোটো",
+    "business_title": "থৌরাং",
+    "settings_title": "সেটিং",
+    "score_title": "স্কোর",
+    "trust_score": "নম্বিয়াবা",
+    "deals_completed": "য়াউনা",
+    "kyc_verified": "KYC",
+    "notifications_label": "হৌজিক্তা",
+    "notifications_sub": "অফার",
+    "language_label": "লোন",
+    "field_contact": "লৈন্নরক",
+    "field_org": "ইরোম",
+    "field_org_input": "ইরোম",
+    "field_location": "থৌরাং",
+    "field_district": "জিলা",
+    "field_state": "রাজ্য",
+    "field_email": "ইমেল",
+    "field_phone": "ফোন",
+    "field_buyer_type": "অমসুং",
+    "photo_saved": "ফোটো",
+    "buyer_types": {
+      "processor": "মিল",
+      "trader": "থৌরাং",
+      "retailer": "রিটেল",
+      "mandi": "APMC",
+      "fpo": "FPO"
+    }
+  }
+}

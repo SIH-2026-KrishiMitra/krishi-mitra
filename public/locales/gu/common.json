@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "કૃષિ-નાણા પ્લેટફોર્મ"
+  },
+  "actions": {
+    "save": "ફેરફારો સાચવો",
+    "saving": "સાચવી રહ્યા છીએ…",
+    "cancel": "રદ",
+    "back": "પાછળ",
+    "continue": "આગળ",
+    "sign_out": "સાઇન આઉટ",
+    "signing_out": "સાઇન આઉટ…",
+    "edit_profile": "પ્રોફાઇલ સંપાદિત",
+    "loading": "રાહ જુઓ…",
+    "creating": "એકાઉન્ટ બનાવી રહ્યા…",
+    "sending": "મોકલી રહ્યા…"
+  },
+  "status": {
+    "verified": "ચકાસાયેલ",
+    "pending": "બાકી",
+    "complete": "સંપૂર્ણ",
+    "not_verified": "ન ચકાસાયેલ",
+    "yes": "હા",
+    "no": "ના"
+  },
+  "errors": {
+    "generic": "ભૂલ",
+    "invalid_file": "અમાન્ય ફાઇલ",
+    "photo_upload_failed": "ફોટો અપલોડ નિષ્ફળ"
+  },
+  "trust": {
+    "ncfm": "NCFM નોંધાયેલ",
+    "direct_mandi": "સીધો મંડી",
+    "escrow": "એસ્ક્રો ગૅરેન્ટી",
+    "pledge": "પ્લેજ",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "ગોપનીયતા",
+    "kyc_enabled": "KYC",
+    "secure_registration": "સુરક્ષિત",
+    "secure_reset": "સુરક્ષિત"
+  },
+  "or": "અથવા"
+}

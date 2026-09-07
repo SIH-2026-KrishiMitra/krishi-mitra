@@ -1,0 +1,54 @@
+{
+  "home": {
+    "breadcrumb": "01 · डैश",
+    "title": "डैश"
+  },
+  "marketplace": {
+    "breadcrumb": "02 · आपणः",
+    "title": "आपणः"
+  },
+  "offers": {
+    "breadcrumb": "03 · प्रस्तावाः",
+    "title": "प्रस्तावाः"
+  },
+  "deals": {
+    "breadcrumb": "04 · सन्धिः",
+    "title": "सन्धिः"
+  },
+  "payments": {
+    "breadcrumb": "05 · भुगतानम्",
+    "title": "भुगतानम्"
+  },
+  "profile": {
+    "breadcrumb": "06 · प्रोफाइल",
+    "title": "प्रोफाइल",
+    "verified_buyer": "सत्यापितः",
+    "change_photo": "चित्रम्",
+    "business_title": "व्यवसायः",
+    "settings_title": "सेटिंग",
+    "score_title": "स्कोर",
+    "trust_score": "विश्वासः",
+    "deals_completed": "पूर्णम्",
+    "kyc_verified": "KYC",
+    "notifications_label": "सूचना",
+    "notifications_sub": "प्रस्तावाः",
+    "language_label": "भाषा",
+    "field_contact": "सम्पर्कः",
+    "field_org": "संस्था",
+    "field_org_input": "संस्था",
+    "field_location": "स्थानम्",
+    "field_district": "जनपदः",
+    "field_state": "राज्यम्",
+    "field_email": "इमेल",
+    "field_phone": "फोन",
+    "field_buyer_type": "प्रकारः",
+    "photo_saved": "चित्रम्",
+    "buyer_types": {
+      "processor": "मिलः",
+      "trader": "व्यापारी",
+      "retailer": "खुदराः",
+      "mandi": "APMC",
+      "fpo": "FPO"
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "زرعي مالي پليٽ فارم"
+  },
+  "actions": {
+    "save": "تبديليون محفوظ ڪريو",
+    "saving": "محفوظ ٿي رهيو آهي…",
+    "cancel": "رد",
+    "back": "پوئتي",
+    "continue": "جاري",
+    "sign_out": "سائن آئوٽ",
+    "signing_out": "سائن آئوٽ…",
+    "edit_profile": "پروفائل ترميم",
+    "loading": "انتظار…",
+    "creating": "اڪائونٽ ٺهي رهيو آهي…",
+    "sending": "موڪلي رهيو آهي…"
+  },
+  "status": {
+    "verified": "تصديق",
+    "pending": "زير التوا",
+    "complete": "مڪمل",
+    "not_verified": "غير تصديق",
+    "yes": "ها",
+    "no": "نه"
+  },
+  "errors": {
+    "generic": "غلطي",
+    "invalid_file": "غلط فائل",
+    "photo_upload_failed": "تصوير اپلوڊ ناڪام"
+  },
+  "trust": {
+    "ncfm": "NCFM",
+    "direct_mandi": "سڌي منڊي",
+    "escrow": "ايسڪرو",
+    "pledge": "ضمانت",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "رازداري",
+    "kyc_enabled": "KYC",
+    "secure_registration": "محفوظ",
+    "secure_reset": "محفوظ"
+  },
+  "or": "يا"
+}

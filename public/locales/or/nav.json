@@ -1,0 +1,52 @@
+{
+  "farmer": {
+    "home": "ହୋମ",
+    "markets": "ବଜାର",
+    "lots": "ମୋ ଲଟ",
+    "offers": "ଅଫର",
+    "deals": "ଚୁକ୍ତି",
+    "money": "ଟଙ୍କା",
+    "help": "ସାହାୟ୍ୟ",
+    "profile": "ପ୍ରୋଫାଇଲ",
+    "workspace": "କୃଷକ ସ୍ଥାନ"
+  },
+  "buyer": {
+    "home": "ଡ୍ୟାଶ",
+    "marketplace": "ବଜାର",
+    "discover": "ଖୋଜ",
+    "offers": "ଅଫର",
+    "deals": "ଚୁକ୍ତି",
+    "payments": "ପେମେଣ୍ଟ",
+    "profile": "ପ୍ରୋଫାଇଲ",
+    "portal": "କ୍ରେତା ପୋର୍ଟାଲ",
+    "portal_label": "କ୍ରେତା"
+  },
+  "admin": {
+    "home": "ଡ୍ୟାଶ",
+    "users": "ଉପଭୋକ୍ତା",
+    "lots": "ତାଲିକା",
+    "deals": "ଚୁକ୍ତି",
+    "payments": "ପେମେଣ୍ଟ",
+    "grievances": "ଅଭିଯୋଗ",
+    "settings": "ସେଟିଂ",
+    "dashboard": "ଆଡ୍ମିନ ଡ୍ୟାଶ",
+    "dashboard_label": "ଆଡ୍ମିନ"
+  },
+  "common": {
+    "notifications": "ସୂଚନା",
+    "no_notifications": "ସୂଚନା ନାହି",
+    "mark_all_read": "ସବୁ ପଢ଼ା",
+    "listen": "ଶୁଣ",
+    "sell_produce": "ବିକ",
+    "main_navigation": "ନ୍ୟାଭିଗେସନ",
+    "listen_title": "ପୃଷ୍ଠା ଶୁଣ",
+    "listen_sub": "ଭଏସ ଗାଇଡ"
+  },
+  "user": {
+    "verified": "ଯାଞ୍ଚ",
+    "admin_access": "ଆଡ୍ମିନ",
+    "administrator": "ଆଡ୍ମିନ"
+  },
+  "select_language": "ଭାଷା",
+  "select_location": "ସ୍ଥାନ"
+}

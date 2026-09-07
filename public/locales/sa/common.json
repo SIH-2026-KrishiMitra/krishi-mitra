@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "कृषि-वित्त वेदिका"
+  },
+  "actions": {
+    "save": "परिवर्तनानि सुरक्षयतु",
+    "saving": "सुरक्षणं क्रियते…",
+    "cancel": "निरस्तं",
+    "back": "पश्चात्",
+    "continue": "अग्रे",
+    "sign_out": "साइन आउट",
+    "signing_out": "साइन आउट…",
+    "edit_profile": "प्रोफाइल सम्पादनम्",
+    "loading": "प्रतीक्ष्यताम्…",
+    "creating": "खाता निर्मीयते…",
+    "sending": "प्रेष्यते…"
+  },
+  "status": {
+    "verified": "सत्यापितम्",
+    "pending": "प्रतीक्षमाणम्",
+    "complete": "पूर्णम्",
+    "not_verified": "असत्यापितम्",
+    "yes": "आम्",
+    "no": "न"
+  },
+  "errors": {
+    "generic": "त्रुटिः",
+    "invalid_file": "अमान्यः फाइलः",
+    "photo_upload_failed": "चित्रम् अपलोडः विफलः"
+  },
+  "trust": {
+    "ncfm": "NCFM",
+    "direct_mandi": "प्रत्यक्षं मण्डी",
+    "escrow": "एस्क्रो",
+    "pledge": "प्रतिज्ञा",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "गोपनीयता",
+    "kyc_enabled": "KYC",
+    "secure_registration": "सुरक्षितम्",
+    "secure_reset": "सुरक्षितम्"
+  },
+  "or": "वा"
+}

@@ -1,0 +1,45 @@
+{
+  "app": {
+    "name": "Krishi Mitra",
+    "tagline": "வேளாண்-நிதி தளம்"
+  },
+  "actions": {
+    "save": "மாற்றங்களை சேமி",
+    "saving": "சேமிக்கிறது…",
+    "cancel": "ரத்து",
+    "back": "திரும்பு",
+    "continue": "தொடர்",
+    "sign_out": "வெளியேறு",
+    "signing_out": "வெளியேறுகிறது…",
+    "edit_profile": "சுயவிவரம் திருத்து",
+    "loading": "காத்திரு…",
+    "creating": "கணக்கு உருவாகிறது…",
+    "sending": "அனுப்புகிறது…"
+  },
+  "status": {
+    "verified": "சரிபார்க்கப்பட்டது",
+    "pending": "நிலுவை",
+    "complete": "முழுமை",
+    "not_verified": "சரிபார்க்கவில்லை",
+    "yes": "ஆம்",
+    "no": "இல்லை"
+  },
+  "errors": {
+    "generic": "பிழை",
+    "invalid_file": "தவறான கோப்பு",
+    "photo_upload_failed": "புகைப்பட பதிவேற்றம் தோல்வி"
+  },
+  "trust": {
+    "ncfm": "NCFM பதிவு",
+    "direct_mandi": "நேரடி மண்டி",
+    "escrow": "எஸ்க்ரோ",
+    "pledge": "உறுதிமொழி",
+    "iso": "ISO 27001",
+    "rbi": "RBI",
+    "privacy": "தனியுரிமை",
+    "kyc_enabled": "KYC",
+    "secure_registration": "பாதுகாப்பான",
+    "secure_reset": "பாதுகாப்பான"
+  },
+  "or": "அல்லது"
+}

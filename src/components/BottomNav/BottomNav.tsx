@@ -1,29 +1,15 @@
+import { useMemo } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import {
   Home, TrendingUp, Package, Users, Wallet,
   ShoppingBag, FileText,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useAuth } from '../../context/AuthContext'
 import styles from './BottomNav.module.css'
 
 interface Tab { id: string; label: string; path: string; Icon: LucideIcon }
-
-const FARMER_TABS: Tab[] = [
-  { id: 'home',    label: 'Home',    path: '/farmer/home',    Icon: Home },
-  { id: 'markets', label: 'Markets', path: '/farmer/markets', Icon: TrendingUp },
-  { id: 'lots',    label: 'My lots', path: '/farmer/lots',    Icon: Package },
-  { id: 'offers',  label: 'Offers',  path: '/farmer/offers',  Icon: Users },
-  { id: 'money',   label: 'Money',   path: '/farmer/money',   Icon: Wallet },
-]
-
-const BUYER_TABS: Tab[] = [
-  { id: 'home',        label: 'Home',      path: '/buyer/home',        Icon: Home },
-  { id: 'marketplace', label: 'Discover',  path: '/buyer/marketplace', Icon: ShoppingBag },
-  { id: 'offers',      label: 'Offers',    path: '/buyer/offers',      Icon: Users },
-  { id: 'deals',       label: 'Deals',     path: '/buyer/deals',       Icon: FileText },
-  { id: 'payments',    label: 'Payments',  path: '/buyer/payments',    Icon: Wallet },
-]
 
 function getFarmerActiveId(pathname: string): string {
   if (pathname.startsWith('/farmer/markets')) return 'markets'
@@ -46,12 +32,29 @@ export default function BottomNav() {
   const navigate = useNavigate()
   const location = useLocation()
   const { role } = useAuth()
+  const { t } = useTranslation('nav')
+
+  const farmerTabs = useMemo<Tab[]>(() => [
+    { id: 'home',    label: t('farmer.home'),    path: '/farmer/home',    Icon: Home },
+    { id: 'markets', label: t('farmer.markets'), path: '/farmer/markets', Icon: TrendingUp },
+    { id: 'lots',    label: t('farmer.lots'),    path: '/farmer/lots',    Icon: Package },
+    { id: 'offers',  label: t('farmer.offers'),  path: '/farmer/offers',  Icon: Users },
+    { id: 'money',   label: t('farmer.money'),   path: '/farmer/money',   Icon: Wallet },
+  ], [t])
+
+  const buyerTabs = useMemo<Tab[]>(() => [
+    { id: 'home',        label: t('buyer.home'),        path: '/buyer/home',        Icon: Home },
+    { id: 'marketplace', label: t('buyer.discover'),    path: '/buyer/marketplace', Icon: ShoppingBag },
+    { id: 'offers',      label: t('buyer.offers'),      path: '/buyer/offers',      Icon: Users },
+    { id: 'deals',       label: t('buyer.deals'),       path: '/buyer/deals',       Icon: FileText },
+    { id: 'payments',    label: t('buyer.payments'),    path: '/buyer/payments',    Icon: Wallet },
+  ], [t])
 
   // Admin has no bottom nav (desktop-first)
   if (role === 'admin') return null
 
   const isBuyer = role === 'buyer'
-  const tabs = isBuyer ? BUYER_TABS : FARMER_TABS
+  const tabs = isBuyer ? buyerTabs : farmerTabs
   const activeId = isBuyer
     ? getBuyerActiveId(location.pathname)
     : getFarmerActiveId(location.pathname)
@@ -59,7 +62,7 @@ export default function BottomNav() {
   return (
     <nav
       className={`${styles.bottomNav} ${isBuyer ? styles.bottomNavBuyer : ''}`}
-      aria-label="Main navigation"
+      aria-label={t('common.main_navigation')}
     >
       {tabs.map(({ id, label, path, Icon }) => (
         <button
