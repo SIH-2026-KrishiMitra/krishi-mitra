@@ -590,3 +590,84 @@
   color: var(--text-primary);
   font-variant-numeric: tabular-nums;
 }
+
+/* ─── ML Prediction panel ────────────────────────────────────── */
+
+.predictionPanel {
+  padding: var(--space-5) var(--space-6);
+  background: var(--surface-sunken);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.predictionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.predictionLabel {
+  font-size: var(--text-3xs);
+  font-weight: var(--fw-medium);
+  color: var(--text-muted);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+}
+
+.predictionDemo {
+  font-size: var(--text-3xs);
+  font-weight: var(--fw-medium);
+  color: var(--status-warning);
+  background: var(--status-warning-soft, rgba(234,179,8,.1));
+  padding: 1px var(--space-3);
+  border-radius: 10px;
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+}
+
+.predictionLoading {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.predictionMain {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.predictionPrice {
+  font-size: var(--text-xl);
+  font-weight: var(--fw-bold);
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.predictionUnit {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}
+
+.predUp {
+  color: var(--price-up);
+  flex-shrink: 0;
+}
+
+.predDown {
+  color: var(--price-down);
+  flex-shrink: 0;
+}
+
+.predictionRange {
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+
+.predictionNote {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+}

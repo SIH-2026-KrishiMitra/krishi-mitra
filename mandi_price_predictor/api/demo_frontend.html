@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mandi Price Predictor — SIH Demo</title>
+<style>
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f7f5; margin: 0; padding: 40px; }
+  .card { max-width: 520px; margin: 0 auto; background: #fff; border-radius: 12px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 32px; }
+  h1 { font-size: 22px; color: #1b5e20; margin-bottom: 4px; }
+  p.sub { color: #666; margin-top: 0; margin-bottom: 24px; font-size: 14px; }
+  label { display: block; font-size: 13px; font-weight: 600; margin-top: 14px; color: #333; }
+  input, select { width: 100%; padding: 9px 10px; margin-top: 4px; border: 1px solid #ccc;
+                  border-radius: 6px; font-size: 14px; box-sizing: border-box; }
+  button { margin-top: 22px; width: 100%; padding: 12px; background: #2e7d32; color: #fff;
+           border: none; border-radius: 6px; font-size: 15px; font-weight: 600; cursor: pointer; }
+  button:hover { background: #1b5e20; }
+  #result { margin-top: 22px; padding: 16px; border-radius: 8px; background: #e8f5e9;
+            display: none; }
+  #result .price { font-size: 28px; font-weight: 700; color: #1b5e20; }
+  #result .note { font-size: 12px; color: #555; margin-top: 6px; }
+  #error { margin-top: 16px; color: #c62828; font-size: 13px; display: none; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🌾 Mandi Price Predictor</h1>
+  <p class="sub">Smart India Hackathon demo — predicts future modal price (₹/quintal)</p>
+
+  <label>API base URL</label>
+  <input id="apiBase" value="http://localhost:8000">
+
+  <label>State</label>
+  <input id="state" placeholder="e.g. Maharashtra" value="Maharashtra">
+
+  <label>District</label>
+  <input id="district" placeholder="e.g. Nashik" value="Nashik">
+
+  <label>Market / Mandi</label>
+  <input id="market" placeholder="e.g. Lasalgaon Mandi" value="Lasalgaon Mandi">
+
+  <label>Crop / Commodity</label>
+  <input id="commodity" placeholder="e.g. Onion" value="Onion">
+
+  <label>Variety / Grade (optional)</label>
+  <input id="variety" placeholder="e.g. Nashik Red" value="Nashik Red">
+
+  <label>Prediction Date</label>
+  <input id="predDate" type="date" value="2025-03-15">
+
+  <button onclick="runPredict()">Predict Price</button>
+
+  <div id="result">
+    <div class="price" id="priceValue"></div>
+    <div class="note" id="noteValue"></div>
+  </div>
+  <div id="error"></div>
+</div>
+
+<script>
+async function runPredict() {
+  const base = document.getElementById('apiBase').value.replace(/\/$/, '');
+  const body = {
+    state: document.getElementById('state').value,
+    district: document.getElementById('district').value,
+    market: document.getElementById('market').value,
+    commodity: document.getElementById('commodity').value,
+    variety: document.getElementById('variety').value || null,
+    grade: null,
+    prediction_date: document.getElementById('predDate').value,
+  };
+  document.getElementById('error').style.display = 'none';
+  document.getElementById('result').style.display = 'none';
+  try {
+    const resp = await fetch(base + '/predict', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.detail || 'Request failed');
+    document.getElementById('priceValue').innerText = '₹ ' + data.predicted_price + ' / quintal';
+    document.getElementById('noteValue').innerText =
+      data.match_note + ' (based on ' + data.history_points_used + ' historical records)';
+    document.getElementById('result').style.display = 'block';
+  } catch (e) {
+    document.getElementById('error').innerText = 'Error: ' + e.message;
+    document.getElementById('error').style.display = 'block';
+  }
+}
+</script>
+</body>
+</html>

@@ -4,6 +4,7 @@ import { Search, TrendingUp, TrendingDown, CheckCircle, ArrowUpRight, ShieldChec
 import FarmerLayout from './FarmerLayout'
 import { useApp } from '../../context/AppContext'
 import { useMarketPrices } from '../../hooks/useMarketPrices'
+import { usePricePrediction } from '../../hooks/usePricePrediction'
 import PriceChart from '../../components/PriceChart/PriceChart'
 import styles from './FarmerMarkets.module.css'
 
@@ -38,6 +39,10 @@ export default function FarmerMarkets() {
   const [selectedBuyerIdx, setSelectedBuyerIdx] = useState(0)
 
   const cropData = prices.find(m => m.id === selectedCropId) ?? prices[0]
+
+  const { prediction, loading: predLoading, available: predAvailable } = usePricePrediction(
+    cropData ? { crop: cropData.crop, mandi: cropData.mandi, variety: cropData.variety } : null
+  )
 
   const sortedBuyerOffers = useMemo<DisplayOffer[]>(() => {
     const cropName = cropData?.crop ?? ''
@@ -243,6 +248,43 @@ export default function FarmerMarkets() {
                     <span className={styles.mspValue} data-numeric="">₹{cropData.msp.toLocaleString('en-IN')}</span>
                   </div>
                 </div>
+
+                {/* ML price prediction — hidden when confidence is too low */}
+                {predAvailable && (prediction == null || !['national', 'national_all_time'].includes(prediction.matchLevel)) && (
+                  <div className={styles.predictionPanel}>
+                    <div className={styles.predictionHeader}>
+                      <span className={styles.predictionLabel}>ML PREDICTION · NEXT 7 DAYS</span>
+                      <span className={styles.predictionDemo}>demo data</span>
+                    </div>
+                    {predLoading && (
+                      <p className={styles.predictionLoading}>Calculating…</p>
+                    )}
+                    {!predLoading && prediction && (
+                      <>
+                        <div className={styles.predictionMain}>
+                          <span className={styles.predictionPrice} data-numeric="">
+                            ₹{prediction.predictedPrice.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                          </span>
+                          <span className={styles.predictionUnit}>/ quintal</span>
+                          {prediction.predictedPrice > cropData.currentPrice
+                            ? <TrendingUp size={14} className={styles.predUp} aria-hidden />
+                            : <TrendingDown size={14} className={styles.predDown} aria-hidden />
+                          }
+                        </div>
+                        {prediction.priceRangeHint && (
+                          <p className={styles.predictionRange}>
+                            Recent range: ₹{prediction.priceRangeHint.recentMin.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                            {' – '}₹{prediction.priceRangeHint.recentMax.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                          </p>
+                        )}
+                        <p className={styles.predictionNote}>
+                          Confidence: <strong>{confidenceLabel(prediction.matchLevel)}</strong>
+                          {' · '}{prediction.historyPointsUsed} historical records
+                        </p>
+                      </>
+                    )}
+                  </div>
+                )}
               </div>
             )}
           </div>
@@ -262,4 +304,10 @@ function DataRow({ label, value, icon }: { label: string; value: string; icon?: 
       </span>
     </div>
   )
+}
+
+function confidenceLabel(matchLevel: string): string {
+  if (matchLevel === 'exact') return 'High'
+  if (matchLevel === 'no_variety') return 'Medium'
+  return 'Low'
 }

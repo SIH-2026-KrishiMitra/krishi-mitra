@@ -20,3 +20,22 @@ export interface CropMarketData {
   source: string
   updatedAt: string
 }
+
+export type PredictionMatchLevel =
+  | 'exact'
+  | 'no_variety'
+  | 'no_market'
+  | 'no_district'
+  | 'national'
+  | 'national_all_time'
+
+export interface PricePrediction {
+  predictedPrice: number
+  unit: string
+  matchLevel: PredictionMatchLevel
+  matchNote: string
+  usedVariety: string | null
+  usedGrade: string | null
+  historyPointsUsed: number
+  priceRangeHint: { recentMin: number; recentMax: number } | null
+}
