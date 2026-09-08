@@ -1,12 +1,14 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react'
 import toast from 'react-hot-toast'
 import { useAuth } from './AuthContext'
+import { supabase } from '../lib/supabase'
 import {
   fetchAllProfiles, fetchAllLots, fetchAllDeals, fetchAllGrievances,
   fetchAllEscrow, fetchPlatformStats, verifyBuyer, verifyFarmer,
-  updateGrievanceStatus, assignGrievance,
+  updateGrievanceStatus, assignGrievance, logAdminAction,
   type AdminProfile,
 } from '../services/supabase/admin'
+import { getPermissions, type AdminSubRole, type AdminPermissions } from '../lib/adminPermissions'
 import type { DbLot, DbDeal, DbGrievance, DbEscrowTransaction, ComplaintStatus } from '../types'
 
 interface PlatformStats {
@@ -27,10 +29,13 @@ interface AdminContextValue {
   grievances: AdminGrievance[]
   escrow: AdminEscrow[]
   loading: boolean
+  adminSubRole: AdminSubRole | null
+  permissions: AdminPermissions
   reload: () => Promise<void>
   verifyUser: (id: string, role: 'buyer' | 'farmer', verified: boolean) => Promise<void>
   resolveGrievance: (id: string, status: ComplaintStatus, note?: string) => Promise<void>
   assignToSelf: (grievanceId: string) => Promise<void>
+  logAction: (action: string, targetType: string, targetId: string, details?: Record<string, unknown>) => Promise<void>
   logout: () => Promise<void>
 }
 
@@ -51,20 +56,26 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const [grievances, setGrievances] = useState<AdminGrievance[]>([])
   const [escrow, setEscrow] = useState<AdminEscrow[]>([])
   const [loading, setLoading] = useState(true)
+  const [adminSubRole, setAdminSubRole] = useState<AdminSubRole | null>(null)
+  const [permissions, setPermissions] = useState<AdminPermissions>(getPermissions(null))
 
   const load = useCallback(async () => {
     if (!user) return
     setLoading(true)
     try {
-      const [s, p, l, d, g, e] = await Promise.all([
+      const [s, p, l, d, g, e, adminProfileRes] = await Promise.all([
         fetchPlatformStats(),
         fetchAllProfiles(),
         fetchAllLots(),
         fetchAllDeals(),
         fetchAllGrievances(),
         fetchAllEscrow(),
+        supabase.from('admin_profiles').select('sub_role').eq('id', user.id).single(),
       ])
       setStats(s); setProfiles(p); setLots(l); setDeals(d); setGrievances(g); setEscrow(e)
+      const subRole = (adminProfileRes.data?.sub_role ?? null) as AdminSubRole | null
+      setAdminSubRole(subRole)
+      setPermissions(getPermissions(subRole))
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Failed to load admin data')
     } finally {
@@ -106,10 +117,24 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     }
   }
 
+  async function logAction(
+    action: string,
+    targetType: string,
+    targetId: string,
+    details?: Record<string, unknown>
+  ): Promise<void> {
+    try {
+      await logAdminAction(action, targetType, targetId, details)
+    } catch {
+      // Audit log failures are non-fatal
+    }
+  }
+
   return (
     <AdminContext.Provider value={{
       stats, profiles, lots, deals, grievances, escrow, loading,
-      reload: load, verifyUser, resolveGrievance, assignToSelf,
+      adminSubRole, permissions,
+      reload: load, verifyUser, resolveGrievance, assignToSelf, logAction,
       logout: signOut,
     }}>
       {children}

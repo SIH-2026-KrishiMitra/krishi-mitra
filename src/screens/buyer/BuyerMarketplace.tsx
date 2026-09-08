@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import { Search, SlidersHorizontal, ChevronRight, ShieldCheck, X, Minus, Plus } from 'lucide-react'
+import { Search, SlidersHorizontal, ChevronRight, ShieldCheck, X, Minus, Plus, Clock } from 'lucide-react'
 import BuyerLayout from './BuyerLayout'
 import { useBuyer } from '../../context/BuyerContext'
 import { useAuth } from '../../context/AuthContext'
@@ -10,8 +10,9 @@ const GRADE_LABELS: Record<string, string> = { A: 'Grade A (Premium)', B: 'Grade
 const STATUS_LABELS: Record<string, string> = { listed: 'Fresh listing', offers_received: 'Has offers' }
 
 export default function BuyerMarketplace() {
-  const { lots, lotsLoading, submitOffer } = useBuyer()
+  const { lots, lotsLoading, submitOffer, offers, cancelOffer } = useBuyer()
   const { user } = useAuth()
+  const [cancellingOffer, setCancellingOffer] = useState(false)
   const [search, setSearch] = useState('')
   const [gradeFilter, setGradeFilter] = useState<string>('')
   const [showFilters, setShowFilters] = useState(false)
@@ -35,6 +36,11 @@ export default function BuyerMarketplace() {
       return matchSearch && matchGrade
     })
   }, [lots, search, gradeFilter])
+
+  const pendingOffer = useMemo(
+    () => selectedLot ? offers.find(o => o.lot_id === selectedLot.id && o.status === 'pending') : undefined,
+    [offers, selectedLot]
+  )
 
   async function handleSubmitOffer() {
     if (!selectedLot || !user) return
@@ -191,7 +197,28 @@ export default function BuyerMarketplace() {
                 </div>
               )}
 
-              {!showOffer ? (
+              {pendingOffer ? (
+                <div className={styles.pendingOfferBanner}>
+                  <Clock size={14} aria-hidden />
+                  <div className={styles.pendingOfferInfo}>
+                    <p className={styles.pendingOfferText}>
+                      You offered ₹{pendingOffer.offer_price.toLocaleString('en-IN')}/{selectedLot.unit === 'qtl' ? 'qtl' : selectedLot.unit} for {pendingOffer.quantity} {selectedLot.unit === 'qtl' ? 'qtl' : selectedLot.unit}
+                    </p>
+                    <button
+                      type="button"
+                      className={styles.cancelPendingBtn}
+                      disabled={cancellingOffer}
+                      onClick={async () => {
+                        setCancellingOffer(true)
+                        await cancelOffer(pendingOffer.id)
+                        setCancellingOffer(false)
+                      }}
+                    >
+                      {cancellingOffer ? 'Cancelling…' : 'Cancel this offer'}
+                    </button>
+                  </div>
+                </div>
+              ) : !showOffer ? (
                 <button type="button" className={styles.makeOfferBtn} onClick={() => setShowOffer(true)}>
                   Make an offer
                 </button>

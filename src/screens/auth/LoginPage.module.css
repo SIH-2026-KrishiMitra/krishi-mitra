@@ -228,6 +228,22 @@
   background: var(--surface-brand-soft);
 }
 
+.roleCardAdmin {
+  border-style: dashed;
+}
+
+.roleCardAdmin:hover {
+  border-color: var(--indigo-600, #23508C);
+  background: rgba(35, 80, 140, 0.05);
+  border-style: solid;
+}
+
+.roleCardAdminActive {
+  border-color: var(--indigo-600, #23508C);
+  background: rgba(35, 80, 140, 0.06);
+  border-style: solid;
+}
+
 .roleTitle {
   font-size: var(--text-base);
   font-weight: var(--fw-semibold);

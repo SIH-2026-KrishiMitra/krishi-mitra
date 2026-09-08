@@ -232,6 +232,7 @@ interface AppContextValue {
   updateFarmer: (patch: Partial<Farmer>) => Promise<boolean>
   createLot: (input: Omit<Lot, 'id' | 'createdAt' | 'updatedAt' | 'offersCount'>) => Promise<Lot>
   updateLot: (id: string, patch: Partial<Lot>) => Promise<void>
+  deleteLot: (id: string) => Promise<void>
   selectCrop: (cropId: string) => void
   acceptOffer: (offerId: string) => Promise<Deal | null>
   rejectOffer: (offerId: string) => Promise<void>
@@ -352,6 +353,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
     await lotsHook.update(id, dbPatch as Parameters<typeof lotsHook.update>[1])
   }, [lotsHook])
 
+  const deleteLot = useCallback(async (id: string) => {
+    try {
+      await lotsHook.remove(id)
+      toast.success('Lot deleted')
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : 'Failed to delete lot')
+    }
+  }, [lotsHook])
+
   const selectCrop = useCallback((cropId: string) => {
     setSelectedCropId(cropId)
   }, [])
@@ -453,7 +463,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   return (
     <AppContext.Provider value={{
       state, loading, logout, updateFarmer,
-      createLot, updateLot, selectCrop,
+      createLot, updateLot, deleteLot, selectCrop,
       acceptOffer, rejectOffer, advanceDeal,
       createComplaint, uploadEvidence,
       markNotifRead, markAllNotifsRead,

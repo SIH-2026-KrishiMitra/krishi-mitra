@@ -1,0 +1,35 @@
+.searchBar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 24px 0;
+}
+
+.searchTrigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full, 9999px);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-family: var(--font-core);
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.searchTrigger:hover {
+  background: var(--surface-hover, var(--surface-card));
+  border-color: var(--border-default);
+}
+
+.kbdHint {
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+  padding: 1px 5px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  color: var(--text-muted);
+}

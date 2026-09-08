@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Plus, Search } from 'lucide-react'
+import { Plus, Search, Trash2 } from 'lucide-react'
 import FarmerLayout from './FarmerLayout'
 import { useApp } from '../../context/AppContext'
 import type { LotStatus } from '../../types'
@@ -27,9 +27,11 @@ const TABS: Array<{ id: TabKey; label: string }> = [
 
 export default function FarmerLots() {
   const navigate = useNavigate()
-  const { state } = useApp()
+  const { state, deleteLot } = useApp()
   const [tab, setTab] = useState<TabKey>('all')
   const [search, setSearch] = useState('')
+  const [confirmId, setConfirmId] = useState<string | null>(null)
+  const [deleting, setDeleting] = useState(false)
 
   const filtered = state.lots.filter(l => {
     const matchesTab =
@@ -45,6 +47,14 @@ export default function FarmerLots() {
     if (offersCount > 0 || status === 'offers_received') navigate('/farmer/offers')
     else if (status === 'deal_accepted' || status === 'in_transit') navigate('/farmer/deals')
     else if (status === 'draft') navigate('/farmer/lots/create')
+  }
+
+  async function handleDeleteConfirm() {
+    if (!confirmId) return
+    setDeleting(true)
+    await deleteLot(confirmId)
+    setDeleting(false)
+    setConfirmId(null)
   }
 
   function statusClass(s: LotStatus): string {
@@ -156,12 +166,50 @@ export default function FarmerLots() {
                     {(lot.status === 'listed' || lot.status === 'offers_received') && <span className={styles.actionLink}>View offers →</span>}
                     {(lot.status === 'deal_accepted' || lot.status === 'in_transit') && <span className={styles.actionLink}>Track deal →</span>}
                   </div>
+                  {(lot.status === 'draft' || lot.status === 'listed') && (
+                    <button
+                      type="button"
+                      className={styles.deleteBtn}
+                      onClick={e => { e.stopPropagation(); setConfirmId(lot.id) }}
+                      title="Delete lot"
+                      aria-label="Delete lot"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
           </div>
         )}
       </div>
+
+      {confirmId && (
+        <div className={styles.overlay} onClick={() => { if (!deleting) setConfirmId(null) }}>
+          <div className={styles.confirmDialog} onClick={e => e.stopPropagation()}>
+            <p className={styles.confirmTitle}>Delete this lot?</p>
+            <p className={styles.confirmBody}>This action cannot be undone. The lot will be permanently removed.</p>
+            <div className={styles.confirmActions}>
+              <button
+                type="button"
+                className={styles.confirmCancel}
+                onClick={() => setConfirmId(null)}
+                disabled={deleting}
+              >
+                Keep lot
+              </button>
+              <button
+                type="button"
+                className={styles.confirmDelete}
+                onClick={handleDeleteConfirm}
+                disabled={deleting}
+              >
+                {deleting ? 'Deleting…' : 'Delete lot'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </FarmerLayout>
   )
 }
