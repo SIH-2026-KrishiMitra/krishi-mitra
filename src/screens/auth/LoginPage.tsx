@@ -11,7 +11,7 @@ import { SUPPORTED_LANGUAGES, type LangCode } from '../../i18n'
 import toast from 'react-hot-toast'
 import styles from './LoginPage.module.css'
 
-type Role = 'farmer' | 'buyer'
+type Role = 'farmer' | 'buyer' | 'admin'
 type Method = 'email' | 'phone'
 type Step = 'role' | 'credentials' | 'otp' | 'success'
 
@@ -130,7 +130,8 @@ export default function LoginPage() {
 
   if (step === 'success') {
     setTimeout(() => {
-      if (role === 'buyer') navigate('/buyer/home')
+      if (role === 'admin') navigate('/admin/home')
+      else if (role === 'buyer') navigate('/buyer/home')
       else navigate('/farmer/home')
     }, 900)
   }
@@ -196,12 +197,14 @@ export default function LoginPage() {
                 </div>
                 <h2 className={styles.formTitle}>
                   {step === 'role' && t('login.title_role')}
-                  {step === 'credentials' && (method === 'email' ? t('login.title_email') : t('login.title_phone'))}
+                  {step === 'credentials' && role === 'admin' && 'Admin sign in'}
+                  {step === 'credentials' && role !== 'admin' && (method === 'email' ? t('login.title_email') : t('login.title_phone'))}
                   {step === 'otp' && t('login.title_otp')}
                 </h2>
                 <p className={styles.formSub}>
                   {step === 'role' && t('login.sub_role')}
-                  {step === 'credentials' && t('login.sub_credentials', { role: t(`roles.${role}_title`) })}
+                  {step === 'credentials' && role === 'admin' && 'Enter your admin email and password to access the dashboard.'}
+                  {step === 'credentials' && role !== 'admin' && t('login.sub_credentials', { role: t(`roles.${role}_title`) })}
                   {step === 'otp' && t('login.sub_otp', { phone: mobile.slice(0, 5) + 'XXXXX' })}
                 </p>
               </div>
@@ -222,6 +225,17 @@ export default function LoginPage() {
                         <span className={styles.roleSub}>{t(`roles.${r}_sub`)}</span>
                       </button>
                     ))}
+                    <button
+                      type="button"
+                      className={`${styles.roleCard} ${styles.roleCardAdmin} ${role === 'admin' ? styles.roleCardAdminActive : ''}`}
+                      onClick={() => setRole('admin')}
+                    >
+                      <span className={styles.roleTitle} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                        <Shield size={14} aria-hidden />
+                        Admin / Staff
+                      </span>
+                      <span className={styles.roleSub}>Platform administration access</span>
+                    </button>
                   </div>
                 </div>
               )}
@@ -342,6 +356,7 @@ export default function LoginPage() {
                         : step === 'credentials' && method === 'phone' ? handleSendOtp
                           : handleVerifyOtp
                   }
+
                 >
                   {loading ? t('common:actions.loading') : (
                     <>
@@ -353,7 +368,7 @@ export default function LoginPage() {
                   )}
                 </button>
 
-                {step === 'credentials' && (
+                {step === 'credentials' && role !== 'admin' && (
                   <button
                     type="button"
                     className={styles.altMethodBtn}
@@ -374,8 +389,8 @@ export default function LoginPage() {
                 )}
               </div>
 
-              {/* Google sign-in */}
-              {(step === 'role' || step === 'credentials') && (
+              {/* Google sign-in — not available for admin */}
+              {role !== 'admin' && (step === 'role' || step === 'credentials') && (
                 <div className={styles.altLogin}>
                   <span className={styles.altDivider}>{t('common:or')}</span>
                   <button type="button" className={styles.altBtn} onClick={handleGoogle}>
@@ -384,7 +399,7 @@ export default function LoginPage() {
                 </div>
               )}
 
-              {step === 'role' && (
+              {step === 'role' && role !== 'admin' && (
                 <p className={styles.registerLink}>
                   {t('login.new_user')}{' '}
                   <Link to="/register" className={styles.inlineLink}>{t('login.create_account')}</Link>

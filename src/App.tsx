@@ -33,15 +33,29 @@ import BuyerPayments from './screens/buyer/BuyerPayments'
 import BuyerProfile from './screens/buyer/BuyerProfile'
 import { BuyerProvider } from './context/BuyerContext'
 
-// Admin screens
+// Admin screens — existing
 import AdminHome from './screens/admin/AdminHome'
 import AdminUsers from './screens/admin/AdminUsers'
-import AdminLots from './screens/admin/AdminLots'
-import AdminDeals from './screens/admin/AdminDeals'
 import AdminPayments from './screens/admin/AdminPayments'
-import AdminGrievances from './screens/admin/AdminGrievances'
 import AdminSettings from './screens/admin/AdminSettings'
 import { AdminProvider } from './context/AdminContext'
+
+// Admin screens — new
+import AdminFarmers from './screens/admin/AdminFarmers'
+import AdminBuyers from './screens/admin/AdminBuyers'
+import AdminKyc from './screens/admin/AdminKyc'
+import AdminProducts from './screens/admin/AdminProducts'
+import AdminCategories from './screens/admin/AdminCategories'
+import AdminOrders from './screens/admin/AdminOrders'
+import AdminTransactions from './screens/admin/AdminTransactions'
+import AdminPayouts from './screens/admin/AdminPayouts'
+import AdminRefunds from './screens/admin/AdminRefunds'
+import AdminComplaints from './screens/admin/AdminComplaints'
+import AdminReviews from './screens/admin/AdminReviews'
+import AdminNotifications from './screens/admin/AdminNotifications'
+import AdminAnalytics from './screens/admin/AdminAnalytics'
+import AdminAdmins from './screens/admin/AdminAdmins'
+import AdminAuditLogs from './screens/admin/AdminAuditLogs'
 
 // ─── Loading screen ───────────────────────────────────────────────────────────
 
@@ -83,7 +97,6 @@ function GuestGuard({ children }: { children: ReactNode }) {
   if (role === 'farmer') return <Navigate to="/farmer/home" replace />
   if (role === 'buyer') return <Navigate to="/buyer/home" replace />
   if (role === 'admin') return <Navigate to="/admin/home" replace />
-  // Authenticated but profile not yet resolved — keep showing the loader
   if (user && !role) return <LoadingScreen />
   return <>{children}</>
 }
@@ -109,27 +122,32 @@ function RootRedirect() {
   if (role === 'farmer') return <Navigate to="/farmer/home" replace />
   if (role === 'buyer') return <Navigate to="/buyer/home" replace />
   if (role === 'admin') return <Navigate to="/admin/home" replace />
-  // Authenticated but profile not yet resolved — keep showing the loader
   if (user && !role) return <LoadingScreen />
   return <Navigate to="/login" replace />
 }
 
-// ─── Farmer area (wraps AppProvider for farmer-specific state) ────────────────
+// ─── Area wrappers ────────────────────────────────────────────────────────────
 
 function FarmerArea({ children }: { children: ReactNode }) {
   return <AppProvider>{children}</AppProvider>
 }
 
-// ─── Buyer area (wraps BuyerProvider for buyer-specific state) ────────────────
-
 function BuyerArea({ children }: { children: ReactNode }) {
   return <BuyerProvider>{children}</BuyerProvider>
 }
 
-// ─── Admin area (wraps AdminProvider for admin-specific state) ────────────────
-
 function AdminArea({ children }: { children: ReactNode }) {
   return <AdminProvider>{children}</AdminProvider>
+}
+
+// ─── Admin route helper ───────────────────────────────────────────────────────
+
+function AdminRoute({ children }: { children: ReactNode }) {
+  return (
+    <RoleGuard role="admin">
+      <AdminArea>{children}</AdminArea>
+    </RoleGuard>
+  )
 }
 
 // ─── App ──────────────────────────────────────────────────────────────────────
@@ -154,8 +172,6 @@ export default function App() {
         <Routes>
           {/* Root */}
           <Route path="/" element={<RootRedirect />} />
-
-          {/* OAuth callback — shows loader while Supabase exchanges the code */}
           <Route path="/auth/callback" element={<RootRedirect />} />
 
           {/* Auth (guest-only) */}
@@ -164,33 +180,15 @@ export default function App() {
           <Route path="/forgot-password" element={<GuestGuard><ForgotPasswordPage /></GuestGuard>} />
 
           {/* ── Farmer routes ─────────────────────────────────────────── */}
-          <Route path="/farmer/home" element={
-            <RoleGuard role="farmer"><FarmerArea><FarmerHome /></FarmerArea></RoleGuard>
-          } />
-          <Route path="/farmer/markets" element={
-            <RoleGuard role="farmer"><FarmerArea><FarmerMarkets /></FarmerArea></RoleGuard>
-          } />
-          <Route path="/farmer/create-lot" element={
-            <RoleGuard role="farmer"><FarmerArea><FarmerCreateLot /></FarmerArea></RoleGuard>
-          } />
-          <Route path="/farmer/lots" element={
-            <RoleGuard role="farmer"><FarmerArea><FarmerLots /></FarmerArea></RoleGuard>
-          } />
-          <Route path="/farmer/offers" element={
-            <RoleGuard role="farmer"><FarmerArea><FarmerOffers /></FarmerArea></RoleGuard>
-          } />
-          <Route path="/farmer/deals" element={
-            <RoleGuard role="farmer"><FarmerArea><FarmerDeals /></FarmerArea></RoleGuard>
-          } />
-          <Route path="/farmer/money" element={
-            <RoleGuard role="farmer"><FarmerArea><FarmerMoney /></FarmerArea></RoleGuard>
-          } />
-          <Route path="/farmer/help" element={
-            <RoleGuard role="farmer"><FarmerArea><FarmerHelp /></FarmerArea></RoleGuard>
-          } />
-          <Route path="/farmer/profile" element={
-            <RoleGuard role="farmer"><FarmerArea><FarmerProfile /></FarmerArea></RoleGuard>
-          } />
+          <Route path="/farmer/home" element={<RoleGuard role="farmer"><FarmerArea><FarmerHome /></FarmerArea></RoleGuard>} />
+          <Route path="/farmer/markets" element={<RoleGuard role="farmer"><FarmerArea><FarmerMarkets /></FarmerArea></RoleGuard>} />
+          <Route path="/farmer/create-lot" element={<RoleGuard role="farmer"><FarmerArea><FarmerCreateLot /></FarmerArea></RoleGuard>} />
+          <Route path="/farmer/lots" element={<RoleGuard role="farmer"><FarmerArea><FarmerLots /></FarmerArea></RoleGuard>} />
+          <Route path="/farmer/offers" element={<RoleGuard role="farmer"><FarmerArea><FarmerOffers /></FarmerArea></RoleGuard>} />
+          <Route path="/farmer/deals" element={<RoleGuard role="farmer"><FarmerArea><FarmerDeals /></FarmerArea></RoleGuard>} />
+          <Route path="/farmer/money" element={<RoleGuard role="farmer"><FarmerArea><FarmerMoney /></FarmerArea></RoleGuard>} />
+          <Route path="/farmer/help" element={<RoleGuard role="farmer"><FarmerArea><FarmerHelp /></FarmerArea></RoleGuard>} />
+          <Route path="/farmer/profile" element={<RoleGuard role="farmer"><FarmerArea><FarmerProfile /></FarmerArea></RoleGuard>} />
 
           {/* Farmer legacy redirects */}
           <Route path="/farmer/market" element={<Navigate to="/farmer/markets" replace />} />
@@ -200,48 +198,59 @@ export default function App() {
           <Route path="/farmer/*" element={<Navigate to="/farmer/home" replace />} />
 
           {/* ── Buyer routes ──────────────────────────────────────────── */}
-          <Route path="/buyer/home" element={
-            <RoleGuard role="buyer"><BuyerArea><BuyerHome /></BuyerArea></RoleGuard>
-          } />
-          <Route path="/buyer/marketplace" element={
-            <RoleGuard role="buyer"><BuyerArea><BuyerMarketplace /></BuyerArea></RoleGuard>
-          } />
-          <Route path="/buyer/offers" element={
-            <RoleGuard role="buyer"><BuyerArea><BuyerOffers /></BuyerArea></RoleGuard>
-          } />
-          <Route path="/buyer/deals" element={
-            <RoleGuard role="buyer"><BuyerArea><BuyerDeals /></BuyerArea></RoleGuard>
-          } />
-          <Route path="/buyer/payments" element={
-            <RoleGuard role="buyer"><BuyerArea><BuyerPayments /></BuyerArea></RoleGuard>
-          } />
-          <Route path="/buyer/profile" element={
-            <RoleGuard role="buyer"><BuyerArea><BuyerProfile /></BuyerArea></RoleGuard>
-          } />
+          <Route path="/buyer/home" element={<RoleGuard role="buyer"><BuyerArea><BuyerHome /></BuyerArea></RoleGuard>} />
+          <Route path="/buyer/marketplace" element={<RoleGuard role="buyer"><BuyerArea><BuyerMarketplace /></BuyerArea></RoleGuard>} />
+          <Route path="/buyer/offers" element={<RoleGuard role="buyer"><BuyerArea><BuyerOffers /></BuyerArea></RoleGuard>} />
+          <Route path="/buyer/deals" element={<RoleGuard role="buyer"><BuyerArea><BuyerDeals /></BuyerArea></RoleGuard>} />
+          <Route path="/buyer/payments" element={<RoleGuard role="buyer"><BuyerArea><BuyerPayments /></BuyerArea></RoleGuard>} />
+          <Route path="/buyer/profile" element={<RoleGuard role="buyer"><BuyerArea><BuyerProfile /></BuyerArea></RoleGuard>} />
           <Route path="/buyer/*" element={<Navigate to="/buyer/home" replace />} />
 
           {/* ── Admin routes ──────────────────────────────────────────── */}
-          <Route path="/admin/home" element={
-            <RoleGuard role="admin"><AdminArea><AdminHome /></AdminArea></RoleGuard>
-          } />
-          <Route path="/admin/users" element={
-            <RoleGuard role="admin"><AdminArea><AdminUsers /></AdminArea></RoleGuard>
-          } />
-          <Route path="/admin/lots" element={
-            <RoleGuard role="admin"><AdminArea><AdminLots /></AdminArea></RoleGuard>
-          } />
-          <Route path="/admin/deals" element={
-            <RoleGuard role="admin"><AdminArea><AdminDeals /></AdminArea></RoleGuard>
-          } />
-          <Route path="/admin/payments" element={
-            <RoleGuard role="admin"><AdminArea><AdminPayments /></AdminArea></RoleGuard>
-          } />
-          <Route path="/admin/grievances" element={
-            <RoleGuard role="admin"><AdminArea><AdminGrievances /></AdminArea></RoleGuard>
-          } />
-          <Route path="/admin/settings" element={
-            <RoleGuard role="admin"><AdminArea><AdminSettings /></AdminArea></RoleGuard>
-          } />
+          {/* Root admin redirect */}
+          <Route path="/admin" element={<Navigate to="/admin/home" replace />} />
+
+          {/* Dashboard */}
+          <Route path="/admin/home" element={<AdminRoute><AdminHome /></AdminRoute>} />
+
+          {/* Users */}
+          <Route path="/admin/users" element={<AdminRoute><AdminUsers /></AdminRoute>} />
+          <Route path="/admin/farmers" element={<AdminRoute><AdminFarmers /></AdminRoute>} />
+          <Route path="/admin/buyers" element={<AdminRoute><AdminBuyers /></AdminRoute>} />
+          <Route path="/admin/kyc" element={<AdminRoute><AdminKyc /></AdminRoute>} />
+
+          {/* Marketplace */}
+          <Route path="/admin/products" element={<AdminRoute><AdminProducts /></AdminRoute>} />
+          <Route path="/admin/categories" element={<AdminRoute><AdminCategories /></AdminRoute>} />
+
+          {/* Orders & Transactions */}
+          <Route path="/admin/orders" element={<AdminRoute><AdminOrders /></AdminRoute>} />
+          <Route path="/admin/transactions" element={<AdminRoute><AdminTransactions /></AdminRoute>} />
+          <Route path="/admin/payments" element={<AdminRoute><AdminPayments /></AdminRoute>} />
+          <Route path="/admin/payouts" element={<AdminRoute><AdminPayouts /></AdminRoute>} />
+          <Route path="/admin/refunds" element={<AdminRoute><AdminRefunds /></AdminRoute>} />
+
+          {/* Support */}
+          <Route path="/admin/complaints" element={<AdminRoute><AdminComplaints /></AdminRoute>} />
+          <Route path="/admin/reviews" element={<AdminRoute><AdminReviews /></AdminRoute>} />
+          <Route path="/admin/notifications" element={<AdminRoute><AdminNotifications /></AdminRoute>} />
+
+          {/* Analytics */}
+          <Route path="/admin/analytics" element={<AdminRoute><AdminAnalytics /></AdminRoute>} />
+
+          {/* Admin Management */}
+          <Route path="/admin/admins" element={<AdminRoute><AdminAdmins /></AdminRoute>} />
+          <Route path="/admin/audit-logs" element={<AdminRoute><AdminAuditLogs /></AdminRoute>} />
+
+          {/* Settings */}
+          <Route path="/admin/settings" element={<AdminRoute><AdminSettings /></AdminRoute>} />
+
+          {/* Old route redirects */}
+          <Route path="/admin/lots" element={<Navigate to="/admin/products" replace />} />
+          <Route path="/admin/deals" element={<Navigate to="/admin/orders" replace />} />
+          <Route path="/admin/grievances" element={<Navigate to="/admin/complaints" replace />} />
+
+          {/* Admin catch-all */}
           <Route path="/admin/*" element={<Navigate to="/admin/home" replace />} />
 
           {/* Catch-all */}

@@ -285,3 +285,93 @@
 }
 
 .emptyAction:hover { background: var(--green-800); }
+
+.deleteBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.deleteBtn:hover {
+  background: var(--status-danger-soft);
+  color: var(--status-danger);
+  border-color: var(--status-danger);
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.confirmDialog {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: var(--space-8);
+  max-width: 360px;
+  width: calc(100% - var(--space-8));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.confirmTitle {
+  font-size: var(--text-base);
+  font-weight: var(--fw-semibold);
+  color: var(--text-primary);
+}
+
+.confirmBody {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.confirmActions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+  margin-top: var(--space-2);
+}
+
+.confirmCancel {
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-family: var(--font-core);
+  cursor: pointer;
+}
+
+.confirmCancel:hover:not(:disabled) { background: var(--surface-sunken); }
+.confirmCancel:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.confirmDelete {
+  padding: var(--space-3) var(--space-6);
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--status-danger);
+  color: var(--white);
+  font-size: var(--text-sm);
+  font-family: var(--font-core);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+}
+
+.confirmDelete:hover:not(:disabled) { opacity: 0.88; }
+.confirmDelete:disabled { opacity: 0.6; cursor: not-allowed; }

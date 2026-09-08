@@ -101,8 +101,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (s?.user) {
           // For new Google OAuth users: update profile to the role the user selected
           // before the OAuth redirect (saved in localStorage as oauth_intended_role).
+          // Only apply this for Google OAuth logins — not email/password logins — to
+          // prevent a stale oauth_intended_role from overwriting a farmer's DB role.
           const intendedRole = localStorage.getItem('oauth_intended_role') as UserRole | null
-          if (intendedRole) {
+          const isGoogleLogin = s.user.app_metadata?.provider === 'google'
+          if (intendedRole && !isGoogleLogin) localStorage.removeItem('oauth_intended_role')
+          if (intendedRole && isGoogleLogin) {
             localStorage.removeItem('oauth_intended_role')
             const { data: existing } = await supabase
               .from('profiles')

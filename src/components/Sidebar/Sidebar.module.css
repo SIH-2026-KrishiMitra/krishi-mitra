@@ -308,3 +308,22 @@
   font-weight: var(--fw-medium);
   color: rgba(255,255,255,.4);
 }
+
+/* ─── Admin nav sections ─────────────────────────────────────── */
+
+.navSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: var(--space-2);
+}
+
+.navSectionLabel {
+  font-size: var(--text-3xs);
+  font-weight: var(--fw-semibold);
+  color: rgba(255,255,255,.3);
+  letter-spacing: var(--ls-caps);
+  text-transform: uppercase;
+  padding: var(--space-3) var(--space-5) var(--space-1);
+  margin-top: var(--space-2);
+}
