@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KrishiMitra — Complete Q&A Document</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #1a1a1a;
+    background: #fff;
+    padding: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Cover */
+  .cover {
+    text-align: center;
+    padding: 60px 20px 50px;
+    border-bottom: 3px solid #2e7d32;
+    margin-bottom: 40px;
+  }
+  .cover .logo {
+    font-size: 42px;
+    font-weight: 800;
+    color: #2e7d32;
+    letter-spacing: -1px;
+  }
+  .cover .logo span { color: #f9a825; }
+  .cover .tagline {
+    font-size: 16px;
+    color: #555;
+    margin-top: 8px;
+    font-style: italic;
+  }
+  .cover .doc-title {
+    margin-top: 30px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1b5e20;
+  }
+  .cover .doc-subtitle {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #666;
+  }
+  .cover .badge {
+    display: inline-block;
+    margin-top: 20px;
+    background: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    color: #2e7d32;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* Section headers */
+  .section {
+    margin-bottom: 36px;
+    page-break-inside: avoid;
+  }
+  .section-header {
+    background: linear-gradient(135deg, #2e7d32, #388e3c);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Q&A pairs */
+  .qa {
+    margin-bottom: 18px;
+    padding: 14px 16px;
+    border-left: 3px solid #81c784;
+    background: #f9fbe7;
+    border-radius: 0 6px 6px 0;
+    page-break-inside: avoid;
+  }
+  .qa .q {
+    font-weight: 700;
+    color: #1b5e20;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .qa .a {
+    color: #2d2d2d;
+    font-size: 13px;
+    line-height: 1.75;
+  }
+
+  /* Highlight box */
+  .highlight {
+    background: #fff8e1;
+    border: 1px solid #f9a825;
+    border-left: 4px solid #f9a825;
+    padding: 12px 16px;
+    border-radius: 0 6px 6px 0;
+    margin: 10px 0;
+    font-size: 12.5px;
+    color: #5d4037;
+  }
+
+  /* Special section for hot questions */
+  .hot-section .qa {
+    border-left-color: #e53935;
+    background: #fff5f5;
+  }
+  .hot-section .section-header {
+    background: linear-gradient(135deg, #c62828, #e53935);
+  }
+  .hot-section .qa .q {
+    color: #b71c1c;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 2px solid #e0e0e0;
+    text-align: center;
+    color: #888;
+    font-size: 11px;
+  }
+
+  /* Print */
+  @media print {
+    body { padding: 20px; font-size: 12px; }
+    .section-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .cover { padding: 30px 10px 30px; }
+    .qa { break-inside: avoid; }
+    .section { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="logo">Krishi<span>Mitra</span></div>
+  <div class="tagline">Connecting Farmers Directly to Buyers — Fair Prices, Safe Payments, Zero Middlemen</div>
+  <div class="doc-title">Complete Problem & Solution Q&A</div>
+  <div class="doc-subtitle">SIH 2026 — Prepared for Evaluation Panel</div>
+  <div class="badge">Smart India Hackathon 2026</div>
+</div>
+
+
+<!-- SECTION 1 -->
+<div class="section">
+  <div class="section-header">🎤 Problem &amp; Need</div>
+
+  <div class="qa">
+    <div class="q">Q1. Why do farmers still face price uncertainty despite mandi prices being publicly available?</div>
+    <div class="a">Mandi prices are published after the auction ends — by which time the farmer has already brought his produce to the market. He has no way to know in advance what price to expect, and once he is physically at the mandi, he has very little choice but to sell at whatever rate the traders offer. The information exists publicly, but it arrives too late and in a format most farmers cannot easily act on. KrishiMitra shows live and historical price trends before the farmer decides to harvest or transport, so he can plan instead of react.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q2. What is the biggest pain point you are actually solving — price discovery, buyer discovery, logistics, or payment?</div>
+    <div class="a">The root cause is the absence of a trusted, direct channel between farmer and buyer. Price uncertainty, logistics confusion, and payment risk are all symptoms of that single gap. KrishiMitra solves all four together: it shows real market prices, connects farmers with verified buyers, coordinates transport after a deal, and protects payment through escrow — because solving only one piece leaves the farmer still dependent on middlemen for the rest.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q3. Why would a farmer trust your platform over a local trader they already know?</div>
+    <div class="a">A farmer trusts a local trader because the trader shows up, pays cash, and handles everything — but that convenience comes at the cost of 20–30% lower prices. KrishiMitra builds trust through three concrete guarantees: escrow payment (money is locked before pickup, so the farmer knows he will be paid), KYC-verified buyers (no anonymous strangers), and a dispute resolution system where an admin acts as a neutral referee. Over time, transparent deal history on the platform becomes its own track record — more reliable than a relationship built on verbal promises.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q4. How does your solution help a farmer who needs money immediately after harvest?</div>
+    <div class="a">A farmer in financial distress is exactly why the escrow model matters. Once a buyer accepts a lot and deposits into escrow, the farmer has a confirmed, legally protected payment before he even loads the truck. He does not need to wait weeks for a cheque to clear. After delivery is confirmed, payment releases directly to his registered bank account — same-day or next-day. For farmers with urgent cash needs, this is a predictable payment timeline rather than chasing a trader on the phone for weeks.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q5. What happens if the farmer has no storage facility and cannot wait for a better price?</div>
+    <div class="a">We do not force farmers to hold. The platform's sell/hold recommendation is advisory — if the farmer needs to sell today, they can list a lot immediately and start receiving offers within hours. The price intelligence feature helps them negotiate from a position of knowledge — even if they must sell today, they know the fair market rate and can reject lowball offers from unverified traders. The platform also connects farmers to FPOs (Farmer Producer Organisations) who may have collective storage, giving individual farmers indirect access to better timing without owning a warehouse.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q6. How does information asymmetry affect farmers' bargaining power?</div>
+    <div class="a">A trader knows the mandi price, the buyer's demand, and the transportation cost. The farmer typically knows none of these. This gap means the trader can offer Rs. 15/kg when the fair price is Rs. 22/kg and the farmer has no basis to disagree. KrishiMitra eliminates this asymmetry: the farmer sees the same live Agmarknet data the trader uses, knows demand levels (high/medium/low) per crop, sees a 30-day price chart, and gets a recommended selling range — levelling the information playing field completely.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q7. Why is this problem particularly important for small and marginal farmers?</div>
+    <div class="a">Small and marginal farmers (those with less than 2 hectares) make up over 85% of Indian farmers. They produce small volumes, have no storage, no transport, and no negotiating power with large traders. They are the ones who lose the most to middlemen because they cannot afford to wait, cannot access distant better-paying markets, and cannot aggregate enough produce to attract serious buyers. KrishiMitra is designed specifically for this segment: lot creation works even for small volumes, FPO aggregation allows combining small lots, and the entire UI is available in 24 Indian languages so literacy in English is not a barrier.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q8. How do you handle farmers who are not comfortable using smartphones?</div>
+    <div class="a">Our primary interface is a mobile-first web app available in 24 regional languages including Hindi, Marathi, Telugu, Tamil, Kannada, and Punjabi — which removes the language barrier. For farmers who are not comfortable with smartphones at all, the FPO (Farmer Producer Organisation) model is the bridge: an FPO representative can register, create lots, and manage deals on behalf of member farmers, acting as a tech-enabled middleman without the exploitation. We also designed the UI to be extremely simple — large buttons, icon-based navigation, and voice-friendly text so that even first-time smartphone users can navigate it without training.</div>
+  </div>
+</div>
+
+
+<!-- SECTION 2 -->
+<div class="section">
+  <div class="section-header">💰 Price Intelligence</div>
+
+  <div class="qa">
+    <div class="q">Q9. Where will your price data come from?</div>
+    <div class="a">Our primary source is the Agmarknet API — the Government of India's official agricultural market network that aggregates daily auction prices from over 3,500 mandis across India. This is the same data used by state agriculture departments and commodity traders. We fetch, store, and display this data per crop, per market, per date — so farmers see real mandi prices, not estimates. We also track historical prices in our own database to power trend analysis and recommendations.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q10. How frequently will the prices be updated?</div>
+    <div class="a">Agmarknet publishes prices daily, typically after each mandi's morning auction session. Our system fetches updated data every day and displays it with a timestamp so the farmer knows exactly how recent the information is. We also show 30-day historical price charts so farmers can see whether prices are trending up, down, or flat — which is more useful than a single day's number for making a sell/hold decision.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q11. How will you ensure that the displayed price is accurate and trustworthy?</div>
+    <div class="a">We source directly from Agmarknet — a government-operated system — rather than scraping unofficial websites or relying on trader-reported numbers. Each price entry is displayed with its source mandi name, date, and commodity variety so the farmer can cross-check independently if needed. We also show the min, max, and modal price for each market — not just an average — giving a complete picture of the auction range rather than a single misleading number.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q12. What happens if your predicted price is wrong?</div>
+    <div class="a">Our system currently displays trend analysis — whether prices are rising, falling, or flat — based on historical data, not machine-generated future price predictions. We are transparent about this distinction: we show a "sell/hold" recommendation with the reasoning (e.g., "prices have risen 12% in the last 7 days, demand is high"), not a specific future price guarantee. Farmers are always free to override the recommendation. If our trend analysis is consistently off, farmers will simply stop following it — which is why we display the underlying data alongside any recommendation so farmers can judge for themselves.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q13. How does your sell/hold recommendation actually work?</div>
+    <div class="a">The recommendation engine looks at three signals: the 7-day and 30-day price trend (rising/falling), current demand level (high/medium/low), and comparison against the MSP (Minimum Support Price) for that crop. If prices are trending up and demand is high and the current price is already above MSP, the system suggests "hold — prices may improve." If prices are falling or already below MSP, it suggests "sell now." This is a rules-based advisory system, not a black-box AI prediction, so the farmer can understand exactly why the recommendation was made.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q14. How do you determine whether a farmer should sell today or wait?</div>
+    <div class="a">We look at price momentum (is the price rising or falling over the past week?), demand signal (are buyers actively placing offers for this crop?), seasonal context (is harvest season creating oversupply?), and the farmer's individual situation (how urgently do they need funds?). A farmer who has storage can afford to wait if prices are rising; a farmer with no storage should sell at the best available price today. The platform surfaces all this information clearly — the farmer makes the final call.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q15. Will your system consider transportation and storage costs while recommending a selling price?</div>
+    <div class="a">Yes. When a lot is created, the farmer enters their location. When a buyer makes an offer, the platform factors in the distance between the two to flag whether the transport cost (typically borne by the buyer or split) makes the deal profitable. We display the net effective price the farmer receives after transport — not just the headline offer price — so farmers are not surprised by deductions after the fact.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q16. What if the mandi price is high but the farmer's net profit after transportation is lower?</div>
+    <div class="a">This is exactly why we show net effective price alongside the headline offer. If a buyer in Mumbai offers Rs. 25/kg for wheat but the farmer is in Nagpur and transportation costs Rs. 4/kg, the farmer's effective realisation is Rs. 21/kg — the platform displays this clearly. A local buyer offering Rs. 22/kg with zero transport cost would actually be better. The platform helps farmers make that comparison rather than being dazzled by a higher sticker price.</div>
+  </div>
+</div>
+
+
+<!-- SECTION 3 -->
+<div class="section">
+  <div class="section-header">👨‍🌾 Farmer &amp; FPO</div>
+
+  <div class="qa">
+    <div class="q">Q17. Why are FPOs important in your solution?</div>
+    <div class="a">An individual farmer with 500 kg of produce has almost no bargaining power — a processor or trader looking to buy 10 tons will not even take the call. FPOs (Farmer Producer Organisations) solve this by aggregating produce from dozens or hundreds of small farmers into a single, large, standardised lot that is attractive to serious commercial buyers. KrishiMitra treats FPOs as a special actor in the platform — they can create lots on behalf of member farmers, negotiate as a single entity, and distribute payments back to individual members. FPOs are how KrishiMitra reaches scale with small and marginal farmers.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q18. How does your platform help farmers aggregate their produce?</div>
+    <div class="a">KrishiMitra allows an FPO representative to create a combined lot that pools produce from multiple member farmers. Each contributing farmer's quantity is recorded, and when payment is received, it can be split proportionally. This means a village where ten farmers each have 1 ton of tomatoes can present themselves to a buyer as a single 10-ton seller — dramatically improving their attractiveness and negotiating power without any farmer needing to physically move produce before a deal is confirmed.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q19. Can multiple farmers combine their produce into one digital lot?</div>
+    <div class="a">Yes. Through the FPO aggregation model, a single digital lot can represent produce from multiple farmers under one FPO umbrella. The lot is listed under the FPO's account with the combined quantity and a single grade/quality declaration. Buyers see and negotiate with the FPO as one entity. After payment is released from escrow to the FPO, the FPO distributes to individual members based on their contribution — a process that can be tracked and verified within the platform.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q20. How does digital lot creation improve bargaining power?</div>
+    <div class="a">A digital lot on KrishiMitra is a standardised, verified listing — it includes crop variety, grade (A/B/C), quantity, location, photos, and expected price. A buyer can evaluate it instantly without a site visit. This standardisation reduces the buyer's risk and increases the farmer's credibility. A farmer with a properly graded, photographed, and documented lot commands more respect than one who just shows up at a mandi and says "I have some wheat." Verified listings attract more serious, higher-paying buyers.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q21. What information does a farmer need to provide when creating a lot?</div>
+    <div class="a">The lot creation form requires: crop type and variety (e.g., Wheat — Lokwan), grade (A/B/C based on quality parameters), quantity and unit (quintals/kg/tonnes), location of produce, expected price per unit, and at least one photograph of the produce. Optional fields include harvest date and storage conditions. The form is designed to be completable in under 5 minutes on a smartphone, with dropdown menus for crop names in regional languages so the farmer never needs to type in English.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q22. What happens if the farmer provides incorrect quantity or quality information?</div>
+    <div class="a">If a buyer receives produce and finds a significant discrepancy — say, the lot was listed as Grade A but the actual quality is Grade B, or the quantity is 10% short — they can raise a dispute through the platform's complaint system. The complaint type "weight_dispute" or "quality_dispute" triggers a review where both parties submit evidence (photos, weighbridge slips, etc.). An admin moderates and resolves the dispute. The escrow payment remains frozen until the dispute is resolved, protecting the buyer. Repeated false listings by a farmer lead to account suspension.</div>
+  </div>
+</div>
+
+
+<!-- SECTION 4 -->
+<div class="section">
+  <div class="section-header">🏢 Buyer Side</div>
+
+  <div class="qa">
+    <div class="q">Q23. Who exactly are your target buyers?</div>
+    <div class="a">Our target buyers are institutional purchasers who need consistent, large-volume supply: food processors (companies that make packaged foods, flour mills, dal mills), traders and commission agents who supply to retail, mandi traders who want verified lots before visiting, retailers and supermarket chains sourcing directly, and FPOs buying on behalf of consumer cooperatives. These are buyers who currently source through middlemen and would benefit from verified, directly-sourced produce with documentation — for regulatory compliance, quality assurance, and cost savings.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q24. How will you verify that a buyer is genuine?</div>
+    <div class="a">Buyer verification happens at two levels: registration-time KYC and trust scoring. At registration, buyers must provide their organisation name, GST number (for businesses), contact details, and a primary point of contact. This information is verified by our admin team before the buyer is allowed to make offers. Over time, buyers accumulate a Trust Score based on completed deals, payment speed, and dispute history. Farmers can see a buyer's trust score before accepting an offer — a buyer with a high score and 50 completed deals is far more credible than a new, unverified account.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q25. What prevents a fake buyer from registering?</div>
+    <div class="a">Three barriers: GST or business registration verification (a fake buyer cannot fabricate a valid GST number), admin manual review before account activation, and the escrow payment requirement. Even if a bad actor manages to register, they cannot actually damage a farmer — because payment must be deposited into escrow before the farmer hands over produce. A fake buyer who places an offer but never deposits into escrow simply has their offer auto-expired. The platform's financial design makes fraud structurally difficult, not just policy-restricted.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q26. Why would buyers use KrishiMitra instead of sourcing directly from farmers/FPOs?</div>
+    <div class="a">Direct sourcing is operationally expensive for buyers — they need field agents, physical quality checks, and informal payment arrangements with dozens of individual farmers. KrishiMitra gives buyers a single dashboard with verified, graded lots from multiple locations, searchable by crop, variety, quantity, grade, and delivery timeline. They can place offers in minutes instead of days. The standardised documentation (lot grading, photos, quantity verification) also helps buyers meet GST compliance and input cost documentation requirements. Buyers save procurement cost; farmers get better prices — both win.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q27. How does your system match a farmer with the right buyer?</div>
+    <div class="a">KrishiMitra uses a marketplace model rather than a black-box matching algorithm. Buyers browse and filter the live lot marketplace by crop type, variety, grade, quantity range, and location. When a buyer finds a lot that meets their requirements, they place an offer. Farmers see all incoming offers and choose the best one. This is transparent, market-driven matching — the farmer is never invisibly assigned to a buyer. Buyers can also set up alerts for specific crops so they are notified when a matching lot is listed.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q28. Can buyers specify their required quality, quantity and location?</div>
+    <div class="a">Yes. The buyer's marketplace view includes filters for crop type, variety, grade (A/B/C), minimum and maximum quantity, and pickup location radius. Buyers can narrow down to exactly what they need — for example, "Grade A Alphonso Mangoes, minimum 5 tonnes, within 100km of Ratnagiri." They can also save search preferences and receive notifications when matching lots are posted, making procurement a proactive rather than reactive activity.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q29. What happens if a buyer makes an offer and later refuses to purchase?</div>
+    <div class="a">Once a farmer accepts an offer, a deal is created and the buyer is required to deposit payment into escrow within a defined window (typically 24–48 hours). If the buyer fails to deposit, the deal is cancelled and the farmer's lot automatically returns to "listed" status — no harm done. If the buyer deposits into escrow and then refuses to take delivery without a valid reason, the dispute resolution system is invoked and the buyer's funds may be partially or fully forfeited depending on the admin ruling. The escrow model ensures the buyer cannot back out without financial consequence after the farmer has prepared for delivery.</div>
+  </div>
+</div>
+
+
+<!-- SECTION 5 -->
+<div class="section">
+  <div class="section-header">🚚 Logistics &amp; Transactions</div>
+
+  <div class="qa">
+    <div class="q">Q30. How will logistics be coordinated after a deal is finalized?</div>
+    <div class="a">Once a deal is confirmed and escrow is funded, the platform's deal timeline activates. The buyer (or platform on buyer's behalf) assigns a transport vehicle — the driver's name, vehicle number, and contact are logged in the deal. A pickup schedule is set with a date and time window. The farmer sees all of this in real time on their deal screen. Both parties can track status through the deal timeline: transport assigned → pickup scheduled → picked up → in transit → delivered. All updates are logged with timestamps for accountability.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q31. Who pays for transportation?</div>
+    <div class="a">Transportation costs are part of the offer negotiation. When a buyer makes an offer, the payment mode and whether transport is buyer-arranged or farmer-arranged is part of the offer terms. In most cases on KrishiMitra, buyers (who are typically institutions with logistics capacity) arrange and pay for transport — this is one of the platform's advantages over a mandi where the farmer must pay to bring produce to market. The cost structure is transparent in the offer before either party commits.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q32. How will you track whether the produce actually reached the buyer?</div>
+    <div class="a">The deal status updates — "pickup confirmed" and "delivered" — are recorded by the parties involved (driver, buyer representative, or farmer). The buyer must confirm delivery on the platform before the escrow payment release is triggered. This creates a verifiable delivery confirmation chain. If a delivery is disputed (buyer claims goods did not arrive, or arrived damaged), the complaint system is triggered with photo evidence from both sides. We are also evaluating integration with logistics providers for automatic delivery tracking in future phases.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q33. How will payment status be tracked?</div>
+    <div class="a">Every transaction on KrishiMitra has a full audit trail. The farmer's Money screen shows: pending deals (payment not yet deposited), active escrow (funds locked), payment released (money sent to bank), and payout history. The buyer's Payments screen mirrors this. Both parties receive in-app notifications at every stage. Admins can also query full transaction histories in the admin dashboard — no payment ever happens without a traceable event record in the system.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q34. What happens if payment is delayed?</div>
+    <div class="a">The escrow model largely prevents payment delays — because the buyer must deposit before pickup, the farmer is not waiting to be paid after delivery. If the escrow deposit does not arrive within the agreed window, the deal is escalated automatically. If the buyer is unable or unwilling to deposit, the deal cancels and the farmer re-lists. For payment release delays (funds stuck in escrow after delivery), the farmer can raise a "payment_issue" complaint which triggers admin review and forces resolution within a defined SLA.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q35. How will disputes between farmers and buyers be handled?</div>
+    <div class="a">KrishiMitra has a built-in complaint and dispute resolution system with a structured workflow. Either party files a complaint with a type (weight dispute, quality dispute, payment issue, transport issue). Both parties can upload evidence — photos, weighbridge receipts, delivery notes. An admin (Support Admin or Super Admin) reviews the evidence, may request more information, and issues a resolution. Escrow funds remain frozen during the dispute. If the admin rules in the farmer's favour, funds are released; if in the buyer's favour, a partial or full refund is processed. The system tracks every step with timestamps.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q36. How does your system reduce post-harvest losses?</div>
+    <div class="a">Post-harvest losses in India are primarily caused by delay — farmers cannot find buyers quickly, produce sits in the field or in inadequate storage, and eventually deteriorates. KrishiMitra accelerates the farmer-to-buyer connection: a lot can be listed and receive offers within hours. The direct deal channel eliminates the days or weeks a farmer might spend trying to reach a buyer through intermediaries. The price intelligence feature also helps farmers pick the right time to harvest — not just when it's biologically ready, but when market conditions are favourable — reducing the risk of harvesting into a price crash.</div>
+  </div>
+</div>
+
+
+<!-- SECTION 6 -->
+<div class="section">
+  <div class="section-header">🧠 Technology</div>
+
+  <div class="qa">
+    <div class="q">Q37. What technologies are you using to build KrishiMitra?</div>
+    <div class="a">Frontend: React 18 with TypeScript, built with Vite for fast performance, styled with Tailwind CSS, using Recharts for price charts and Lucide icons. Backend: Supabase — which provides a PostgreSQL database, authentication (email, Google OAuth, phone OTP), real-time subscriptions, and file storage. Image hosting: Cloudinary. Market data: Agmarknet API. Internationalisation: i18next with 24 language packs. The entire stack is cloud-native, serverless, and designed to scale without managing infrastructure — appropriate for a hackathon that needs to demonstrate at real scale.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q38. Where exactly are you using AI/ML in the system?</div>
+    <div class="a">The current platform uses a rules-based price advisory engine — it analyses historical price trends, demand signals, and MSP comparisons to generate sell/hold recommendations. This is deliberately transparent rather than opaque AI. In the next phase, we plan to integrate a trained ML model for crop price forecasting (using 3–5 years of Agmarknet historical data + seasonal/weather variables), a demand prediction model to anticipate buyer interest surges, and a quality assessment model using crop photos to auto-suggest grades — reducing the subjectivity of manual grading.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q39. Why is AI necessary here instead of a simple price dashboard?</div>
+    <div class="a">A price dashboard shows you what happened. A farmer needs to know what to do next. Displaying today's mandi price for onions in Nashik tells the farmer where things stand, but does not tell him whether to sell today, wait three days, or target a buyer in Pune rather than Mumbai. AI adds the forward-looking, contextual layer: price prediction, personalised recommendations based on crop type and location, and anomaly detection (e.g., unusual price drops that may indicate oversupply from another region). The dashboard is necessary; AI makes it actionable.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q40. What data would you need to train your prediction/recommendation model?</div>
+    <div class="a">Historical daily mandi prices for all crops from Agmarknet (3–5 years minimum). Seasonal patterns (harvest calendars by crop and region). Weather data (rainfall, temperature — which directly affect supply). Transportation costs and logistics availability. Demand-side signals (wholesale buyer procurement volumes). MSP notifications (government floor prices). Import/export policy changes that affect domestic prices. We source the first and most critical dataset — price history — directly from Agmarknet, which is publicly available and structured.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q41. How will you handle missing or unreliable market data?</div>
+    <div class="a">Agmarknet data can have gaps — some mandis report inconsistently, and data for certain crops in certain regions is thin. Our strategy: show data only where we have sufficient confidence (minimum n data points), clearly label data freshness with timestamps, fall back to the nearest reliable neighbouring mandi's data when local data is unavailable (with a visible "showing nearest market" note), and never display a recommendation when data is insufficient. Transparency about data quality is more valuable than false confidence from interpolated numbers.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q42. How will you scale the system from one district to the entire state?</div>
+    <div class="a">The architecture is already multi-district by design. Supabase scales horizontally, and our data model uses location fields on every lot and user — so filtering by district, state, or region is a query parameter, not a structural change. Adding a new district means adding users, not adding new infrastructure. For price data, Agmarknet covers all major mandis nationwide — we simply enable additional districts in our data fetch configuration. Our pilot in one district tests the product and UX; scaling to the state is an operational and marketing effort, not a technical rewrite.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q43. What happens if internet connectivity is poor in rural areas?</div>
+    <div class="a">KrishiMitra is a mobile-first web app optimised for low-bandwidth conditions: compressed images, lazy loading, and minimal page sizes. For areas with intermittent connectivity, key screens (lot status, deal status, price charts) load from local cache so users can view their most recent data even offline. Actions that require connectivity (submitting an offer, accepting a deal) show a clear "you are offline" state rather than silently failing. We are also exploring a basic USSD/SMS fallback for the most connectivity-challenged areas — farmers could check their latest offer status by SMS in the future.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q44. How will you protect farmers' and buyers' transaction data?</div>
+    <div class="a">All data is stored in Supabase's PostgreSQL database with Row-Level Security (RLS) — meaning every database query is automatically filtered so users can only read their own data, never another user's transactions or personal details. Communication is encrypted in transit (HTTPS/TLS). Authentication uses Supabase Auth with industry-standard JWT tokens — passwords are never stored in plain text. Bank account details (used for farmer payouts) are stored encrypted and only visible to the admin finance team. We follow OWASP security guidelines throughout the application code.</div>
+  </div>
+</div>
+
+
+<!-- SECTION 7 -->
+<div class="section">
+  <div class="section-header">⚔️ Competition &amp; Differentiation</div>
+
+  <div class="qa">
+    <div class="q">Q45. There are already platforms providing mandi prices. Why do we need KrishiMitra?</div>
+    <div class="a">Price display platforms (Agmarknet, eNAM price view, various apps) solve only the information half of the problem. They tell farmers what the price is — but they do not help the farmer find a buyer, negotiate, complete a transaction, or get paid safely. KrishiMitra is an end-to-end transaction platform, not a price ticker. A farmer using KrishiMitra can go from listing produce to receiving payment in their bank account without leaving the app. No existing price display platform offers deal creation, escrow payment protection, dispute resolution, and logistics coordination in one place.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q46. What makes KrishiMitra different from existing agricultural marketplaces?</div>
+    <div class="a">eNAM (government) requires physical presence at a registered mandi. AgriBazaar, Ninjacart, and Waycool operate as intermediaries — they buy from farmers themselves and resell, reintroducing a middleman. DeHaat focuses on input supply (seeds, fertilisers) more than produce sale. KrishiMitra is a pure peer-to-peer marketplace: the farmer lists, the buyer offers, the deal happens directly — KrishiMitra facilitates but does not intermediate. Combined with escrow payment protection, a grievance system, and 24-language support, it is the most complete, farmer-centric direct-trade platform in the category.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q47. Why wouldn't farmers simply use government portals/apps for price information?</div>
+    <div class="a">Government portals like Agmarknet and eNAM are designed for administrators and traders, not farmers. They are in English, require navigating complex web forms, show historical data without recommendations, and — critically — do not allow farmers to transact. They are read-only information systems. KrishiMitra uses the same underlying government data but wraps it in a farmer-friendly interface with regional language support, actionable recommendations, and the ability to immediately act on that information by listing produce and receiving offers.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q48. What is your unique selling proposition (USP)?</div>
+    <div class="a">KrishiMitra's USP is the combination of direct buyer connection + escrow payment protection + grievance resolution in one platform, available in 24 Indian languages. No other platform currently offers all three to small and marginal farmers. Most platforms offer one or two of these elements — KrishiMitra completes the full transaction loop, which is why farmers have no reason to go back to middlemen once they experience a completed, protected, fairly-priced deal on the platform.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q49. Which part of your solution is hardest for a competitor to copy?</div>
+    <div class="a">The trust network. Technology can be replicated in months — but verified buyer history, farmer reputation scores, dispute resolution track records, and the trust that comes from hundreds of completed, protected deals cannot be copied overnight. A competitor starting fresh has zero deal history, zero verified buyer profiles, and zero trust signals. KrishiMitra's moat deepens with every completed transaction. Additionally, deep 24-language localisation with crop-specific terminology is operationally intensive and represents a genuine barrier to casual entry.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q50. If a large company builds the same platform, why would KrishiMitra survive?</div>
+    <div class="a">Large agricultural companies (Reliance, ITC) that enter the space typically do so to buy farmers' produce for their own supply chains — they are buyers, not neutral platforms. A neutral, farmer-first platform that does not itself buy produce has a different trust dynamic: farmers know KrishiMitra will never be a competitor for their produce. Additionally, deep rural distribution — NGO partnerships, FPO networks, gram panchayat relationships — is a ground-level operational capability that large tech companies consistently underestimate and struggle to replicate quickly.</div>
+  </div>
+</div>
+
+
+<!-- SECTION 8 -->
+<div class="section">
+  <div class="section-header">📈 Impact &amp; Business</div>
+
+  <div class="qa">
+    <div class="q">Q51. How will you measure whether KrishiMitra is actually improving farmer income?</div>
+    <div class="a">We track the average price per quintal received by farmers on KrishiMitra versus the local mandi modal price for the same crop on the same date. This "price premium %" is our primary farmer income metric. Secondary metrics: number of direct deals completed (bypassing middlemen), average time from lot creation to payment received, and number of farmers who transacted more than once (repeat usage indicates real value). We also survey farmers quarterly to capture income improvements they attribute to the platform.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q52. What KPIs will you track?</div>
+    <div class="a">Farmer KPIs: lots listed, lots that received offers, deals completed, average price premium vs mandi, repeat farmer rate. Buyer KPIs: offers placed, deals completed, payment turnaround time, dispute rate. Platform KPIs: total Gross Merchandise Value (GMV), number of active farmers and buyers, dispute resolution rate and time, platform uptime, and language distribution of active users. Admin KPIs: KYC verification turnaround time, complaint resolution SLA compliance.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q53. How much can a farmer realistically save or earn through your platform?</div>
+    <div class="a">Studies on direct farmer-to-buyer trade (without middlemen) consistently show 15–30% better price realisation for farmers. For a small farmer selling 10 quintals of wheat at Rs. 2,200/quintal in a mandi (vs. Rs. 2,600/quintal direct via KrishiMitra), the difference is Rs. 4,000 on a single transaction. Over an annual crop cycle with 2–3 transactions, this can represent Rs. 8,000–15,000 in additional income — meaningful for a family earning Rs. 60,000–80,000 per year. The escrow model also eliminates the 5–10% of transactions where farmers are simply not paid by unscrupulous traders.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q54. How will you acquire your first 1,000 farmers?</div>
+    <div class="a">Our go-to-market strategy starts with FPOs. Each active FPO in India has 500–1,000 member farmers. Partnering with 2–3 FPOs in our pilot district gives us immediate access to 1,000–3,000 farmers who are already organised, digitally adjacent (FPO managers use smartphones), and motivated to find better prices. We also partner with Krishi Vigyan Kendras (agricultural extension centres run by ICAR) and village-level entrepreneurs to demonstrate the platform at gram panchayat meetings. Word of mouth from successful transactions is our primary growth engine — one farmer who gets Rs. 3,000 more per transaction will tell ten neighbours.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q55. How will you convince farmers to use the platform regularly?</div>
+    <div class="a">Regular use follows real value. A farmer who completes one successful deal — listed a lot, received a fair offer, got paid into their bank account without chasing anyone — becomes a repeat user. Our platform is designed for this: the home screen shows live prices for the farmer's crops, active offer notifications create urgency, and the deal timeline keeps farmers engaged throughout the process. We also send regional-language push notifications and SMS alerts for price movements and new buyer offers so the platform stays relevant even between active transactions.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q56. What is your revenue model?</div>
+    <div class="a">KrishiMitra operates on a transaction commission model. Farmers pay zero — keeping them on the platform is critical to supply liquidity. Buyers pay a small transaction fee (1–2% of deal value) on completed deals — this is embedded in the platform and much lower than the margins traditional intermediaries charge buyers. Additionally, we will offer premium buyer subscriptions (priority lot alerts, analytics dashboards, bulk procurement tools) for institutional buyers who transact at high volume. In the long term, we may offer data products to agri-input companies and financial institutions — aggregate, anonymised crop flow data has significant commercial value.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q57. Will farmers have to pay to use KrishiMitra?</div>
+    <div class="a">No. KrishiMitra is completely free for farmers. Listing lots, receiving offers, completing deals, accessing price intelligence, filing complaints — all free. This is a deliberate design choice: the farmer is the supply side of the marketplace, and charging them would discourage adoption and undermine the platform's core mission of improving farmer income. The cost of serving farmers is recovered through buyer-side transaction fees.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q58. Who will pay for the service — the farmer, buyer, FPO, or government?</div>
+    <div class="a">Buyers pay transaction fees on completed deals. FPOs may pay a nominal subscription for premium features (bulk lot management, member payment distribution tools). Government partnerships are a second revenue stream — state agriculture departments may license the platform's price intelligence and market data infrastructure, or co-fund access for farmers under digital agriculture schemes. In the near term (SIH pilot phase), the platform is grant-funded; commercial revenues begin at scale.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q59. How will you make the platform financially sustainable?</div>
+    <div class="a">Sustainability requires sufficient GMV (Gross Merchandise Value) flowing through the platform for the buyer transaction fee to cover operating costs. At 1% commission on Rs. 10 crore GMV, the platform generates Rs. 10 lakh/month — enough to cover cloud infrastructure, a small operations team, and compliance costs. Reaching Rs. 10 crore monthly GMV requires approximately 500 active deals/month at Rs. 2 lakh average deal size — achievable with 5,000 active farmers and 200 verified buyers in a single state. The model scales favourably: infrastructure cost grows slowly while GMV and revenue grow with user count.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q60. What is your plan for scaling beyond Maharashtra?</div>
+    <div class="a">Scaling to new states is primarily an operational and localisation effort. Technically, adding a new state means adding the relevant Agmarknet mandi data for that state's crops and adding any missing regional languages — both manageable. Operationally, we replicate the FPO partnership model in the new state, work with the state agriculture department for distribution reach, and recruit local support agents who can onboard farmers in person. We prioritise states with strong FPO networks and high agricultural activity: Punjab, Haryana, UP, Gujarat, and AP are the natural next targets after Maharashtra.</div>
+  </div>
+</div>
+
+
+<!-- SECTION 9 — HOT QUESTIONS -->
+<div class="section hot-section">
+  <div class="section-header">🔥 Questions to Especially Prepare For</div>
+
+  <div class="qa">
+    <div class="q">Q61. "What is actually innovative about your solution?"</div>
+    <div class="a">The innovation is not any single feature — it is the complete transaction loop in one platform. Today, a farmer needs to use one app for prices, call a middleman for buyers, arrange transport separately, and then pray they get paid. KrishiMitra integrates all of this: verified buyer marketplace + escrow payment protection + logistics coordination + dispute resolution + 24-language access. The escrow model applied to agricultural produce trade is genuinely novel in India's smallholder farming context. Most platforms show prices; none currently close the full payment-protected transaction for small farmers.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q62. "How is this different from existing mandi-price platforms?"</div>
+    <div class="a">Mandi price platforms are information-only. They are the equivalent of a stock ticker — useful for knowing prices, but useless for executing a transaction. KrishiMitra is the exchange itself: farmers can list, buyers can offer, both can negotiate, deals are created, payments are protected, and disputes are resolved — all within the platform. The price intelligence feature uses the same Agmarknet data as other platforms, but it feeds into actionable decisions (create a lot, accept this offer, hold for 3 days) rather than just displaying numbers.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q63. "Where does your price data come from?"</div>
+    <div class="a">Agmarknet — the Government of India's official Agricultural Marketing Information Network, which aggregates daily auction prices from over 3,500 regulated mandis across India. This is the same primary source used by commodity traders, state agriculture departments, and research institutions. We fetch this data daily, store it in our own database for historical analysis, and display it with full attribution — source mandi name, date, min/max/modal price — so farmers can verify independently. We do not generate or estimate prices; we surface official data in a farmer-friendly format.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q64. "How does your AI decide whether a farmer should sell or hold?"</div>
+    <div class="a">The current advisory is rules-based, not a black-box AI: if the 7-day price trend is rising AND demand signals are "high" AND the current price is above MSP, the system recommends "hold." If prices are falling or the farmer has indicated storage constraints, it recommends "sell now." The recommendation is shown alongside the supporting data — the farmer can see exactly why the system made the recommendation and override it. In the next version, we are training a time-series model on Agmarknet historical data to produce crop-specific price forecasts, which will power a more sophisticated recommendation.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q65. "Why would a farmer trust your recommendation?"</div>
+    <div class="a">We do not ask farmers to trust us blindly. Every recommendation shows the underlying data — the 30-day price chart, the demand level, the MSP comparison — so the farmer can judge for themselves. Trust is built through track record: if a farmer follows our "hold for 3 days" recommendation and prices do go up, they trust the next recommendation more. We are also transparent about uncertainty: when data is insufficient, we say so rather than manufacturing a recommendation. Trust is earned transaction by transaction, not declared upfront.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q66. "How do you verify buyers?"</div>
+    <div class="a">Three-step verification: (1) At registration, buyers provide organisation name, GST number, and contact details — fake businesses cannot fabricate valid GST registrations. (2) Our admin team manually reviews and activates buyer accounts before they can place offers. (3) Once active, buyers accumulate a Trust Score based on completed deals, payment speed, and dispute history — visible to farmers before they accept an offer. A buyer with a 4.8/5 trust score and 120 completed deals is far more credible than an unverified account offering a higher price.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q67. "What happens when a buyer doesn't pay?"</div>
+    <div class="a">The escrow model makes non-payment structurally impossible after deal creation. Once a farmer accepts an offer, the buyer must deposit into escrow before any produce changes hands. If the buyer does not deposit within the agreed window (24–48 hours), the deal auto-cancels and the farmer re-lists — the farmer has lost no produce. If the buyer deposits into escrow and then disputes the delivery, the farmer's payment is frozen — not lost — pending dispute resolution. The farmer can file a complaint and an admin reviews the evidence. The escrow model means "buyer doesn't pay" goes from a common occurrence to a system-prevented impossibility.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q68. "How will you get farmers to adopt this?"</div>
+    <div class="a">Adoption follows demonstrated value, not marketing. Our strategy: start with FPO managers (technically literate, trusted by member farmers, motivated by better prices), run a pilot with 50–100 farmers in one district, ensure at least 20 successful completed deals with measurable price improvements. Farmers who get Rs. 3,000 more per transaction will talk — in villages, word of mouth is the most effective marketing channel. We also work with Krishi Vigyan Kendras and gram panchayats for credibility. The onboarding is in regional languages, takes under 10 minutes, and the first successful deal is the real acquisition moment.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q69. "What is your revenue model?"</div>
+    <div class="a">Free for farmers (non-negotiable — they are our supply side). Buyers pay 1–2% transaction fee on completed deals. Premium buyer subscriptions for institutional buyers needing advanced features. Government licensing of price intelligence infrastructure under digital agriculture schemes. Long-term: anonymised, aggregate market flow data products for agri-input companies, banks, and insurance providers. The model mirrors successful agricultural marketplace platforms globally — charge the commercial buyer, not the smallholder farmer.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q70. "What happens when internet connectivity is poor?"</div>
+    <div class="a">The platform is built mobile-first with aggressive optimisation for low-bandwidth: compressed assets, minimal JavaScript payload, and service worker caching for key screens. Farmers in areas with poor connectivity can view their cached lot status, deal timeline, and last-known prices without a live connection. Critical actions (submitting offers, accepting deals) require connectivity and show a clear offline indicator rather than silently failing. For the most connectivity-challenged scenarios, we plan a basic SMS notification system so farmers receive deal updates via text even without data access.</div>
+  </div>
+
+  <div class="qa">
+    <div class="q">Q71. "Can this actually work in a real village, or is it only a theoretical solution?"</div>
+    <div class="a">The platform is designed with specific rural realities in mind: 24 regional languages so no English literacy required, a 5-minute lot creation flow on an Android smartphone, offline-resilient caching, FPO-mediated onboarding for farmers who are not smartphone users, and escrow-first payment that works within existing UPI banking infrastructure that most rural farmers already have access to via Jan Dhan accounts. The escrow, marketplace, and dispute resolution features are production-ready. The honest answer is: the technology works; the challenge is adoption and trust-building in the field — which is why our pilot strategy starts with FPO networks and not cold farmer outreach.</div>
+  </div>
+</div>
+
+
+<div class="footer">
+  <strong>KrishiMitra</strong> — Smart India Hackathon 2026<br>
+  Prepared by Team KrishiMitra &bull; Document generated September 2026<br>
+  Platform: React + TypeScript + Supabase + Agmarknet + Cloudinary &bull; 24 Indian Languages Supported
+</div>
+
+</body>
+</html>

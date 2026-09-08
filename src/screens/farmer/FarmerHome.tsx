@@ -1,16 +1,25 @@
 import { useNavigate } from 'react-router-dom'
-import { TrendingUp, ArrowRight, Phone, MapPin } from 'lucide-react'
+import { TrendingUp, TrendingDown, ArrowRight, Phone, MapPin } from 'lucide-react'
 import FarmerLayout from './FarmerLayout'
 import { useApp } from '../../context/AppContext'
 import { useMarketPrices } from '../../hooks/useMarketPrices'
+import { usePricePrediction } from '../../hooks/usePricePrediction'
 import styles from './FarmerHome.module.css'
 
-const RECOMMENDATION = {
+const FALLBACK_RECOMMENDATION = {
   sellToday: 2450,
   holdRange: '₹2,500–2,600',
-  holdDays: '1–5 days',
+  holdDays: '7 days',
   confidence: 'Good',
+  confidencePct: 72,
   reason: 'Prices nearby are strong and 8% above the 10-day average. Waiting adds storage cost with a small expected gain.',
+}
+
+const CONFIDENCE_PCT: Record<string, number> = {
+  exact: 85, no_variety: 65, no_market: 45, no_district: 30,
+}
+const CONFIDENCE_LABEL: Record<string, string> = {
+  exact: 'High', no_variety: 'Medium', no_market: 'Low', no_district: 'Low',
 }
 
 const NEARBY_TAGS = ['Best today', '— Stable', '↑ Rising'] as const
@@ -21,6 +30,37 @@ export default function FarmerHome() {
   const { state } = useApp()
   const { prices } = useMarketPrices()
   const todayCrop = prices[0]
+  const predParams = todayCrop
+    ? { crop: todayCrop.crop, mandi: todayCrop.mandi, variety: todayCrop.variety }
+    : null
+  const { prediction: homePrediction, available: predAvailable } = usePricePrediction(predParams)
+
+  // "Sell now" card — use ML data when available and reliable
+  const useML = predAvailable
+    && !!homePrediction
+    && !!todayCrop
+    && !['national', 'national_all_time'].includes(homePrediction.matchLevel)
+
+  const sellToday = todayCrop?.currentPrice ?? FALLBACK_RECOMMENDATION.sellToday
+  const pctChange = useML && homePrediction && todayCrop
+    ? ((homePrediction.predictedPrice - todayCrop.currentPrice) / todayCrop.currentPrice) * 100
+    : null
+  const holdRange = useML && homePrediction
+    ? `₹${homePrediction.predictedPrice.toLocaleString('en-IN', { maximumFractionDigits: 0 })}`
+    : FALLBACK_RECOMMENDATION.holdRange
+  const confidencePct = useML && homePrediction
+    ? (CONFIDENCE_PCT[homePrediction.matchLevel] ?? 55)
+    : FALLBACK_RECOMMENDATION.confidencePct
+  const confidenceText = useML && homePrediction
+    ? (CONFIDENCE_LABEL[homePrediction.matchLevel] ?? 'Medium')
+    : FALLBACK_RECOMMENDATION.confidence
+  const sellReason = useML && pctChange !== null
+    ? pctChange > 3
+      ? `ML model predicts a ${pctChange.toFixed(1)}% price rise over the next 7 days. Consider holding if storage cost allows.`
+      : pctChange < -3
+      ? `ML model predicts a ${Math.abs(pctChange).toFixed(1)}% price drop in the next 7 days. Selling now may be the better option.`
+      : 'ML model predicts stable prices for the next 7 days. Selling now or holding are both reasonable.'
+    : FALLBACK_RECOMMENDATION.reason
 
   const today = new Date().toLocaleDateString('en-IN', {
     weekday: 'long',
@@ -95,6 +135,23 @@ export default function FarmerHome() {
                 </div>
                 <p className={styles.sparkLabel}>Last 7 days</p>
               </div>
+
+              {predAvailable && homePrediction && todayCrop && (
+                <div className={styles.predictionStrip}>
+                  <span className={styles.predictionStripLabel}>7-day prediction</span>
+                  <span className={styles.predictionStripValue} data-numeric="">
+                    ₹{homePrediction.predictedPrice.toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                  </span>
+                  {homePrediction.predictedPrice > todayCrop.currentPrice
+                    ? <TrendingUp size={12} className={styles.predStripUp} aria-hidden />
+                    : <TrendingDown size={12} className={styles.predStripDown} aria-hidden />
+                  }
+                  <span className={styles.predictionStripChange}>
+                    {homePrediction.predictedPrice > todayCrop.currentPrice ? '+' : ''}
+                    {(((homePrediction.predictedPrice - todayCrop.currentPrice) / todayCrop.currentPrice) * 100).toFixed(1)}%
+                  </span>
+                </div>
+              )}
 
               <div className={styles.priceHeroActions}>
                 <button type="button" className={styles.checkPricesBtn} onClick={() => navigate('/farmer/markets')}>
@@ -171,28 +228,30 @@ export default function FarmerHome() {
                 <h2 className={styles.sellNowTitle}>Sell now</h2>
                 <span className={styles.sellNowHindi}>अभी बेचें</span>
               </div>
-              <p className={styles.sellNowReason}>{RECOMMENDATION.reason}</p>
+              <p className={styles.sellNowReason}>{sellReason}</p>
 
               <div className={styles.sellOptions}>
                 <div className={styles.sellOption}>
                   <span className={styles.sellOptionLabel}>SELL TODAY</span>
-                  <span className={styles.sellOptionPrice} data-numeric="">₹{RECOMMENDATION.sellToday.toLocaleString('en-IN')}</span>
+                  <span className={styles.sellOptionPrice} data-numeric="">₹{sellToday.toLocaleString('en-IN')}</span>
                 </div>
                 <div className={styles.sellDivider} />
                 <div className={styles.sellOption}>
-                  <span className={styles.sellOptionLabel}>HOLD {RECOMMENDATION.holdDays}</span>
-                  <span className={styles.sellOptionPrice} data-numeric="">{RECOMMENDATION.holdRange}</span>
+                  <span className={styles.sellOptionLabel}>HOLD 7 DAYS</span>
+                  <span className={styles.sellOptionPrice} data-numeric="">{holdRange}</span>
                 </div>
               </div>
 
               <div className={styles.confidenceRow}>
                 <span className={styles.confidenceLabel}>Confidence</span>
                 <div className={styles.confidenceBar}>
-                  <div className={styles.confidenceFill} style={{ width: '72%' }} />
+                  <div className={styles.confidenceFill} style={{ width: `${confidencePct}%` }} />
                 </div>
-                <span className={styles.confidenceValue}>{RECOMMENDATION.confidence}</span>
+                <span className={styles.confidenceValue}>{confidenceText}</span>
               </div>
-              <p className={styles.confidenceNote}>Guidance to help you decide — not a guaranteed prediction.</p>
+              <p className={styles.confidenceNote}>
+                {useML ? 'ML-powered guidance · demo data · not a guaranteed prediction.' : 'Guidance to help you decide — not a guaranteed prediction.'}
+              </p>
 
               <button type="button" className={styles.sellNowBtn} onClick={() => navigate('/farmer/lots/create')}>
                 Sell now
